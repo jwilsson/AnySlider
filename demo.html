@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>jQuery AnySlider</title>
+<link rel="stylesheet" type="text/css" href="jquery-anyslider.css"></head>
+<body>
+
+    <div id="content">
+
+        <h1>jQuery AnySlider</h1>
+
+        <p>
+            AnySlider is a jQuery plugin which allows you to create a slider for any kind of content.
+            Hover over the box below to show controls for viewing next and previous slides.
+            The keyboard arrows will work aswell.
+        </p>
+
+        <div id="slider">
+
+            <div class="slide">
+
+				<p>
+					This is the first slide with some <strong>strong text</strong>.
+				</p>
+
+            </div>
+
+            <div class="slide">
+
+                <p>
+                    Let's add a image.
+                </p>
+
+                <img src="img/example.jpg" alt="Australian road sign picturing a kangaroo">
+
+			</div>
+
+            <div class="slide">
+
+                <object width="320" height="205"><param name="movie" value="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="205"></embed></object>
+
+                <p>
+                    While we're at it, why don't we throw in a clip from Youtube?
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script src="jquery.anyslider.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#slider').AnySlider();
+		});
+	</script>
+
+</body>
+
+</html>

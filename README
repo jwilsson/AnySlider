@@ -1,8 +1,8 @@
-jQuery AnySlider 1.0.1
-Copyright 2010 Jonathan Wilsson
+jQuery AnySlider 1.1
+Copyright 2011 Jonathan Wilsson
 http://jonathanwilsson.com/projects/jquery-anyslider/
 
-Requires at least jQuery 1.4.4.
+Requires at least jQuery 1.5.
 
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of content.
 
@@ -11,6 +11,15 @@ Look at the demo here: http://jonathanwilsson.com/projects/jquery-anyslider/
 If you have any questions or thoughts feel free to contact me.
 
 Changelog
+
+1.1
+New arrows
+Added some options:
+	Always show/hide arrows
+	Enable/disable keyboard navigation
+	Custom labels for the controls
+Fixed a minor bug were keyboard codes had to be converted into a string.
+Separated options from internal variables
 
 1.0.1
 Rewrote bits of the code to perform better

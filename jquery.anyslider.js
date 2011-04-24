@@ -1,10 +1,8 @@
 /**
- * jQuery AnySlider 1.1
- * http://jonathanwilsson.com/
+ * jQuery AnySlider 1.1.2
+ * http://jonathanwilsson.com/projects/jquery-anyslider/
  *
  * Copyright 2011 Jonathan Wilsson
- * Orginal code by Jacob Gube
- * http://sixrevisions.com/tutorials/javascript_tutorial/create-a-slick-and-accessible-slideshow-using-jquery/
  *
  * Free to use and abuse under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -12,97 +10,98 @@
 
 (function ($) {
 
-	$.fn.AnySlider = function (options) {
+    $.fn.AnySlider = function (options) {
 
-		// Internal vars. Please don't touch
-		var vars = {
-			currentPos: 0,
-			slideWidth: 0,
-			slides: $('.slide'),
-			numSlides: 0
-		};
+	// Internal vars. Please don't touch
+        var vars = {
+            currentPos: 0,
+            slideWidth: 0,
+            slides: $('.slide'),
+            numSlides: 0
+        },
+        defaults = { // Default settings
+            showControls: true,
+	    showOnHover: false,
+            keyboardNav: true,
+            prevLabel: 'Previous slide',
+            nextLabel: 'Next slide'
+        };
 
-		// Default settings
-		var defaults = {
-			showControls: true,
-			keyboardNav: true,
-			prevLabel: 'Previous slide',
-			nextLabel: 'Next slide'
-		};
+        function changeSlide(caller) {
+            // See where the user is going
+            if (caller === 39 || caller === 'next') {
+                vars.currentPos += 1; // Next slide
+            } else {
+                vars.currentPos -= 1; // Previous slide
+            }
 
-		function changeSlide(caller) {
-			// See where the user is going
-			if (caller === 39 || caller === 'next') {
-				vars.currentPos += 1; // Next slide
-			} else {
-				vars.currentPos -= 1; // Previous slide
-			}
+            // See if slide range has been exceeded
+            if (vars.currentPos < 0) {
+                vars.currentPos = vars.numSlides - 1;
+            } else if (vars.currentPos >= vars.numSlides) {
+                vars.currentPos = 0;
+            }
 
-			// See if slide range has been exceeded
-			if (vars.currentPos < 0) {
-				vars.currentPos = vars.numSlides - 1;
-			} else if (vars.currentPos >= vars.numSlides) {
-				vars.currentPos = 0;
-			}
+            // Animate the divs
+            $('#slide-inner').animate({marginLeft: vars.slideWidth * (-vars.currentPos)});
+        }
+	
+        return this.each(function () {
 
-			// Animate the divs
-			$('#slide-inner').animate({marginLeft: vars.slideWidth * (-vars.currentPos)});
-		}
+            var $this = $(this);
 
-		return this.each(function () {
+            vars.slideWidth = $this.width();
+            vars.numSlides = vars.slides.length; // Number of slides
 
-			var $this = $(this);
+            // If the user has supplied options let's merge them with the defaults
+            if (options) {
+                $.extend(defaults, options);
+            }
 
-			vars.slideWidth = $this.width();
-			vars.numSlides = vars.slides.length; // Number of slides
+            // Remove scrollbar
+            $this.css('overflow', 'hidden');
 
-			// If the user has supplied options let's merge them with the defaults
-			if (options) {
-				$.extend(defaults, options);
-			}
+            // Wrap the .slide divs
+            vars.slides.wrapAll('<div id="slide-inner"></div>').css({'float': 'left', width: vars.slideWidth});
 
-			// Remove scrollbar
-			$this.css('overflow', 'hidden');
+            // Set #slide-inner to the total width of all slides
+            $('#slide-inner').css('width', vars.slideWidth * vars.numSlides);
 
-			// Wrap the .slide divs
-			vars.slides.wrapAll('<div id="slide-inner"></div>').css({float: 'left', width: vars.slideWidth});
+            // Add the arrows
+            $this.prepend('<span class="arrow" id="prev" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>').append('<span class="arrow" id="next" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
 
-			// Set #slide-inner to the total width of all slides
-			$('#slide-inner').css('width', vars.slideWidth * vars.numSlides);
+            // Hide controls
+	    if (!defaults.showControls) {
+		$('.arrow').hide();
+	    }
 
-			// Add the arrows
-			$this.prepend('<span class="arrow" id="prev" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>').append('<span class="arrow" id="next" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
+            if (defaults.showOnHover && !defaults.showControls) {
+                // Show and hide arrows on hover
+                $this.hover(function () {
+                    $('.arrow').show();
+                }, function () {
+                    $('.arrow').hide();
+                });
+            }
 
-			// Hide controls
-			$('.arrow').hide();
+            // Add event listener for click on previous and next buttons
+            $('.arrow').live('click', function (e) {
+                changeSlide(e.target.id);
+            });
 
-			if (defaults.showControls) {
-				// Show and hide arrows on hover
-				$this.hover(function () {
-					$('.arrow').show();
-				}, function () {
-					$('.arrow').hide();
-				});
-			}
+            if (defaults.keyboardNav) {
+                // Add event listener for keypress on left or right arrow
+                $(document).bind('keydown', function (e) {
+                    var key = e.keyCode;
 
-			// Add event listener for click on previous and next buttons
-			$('.arrow').live('click', function () {
-				changeSlide($(this).attr('id'));
-			});
+                    // See if the left or right arrow is pressed
+                    if (key === 37 || key === 39) {
+                        changeSlide(key);
+                    }
+                });
+            }
+        });
 
-			if (defaults.keyboardNav) {
-				// Add event listener for keypress on left or right arrow
-				$(document).bind('keydown', function (e) {
-					var key = e.keyCode;
-
-					// See if the left or right arrow is pressed
-					if (key === 37 || key === 39) {
-						changeSlide(key);
-					}
-				});
-			}
-		});
-
-	};
+    };
 
 }(jQuery));

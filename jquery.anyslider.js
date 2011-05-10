@@ -1,5 +1,5 @@
 /**
- * jQuery AnySlider 1.1.2
+ * jQuery AnySlider 1.2
  * http://jonathanwilsson.com/projects/jquery-anyslider/
  *
  * Copyright 2011 Jonathan Wilsson
@@ -12,24 +12,30 @@
 
     $.fn.AnySlider = function (options) {
 
-	// Internal vars. Please don't touch
+	// Internal vars. Please don"t touch
         var vars = {
             currentPos: 0,
             slideWidth: 0,
-            slides: $('.slide'),
+            slides: $(".slide"),
             numSlides: 0
         },
         defaults = { // Default settings
             showControls: true,
 	    showOnHover: false,
             keyboardNav: true,
-            prevLabel: 'Previous slide',
-            nextLabel: 'Next slide'
+	    speed: 400,
+            prevLabel: "Previous slide",
+            nextLabel: "Next slide"
         };
-
+	
+	// If the user has supplied options let"s merge them with the defaults
+        if (options) {
+            $.extend(defaults, options);
+        }
+	
         function changeSlide(caller) {
             // See where the user is going
-            if (caller === 39 || caller === 'next') {
+            if (caller === 39 || caller === "next") {
                 vars.currentPos += 1; // Next slide
             } else {
                 vars.currentPos -= 1; // Previous slide
@@ -43,55 +49,53 @@
             }
 
             // Animate the divs
-            $('#slide-inner').animate({marginLeft: vars.slideWidth * (-vars.currentPos)});
+            $("#slide-inner").animate({marginLeft: vars.slideWidth * (-vars.currentPos)}, vars.speed);
         }
 	
         return this.each(function () {
 
-            var $this = $(this);
+            var $this = $(this),
+		$arrow;
 
             vars.slideWidth = $this.width();
             vars.numSlides = vars.slides.length; // Number of slides
 
-            // If the user has supplied options let's merge them with the defaults
-            if (options) {
-                $.extend(defaults, options);
-            }
-
             // Remove scrollbar
-            $this.css('overflow', 'hidden');
+            $this.css("overflow", "hidden");
 
             // Wrap the .slide divs
-            vars.slides.wrapAll('<div id="slide-inner"></div>').css({'float': 'left', width: vars.slideWidth});
+            vars.slides.wrapAll('<div id="slide-inner"></div>').css({"float": "left", width: vars.slideWidth});
 
             // Set #slide-inner to the total width of all slides
-            $('#slide-inner').css('width', vars.slideWidth * vars.numSlides);
+            $("#slide-inner").css("width", vars.slideWidth * vars.numSlides);
 
             // Add the arrows
             $this.prepend('<span class="arrow" id="prev" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>').append('<span class="arrow" id="next" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
-
+	    
+	    $arrow = $this.find(".arrow");
+	    
             // Hide controls
 	    if (!defaults.showControls) {
-		$('.arrow').hide();
+		$arrow.hide();
 	    }
 
             if (defaults.showOnHover && !defaults.showControls) {
                 // Show and hide arrows on hover
-                $this.hover(function () {
-                    $('.arrow').show();
-                }, function () {
-                    $('.arrow').hide();
+                $this.bind("mouseover", function () {
+                    $arrow.show();
+                }).bind("mouseout", function () {
+                    $arrow.hide();
                 });
             }
 
             // Add event listener for click on previous and next buttons
-            $('.arrow').live('click', function (e) {
+            $arrow.live("click", function (e) {
                 changeSlide(e.target.id);
             });
 
             if (defaults.keyboardNav) {
                 // Add event listener for keypress on left or right arrow
-                $(document).bind('keydown', function (e) {
+                $(document).bind("keydown", function (e) {
                     var key = e.keyCode;
 
                     // See if the left or right arrow is pressed

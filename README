@@ -1,4 +1,4 @@
-jQuery AnySlider 1.1.2
+jQuery AnySlider 1.2
 Copyright 2011 Jonathan Wilsson
 http://jonathanwilsson.com/projects/jquery-anyslider/
 
@@ -14,6 +14,10 @@ If you have any questions or thoughts feel free to contact me.
 
 
 Changelog
+
+1.2
+Finally added a speed option
+Various code improvements
 
 1.1.2
 Enhanced the options to always show/hide arrows or just on hover

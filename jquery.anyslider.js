@@ -12,7 +12,7 @@
 
     $.fn.AnySlider = function (options) {
 
-	// Internal vars. Please don"t touch
+	// Internal vars. Please don't touch
         var vars = {
             currentPos: 0,
             slideWidth: 0,
@@ -28,7 +28,7 @@
             nextLabel: "Next slide"
         };
 	
-	// If the user has supplied options let"s merge them with the defaults
+	// If the user has supplied options let's merge them with the defaults
         if (options) {
             $.extend(defaults, options);
         }

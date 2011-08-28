@@ -18,7 +18,7 @@ body {
 	width:400px;
 }
 
-#slider {
+#slider, #slider2 {
 	background:#fff;
 	border:1px dotted #333;
 	height:250px;
@@ -36,7 +36,7 @@ body {
 	width:inherit;
 }
 
-.arrow {
+.prev-arrow, .next-arrow {
 	cursor:pointer;
 	display:block;
 	height:inherit;
@@ -44,17 +44,17 @@ body {
 	width:40px;
 }
 
-#prev {
+.prev-arrow {
 	background:url(img/arrows.png) transparent no-repeat top left;
 	left:0;
 	position:absolute;
 	top:95px;
 }
 
-#next {
+.next-arrow {
 	background:url(img/arrows.png) transparent no-repeat -40px 0;
-	right:0;
 	position:absolute;
+	right:0;
 	top:95px;
 }
 

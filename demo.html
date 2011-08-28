@@ -21,9 +21,9 @@
 
             <div class="slide">
 
-				<p>
-					This is the first slide with some <strong>strong text</strong>.
-				</p>
+		<p>
+		    This is the first slide with some <strong>strong text</strong>.
+		</p>
 
             </div>
 
@@ -35,7 +35,7 @@
 
                 <img src="img/example.jpg" alt="Australian road sign picturing a kangaroo">
 
-			</div>
+	    </div>
 
             <div class="slide">
 
@@ -48,16 +48,43 @@
             </div>
 
         </div>
+	
+	<div id="slider2">
 
+            <div class="slide">
+
+		<p>
+		    Another slider.
+		</p>
+
+            </div>
+
+            <div class="slide">
+
+                <p>
+                    More <em>content</em> in the second slider.
+                </p>
+
+            </div>
+
+        </div>
+	
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script src="jquery.anyslider.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('#slider').AnySlider();
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="jquery.anyslider.min.js"></script>
+    <script>
+	$(document).ready(function () {
+		$("#slider").AnySlider({
+			showControls: false,
+			showOnHover: true,
 		});
-	</script>
+	    
+		$("#slider2").AnySlider({
+			keyboardNav: false
+		});
+	});
+    </script>
 
 </body>
 

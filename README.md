@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.2.1
+# jQuery AnySlider 1.2.2
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of content.
 
 http://jonathanwilsson.com/projects/jquery-anyslider/
@@ -6,7 +6,7 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 ## Features
 * Slide anything you want. HTML, images, YouTube clips, you name it!
 * Support for multiple sliders on one page
-* Small, 790 bytes minified and gzipped
+* Small, 786 bytes minified and gzipped
 
 ### Customizable
 * Initially hide/show controls or on hover
@@ -15,12 +15,13 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * i18n possibilities
 
 ### Options
+* easing (Default swing) string A easing of your choice
+* keyboardNav (Default true) true/false Allow for keyboard navigation using the left and right arrow keys
+* nextLabel (Default "Next slide") string Label for the next button
+* prevLabel (Default "Previous slide") string Label for the previous button
 * showControls (Default true) true/false Initially hide/show controls
 * showOnHover (Default false) true/false Hide/show controls on hover
-* keyboardNav (Default true) true/false Allow for keyboard navigation using the left and right arrow keys
 * speed (Default 400) int The animation time in milliseconds
-* prevLabel (Default "Previous slide") string Label for the previous button
-* nextLabel (Default "Next slide") string Label for the next button
 
 Requires at least jQuery 1.5.
 
@@ -31,6 +32,9 @@ Free to use and abuse under the [MIT license](http://www.opensource.org/licenses
 Orginal code by [Jacob Gube](http://sixrevisions.com/tutorials/javascript_tutorial/create-a-slick-and-accessible-slideshow-using-jquery/).
 
 ## Changelog
+### 1.2.2
+* Fixed an issue where the "speed" option wasn't honored
+
 ### 1.2.1
 * AnySlider now support several sliders on one page
 * Removed the IDs from the arrow elements. Instead, they now have classes of "prev-arrow" and "next-arrow" respectivly

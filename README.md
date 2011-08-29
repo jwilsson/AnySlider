@@ -15,7 +15,6 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * i18n possibilities
 
 ### Options
-* easing (Default swing) string A easing of your choice
 * keyboardNav (Default true) true/false Allow for keyboard navigation using the left and right arrow keys
 * nextLabel (Default "Next slide") string Label for the next button
 * prevLabel (Default "Previous slide") string Label for the previous button

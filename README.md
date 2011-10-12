@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.2.2
+# jQuery AnySlider 1.3
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of content.
 
 http://jonathanwilsson.com/projects/jquery-anyslider/
@@ -6,7 +6,7 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 ## Features
 * Slide anything you want. HTML, images, YouTube clips, you name it!
 * Support for multiple sliders on one page
-* Small, 786 bytes minified and gzipped
+* Small, 763 bytes minified and gzipped
 
 ### Customizable
 * Initially hide/show controls or on hover
@@ -22,15 +22,16 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * showOnHover (Default false) true/false Hide/show controls on hover
 * speed (Default 400) int The animation time in milliseconds
 
-Requires at least jQuery 1.5.
+Minimum required jQuery version is 1.4.
 
 ## License
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
-## Acknowledgements
-Orginal code by [Jacob Gube](http://sixrevisions.com/tutorials/javascript_tutorial/create-a-slick-and-accessible-slideshow-using-jquery/).
-
 ## Changelog
+### 1.3
+* Rewrote most of the script
+* The slider is now "infinite" and will always scroll in the same direction
+
 ### 1.2.2
 * Fixed an issue where the "speed" option wasn't honored
 

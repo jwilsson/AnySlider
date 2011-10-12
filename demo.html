@@ -39,12 +39,12 @@
 
             <div class="slide">
 
-                <object width="320" height="205"><param name="movie" value="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="205"></embed></object>
-
                 <p>
                     While we're at it, why don't we throw in a clip from Youtube?
                 </p>
-
+		
+		<!-- <object width="320" height="205"><param name="movie" value="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="205"></embed></object> -->
+		
             </div>
 
         </div>
@@ -71,7 +71,7 @@
 	
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script src="jquery.anyslider.min.js"></script>
     <script>
 	$(document).ready(function () {
@@ -81,7 +81,8 @@
 		});
 	    
 		$("#slider2").AnySlider({
-			keyboardNav: false
+			keyboardNav: false,
+			speed: 1500
 		});
 	});
     </script>

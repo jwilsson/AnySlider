@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
-<meta charset="utf-8">
-<title>jQuery AnySlider</title>
-<link rel="stylesheet" type="text/css" href="jquery-anyslider.css"></head>
+    <meta charset="utf-8">
+    <title>jQuery AnySlider</title>
+    <link rel="stylesheet" type="text/css" href="jquery-anyslider.css">
+</head>
+
 <body>
 
     <div id="content">
@@ -16,18 +18,14 @@
             Hover over the box below to show controls for viewing next and previous slides.
             The keyboard arrows will work aswell.
         </p>
-
+	
         <div id="slider">
 
-            <div class="slide">
+            <span>
+		This is the first slide with some <strong>strong text</strong>.
+	    </span>
 
-		<p>
-		    This is the first slide with some <strong>strong text</strong>.
-		</p>
-
-            </div>
-
-            <div class="slide">
+            <section>
 
                 <p>
                     Let's add a image.
@@ -35,56 +33,51 @@
 
                 <img src="img/example.jpg" alt="Australian road sign picturing a kangaroo">
 
-	    </div>
+	    </section>
 
-            <div class="slide">
+            <div>
 
                 <p>
                     While we're at it, why don't we throw in a clip from Youtube?
                 </p>
 		
-		<object width="320" height="205"><param name="movie" value="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="205"></embed></object>
+		<!-- <object width="320" height="205"><param name="movie" value="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/9Q7Vr3yQYWQ?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="205"></embed></object> -->
 		
             </div>
 
         </div>
 	
-	<div id="slider2">
+	<ul id="slider2">
 
-            <div class="slide">
+            <li>
+		Another slider.
+            </li>
+	    
+            <li>
+                More <em>content</em> in the second slider.
+            </li>
 
-		<p>
-		    Another slider.
-		</p>
-
-            </div>
-
-            <div class="slide">
-
-                <p>
-                    More <em>content</em> in the second slider.
-                </p>
-
-            </div>
-
-        </div>
+        </ul>
 	
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script src="jquery.easing.1.3.js"></script>
     <script src="jquery.anyslider.min.js"></script>
     <script>
-	$(document).ready(function () {
-		$("#slider").AnySlider({
-			showControls: false,
-			showOnHover: true
-		});
+    $(document).ready(function () {
+	    $("#slider").AnySlider({
+		    showControls: false,
+		    showOnHover: true,
+	    });
 	    
-		$("#slider2").AnySlider({
-			keyboardNav: false,
-			speed: 1500
-		});
-	});
+	    $("#slider2").AnySlider({
+		    easing: "easeOutBounce",
+		    interval: 0,
+		    keyboardNav: false,
+		    speed: 1500
+	    });
+    });
     </script>
 
 </body>

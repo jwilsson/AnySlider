@@ -1,60 +1,21 @@
-html,body,div,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd,p,blockquote,pre,form,fieldset,table,th,td {
-    background:transparent;
-    border:0;
-    font-size:100%;
-    margin:0;
-    outline:0;
-    padding:0;
-    vertical-align:baseline;
+/* Bare minimum styles */
+#slider, #slider2 {
+    position:relative;
+    overflow:auto; /* Not required but recommended for accessibility when JavaScript is turned off */
+    width:400px;
 }
 
-body {
+/* Other styles */
+html, body {
+    background:#fff;
+    color:#333;
     font:12px "Trebuchet MS", sans-serif;
+    margin:0;
 }
 
 #content {
     margin:0 auto;
     width:400px;
-}
-
-#slider, #slider2 {
-    background:#fff;
-    border:1px dotted #333;
-    height:250px;
-    margin:10px auto;
-    padding:5px;
-    position:relative;
-    overflow:auto;
-    width:400px;
-}
-
-.slide {
-    height:inherit;
-    margin:0 auto;
-    text-align:center;
-    width:inherit;
-}
-
-.prev-arrow, .next-arrow {
-    cursor:pointer;
-    display:block;
-    height:inherit;
-    position:absolute;
-    text-indent:-9999px;
-    width:40px;
-    z-index:999;
-}
-
-.prev-arrow {
-    background:url(img/arrows.png) 0 0 no-repeat transparent;
-    left:0;
-    top:95px;
-}
-
-.next-arrow {
-    background:url(img/arrows.png) -40px 0 no-repeat transparent;
-    right:0;
-    top:95px;
 }
 
 h1 {
@@ -64,4 +25,40 @@ h1 {
 
 p {
     margin:10px 0;
+}
+
+ul {
+    margin:0;
+    padding:0;
+}
+
+/* The slider can be styled to your liking. This is just example styles */
+#slider, #slider2 {
+    border:1px dotted #333;
+    height:250px;
+    margin:10px auto;
+    padding:5px;
+    text-align:center;
+}
+
+/* The arrows can of course also be styled to your liking. This is just example styles */
+.prev-arrow, .next-arrow {
+    background:url(img/arrows.png) no-repeat transparent;
+    cursor:pointer;
+    display:block;
+    height:40px;
+    position:absolute;
+    text-indent:-9999px;
+    top:95px;
+    width:40px;
+    z-index:999;
+}
+
+.prev-arrow {
+    left:0;
+}
+
+.next-arrow {
+    background-position:-40px 0;
+    right:0;
 }

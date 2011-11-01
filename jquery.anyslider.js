@@ -1,4 +1,4 @@
-// jQuery AnySlider 1.3 | Copyright 2011 Jonathan Wilsson
+// jQuery AnySlider 1.3.1 | Copyright 2011 Jonathan Wilsson
 (function ($) {
 	"use strict";
 	var Anyslider = function (elem, options) {
@@ -10,9 +10,13 @@
 			slidePos = 1,
 			$inner,
 			$arrows,
+			timer = null,
 			defaults = {
+				easing: "swing",
+				interval: 5000,
 				keyboardNav: true,
 				nextLabel: "Next slide",
+				pauseOnHover: true,
 				prevLabel: "Previous slide",
 				showControls: true,
 				showOnHover: false,
@@ -27,7 +31,7 @@
 				next = slidePos + 1;
 			}
 
-			$inner.stop().animate({"left": -next * width}, defaults.speed, function () {
+			$inner.stop().animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
 				if (next === 0) {
 					slidePos = numSlides - 2;
 					$inner.css("left", -slidePos * width);
@@ -38,6 +42,15 @@
 					slidePos = next;
 				}
 			});
+		}
+
+		//
+		function tick() {
+			timer = setTimeout(function () {
+				run("next");
+
+				tick();
+			}, defaults.interval);
 		}
 
 		// If the user has supplied options let's merge them with the defaults
@@ -109,6 +122,20 @@
 					run("next");
 				}
 			});
+		}
+
+		// See if the user wants autoplay enabled
+		if (defaults.interval) {
+			tick();
+
+			// See if the user whishes to pause the autoplay on hover
+			if (defaults.pauseOnHover) {
+				$slider.bind("mouseover", function () {
+					clearTimeout(timer);
+				}).bind("mouseout", function () {
+					tick();
+				});
+			}
 		}
 	};
 

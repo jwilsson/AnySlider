@@ -5,7 +5,7 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 
 ## Features
 * Slide anything you want. HTML, images, YouTube clips, you name it!
-* Slide using any element! Mix <div>s, <span>s and <section>s (or any other element too of course). AnySlider doesn't care.
+* Slide using any element! Mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s (or any other element too of course). AnySlider doesn't care.
 * Support for multiple sliders on one page.
 * Small, 855 bytes minified and gzipped.
 

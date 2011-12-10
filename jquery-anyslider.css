@@ -2,7 +2,6 @@
 #slider, #slider2 {
     position:relative;
     overflow:auto; /* Not required but recommended for accessibility when JavaScript is turned off */
-    width:400px;
 }
 
 /* Other styles */
@@ -13,8 +12,13 @@ html, body {
     margin:0;
 }
 
+section {
+    display:block;
+}
+
 #content {
     margin:0 auto;
+    position:relative;
     width:400px;
 }
 
@@ -36,9 +40,10 @@ ul {
 #slider, #slider2 {
     border:1px dotted #333;
     height:250px;
-    margin:10px auto;
+    margin:40px auto;
     padding:5px;
     text-align:center;
+    width:400px;
 }
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
@@ -61,4 +66,26 @@ ul {
 .next-arrow {
     background-position:-40px 0;
     right:0;
+}
+
+/* The same rules for styling apply here. Style this to your liking */
+.as-nav {
+    left:2px;
+    position:absolute;
+    text-align:left;
+    top:2px;
+    width:100%;
+    z-index:9999;
+}
+
+.as-nav a {
+    background:url(img/bullets.png) transparent;
+    height:16px;
+    display:inline-block;
+    text-indent:-9999px;
+    width:16px;
+}
+
+a.active, .as-nav a:hover {
+    background-position:0 -16px;
 }

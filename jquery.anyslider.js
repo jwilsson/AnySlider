@@ -1,6 +1,5 @@
-// jQuery AnySlider 1.3.1 | Copyright 2011 Jonathan Wilsson
+// jQuery AnySlider 1.3.2 | Copyright 2011 Jonathan Wilsson
 (function ($) {
-	"use strict";
 	var Anyslider = function (elem, options) {
 		var $slider = $(elem),
 			$slides = $slider.children(),
@@ -12,25 +11,21 @@
 			$arrows,
 			timer = null,
 			defaults = {
+				bullets: true,
 				easing: "swing",
 				interval: 5000,
 				keyboardNav: true,
 				nextLabel: "Next slide",
 				pauseOnHover: true,
 				prevLabel: "Previous slide",
+				rtl: false,
 				showControls: true,
 				showOnHover: false,
 				speed: 400
 			};
 
 		// The main animation function
-		function run(direction) {
-			if (direction === "prev") {
-				next = slidePos - 1;
-			} else {
-				next = slidePos + 1;
-			}
-
+		function run() {
 			$inner.stop().animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
 				if (next === 0) {
 					slidePos = numSlides - 2;
@@ -41,13 +36,23 @@
 				} else {
 					slidePos = next;
 				}
+				
+				if(defaults.bullets) {
+					$slider.find(".as-nav a").removeClass("active").filter("[data-num=" + slidePos + "]").addClass("active");
+				}
 			});
 		}
 
-		//
+		// Set the autoplay timer
 		function tick() {
 			timer = setTimeout(function () {
-				run("next");
+				if(defaults.rtl) {
+					next = slidePos - 1;
+				} else {
+					next = slidePos + 1;	
+				}
+				
+				run();
 
 				tick();
 			}, defaults.interval);
@@ -100,16 +105,42 @@
 				$arrows.hide();
 			});
 		}
-
+		
 		// Add event listener for click on previous and next buttons
 		$arrows.live("click", function (e) {
 			if (e.target.className === "prev-arrow") {
-				run("prev");
+				next = slidePos - 1;
 			} else {
-				run("next");
+				next = slidePos + 1;
 			}
+			
+			run();
 		});
-
+		
+		// Add navigation bullets if requested
+		if (defaults.bullets) {
+			var i, temp = numSlides - 2, active = "", out = '<div class="as-nav">';
+			
+			for(i = 1; i <= temp; i++) {
+				active = "";
+				if(i === slidePos) {
+					active = 'class="active"';
+				}
+				
+				out += '<a href="#"' + active + 'data-num="' + i + '">' + i + '</a> ';
+			}
+			
+			out += '</div>';
+			
+			$slider.append(out).find(".as-nav a").live("click", function (e) {
+				e.preventDefault();
+				
+				next = Number($slider.find(".as-nav a").removeClass("active").filter(this).addClass("active").text());
+				
+				run();
+			});
+		}
+		
 		// Enable keyboard navigation
 		if (defaults.keyboardNav) {
 			$(document).bind("keydown", function (e) {
@@ -117,15 +148,19 @@
 
 				// See if the left or right arrow is pressed
 				if (key === 37) {
-					run("prev");
+					next = slidePos - 1;
 				} else if (key === 39) {
-					run("next");
+					next = slidePos + 1;
+				} else {
+					return;
 				}
+				
+				run();				
 			});
 		}
-
+		
 		// See if the user wants autoplay enabled
-		if (defaults.interval) {
+		if (defaults.interval && (numSlides - 2) > 1) {
 			tick();
 
 			// See if the user whishes to pause the autoplay on hover
@@ -157,5 +192,4 @@
 			$slider.data("anyslider", anyslider);
 		});
 	};
-
 }(jQuery));

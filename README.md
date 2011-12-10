@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.3.1
+# jQuery AnySlider 1.3.2
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of content.
 
 http://jonathanwilsson.com/projects/jquery-anyslider/
@@ -7,32 +7,41 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * Slide anything you want. HTML, images, YouTube clips, you name it!
 * Slide using any element! Mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s (or any other element too of course). AnySlider doesn't care.
 * Support for multiple sliders on one page.
-* Small, 855 bytes minified and gzipped.
+* Small, 1005 bytes (~1kB) minified and gzipped.
 
 ### Customizable
 * Continuous autoplay
 * Custom easings
+* Highly customizable appearance
 * i18n possibilities
 * Initially hide/show controls or on hover
 * Keyboard navigation
+* Navigation bullets
 
 ### Options
+* bullets (Default true) boolean Should navigation bullets be displayed?.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin.
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
 * keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
 * nextLabel (Default "Next slide") string Label for the next button.
-* pauseOnHover (Default true) boolean Whether to pause the autoplay on hover.
+* pauseOnHover (Default true) boolean Pause the autoplay on hover?
 * prevLabel (Default "Previous slide") string Label for the previous button.
+* rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
 * showControls (Default true) boolean Initially hide/show controls.
 * showOnHover (Default false) boolean Hide/show controls on hover.
 * speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
 
-Minimum required jQuery version is 1.4.
+Minimum required jQuery version is 1.4.0.
 
 ## License
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.3.2
+* Fixed an issue where AnySlider would autoplay when there was only one slide.
+* Added navigation bullets.
+* Added the "rtl" option to control slide direction when autoplay is enabled.
+
 ### 1.3.1
 * Added support for custom easings via the jQuery Easing plugin.
 * Added autoplay support. Check out the "interval" and "pauseOnHover" options.

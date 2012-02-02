@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>jQuery AnySlider</title>
-    <link rel="stylesheet" type="text/css" href="jquery-anyslider.css">
+    <link rel="stylesheet" href="jquery-anyslider.css">
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -50,17 +50,17 @@
 
         </div>
 	
-	<ul id="slider2">
+	<div id="slider2">
 
-            <li>
+            <div>
 		Another slider.
-            </li>
+            </div>
 	    
-	    <li>
+	    <div>
 		More <em>content</em> in the second slider.
-	    </li>
+	    </div>
 
-        </ul>
+        </div>
 	
     </div>
 
@@ -70,6 +70,7 @@
     <script>
     $(document).ready(function () {
 	    $("#slider").AnySlider({
+		    rtl: true,
 		    showControls: false,
 		    showOnHover: true
 	    });

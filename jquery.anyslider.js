@@ -1,4 +1,4 @@
-// jQuery AnySlider 1.3.2 | Copyright 2011 Jonathan Wilsson
+// jQuery AnySlider 1.4 | Copyright 2012 Jonathan Wilsson
 (function ($) {
 	var Anyslider = function (elem, options) {
 		var $slider = $(elem),
@@ -9,7 +9,9 @@
 			slidePos = 1,
 			$inner,
 			$arrows,
-			timer = null,
+			timer,
+			startTime,
+			startX,
 			defaults = {
 				bullets: true,
 				easing: "swing",
@@ -21,7 +23,8 @@
 				rtl: false,
 				showControls: true,
 				showOnHover: false,
-				speed: 400
+				speed: 400,
+				touch: true
 			};
 
 		// The main animation function
@@ -38,7 +41,7 @@
 				}
 				
 				if(defaults.bullets) {
-					$slider.find(".as-nav a").removeClass("active").filter("[data-num=" + slidePos + "]").addClass("active");
+					$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + slidePos + "]").addClass("as-active");
 				}
 			});
 		}
@@ -72,14 +75,14 @@
 
 		$slider.css("overflow", "hidden");
 
-		$slides.wrapAll('<div class="slide-inner"></div>').css({
+		$slides.wrapAll('<div class="as-slide-inner"></div>').css({
 			"display": "inline",
 			"float": "left",
 			"position": "relative",
 			"width": width
 		});
 
-		$inner = $slider.children(".slide-inner").css({
+		$inner = $slider.children(".as-slide-inner").css({
 			"float": "left",
 			"left": -width,
 			"position": "relative",
@@ -87,10 +90,10 @@
 		});
 
 		// Add the arrows
-		$slider.prepend('<span class="prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>')
-			.append('<span class="next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
+		$slider.prepend('<span class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>')
+			.append('<span class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
 
-		$arrows = $slider.find(".prev-arrow, .next-arrow");
+		$arrows = $slider.find(".as-prev-arrow, .as-next-arrow");
 
 		// Hide controls
 		if (!defaults.showControls) {
@@ -107,8 +110,8 @@
 		}
 		
 		// Add event listener for click on previous and next buttons
-		$arrows.live("click", function (e) {
-			if (e.target.className === "prev-arrow") {
+		$slider.delegate(".as-prev-arrow, .as-next-arrow", "click", function (e) {
+			if (e.target.className === "as-prev-arrow") {
 				next = slidePos - 1;
 			} else {
 				next = slidePos + 1;
@@ -124,7 +127,7 @@
 			for(i = 1; i <= temp; i++) {
 				active = "";
 				if(i === slidePos) {
-					active = 'class="active"';
+					active = 'class="as-active"';
 				}
 				
 				out += '<a href="#"' + active + 'data-num="' + i + '">' + i + '</a> ';
@@ -135,7 +138,7 @@
 			$slider.append(out).find(".as-nav a").live("click", function (e) {
 				e.preventDefault();
 				
-				next = Number($slider.find(".as-nav a").removeClass("active").filter(this).addClass("active").text());
+				next = Number($slider.find(".as-nav a").removeClass("as-active").filter(this).addClass("as-active").text());
 				
 				run();
 			});
@@ -155,7 +158,7 @@
 					return;
 				}
 				
-				run();				
+				run();
 			});
 		}
 		
@@ -171,6 +174,40 @@
 					tick();
 				});
 			}
+		}
+		
+		// Enable swipe support if requested
+		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		if (defaults.touch && "ontouchstart" in document.documentElement) {
+			$slider.bind("touchstart", function (e) {
+				e.preventDefault();
+				
+				startTime = e.timeStamp;
+				startX = e.originalEvent.touches[0].pageX;
+			}).bind("touchmove", function (e) {
+				var currentX = e.originalEvent.touches[0].pageX,
+					currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
+					currentTime = e.timeStamp; // Only allow if movement < 1 sec
+				
+				e.preventDefault();
+				
+				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
+					if (currentX < startX) { // Swiping to the left, i.e. previous slide
+					    next = slidePos + 1;
+					}
+					
+					if (currentX > startX) { // Swiping to the right, i.e. next slide
+					    next = slidePos - 1;
+					}
+					
+					startTime = 0;
+					startX = 0;
+					
+					run();
+				}
+			}).bind("touchend", function () {
+				startTime = startX = 0;
+			});
 		}
 	};
 

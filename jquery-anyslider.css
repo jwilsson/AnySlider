@@ -1,10 +1,10 @@
 /* Bare minimum styles */
 #slider, #slider2 {
-    position:relative;
     overflow:auto; /* Not required but recommended for accessibility when JavaScript is turned off */
+    position:relative;
 }
 
-/* Other styles */
+/* Other styles not related to AnySlider */
 html, body {
     background:#fff;
     color:#333;
@@ -36,7 +36,7 @@ ul {
     padding:0;
 }
 
-/* The slider can be styled to your liking. This is just example styles */
+/* AnySlider can be styled to your liking. This is just example styles */
 #slider, #slider2 {
     border:1px dotted #333;
     height:250px;
@@ -47,8 +47,8 @@ ul {
 }
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
-.prev-arrow, .next-arrow {
-    background:url(img/arrows.png) no-repeat transparent;
+.as-prev-arrow, .as-next-arrow {
+    background:url(img/arrows.png) no-repeat;
     cursor:pointer;
     display:block;
     height:40px;
@@ -59,16 +59,16 @@ ul {
     z-index:999;
 }
 
-.prev-arrow {
+.as-prev-arrow {
     left:0;
 }
 
-.next-arrow {
+.as-next-arrow {
     background-position:-40px 0;
     right:0;
 }
 
-/* The same rules for styling apply here. Style this to your liking */
+/* The same rules for styling apply here. Style to your liking */
 .as-nav {
     left:2px;
     position:absolute;
@@ -79,13 +79,14 @@ ul {
 }
 
 .as-nav a {
-    background:url(img/bullets.png) transparent;
+    background:url(img/bullets.png);
     height:16px;
     display:inline-block;
+    overflow:hidden;
     text-indent:-9999px;
     width:16px;
 }
 
-a.active, .as-nav a:hover {
+a.as-active, .as-nav a:hover {
     background-position:0 -16px;
 }

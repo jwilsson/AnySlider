@@ -1,17 +1,16 @@
-// jQuery AnySlider 1.4 | Copyright 2012 Jonathan Wilsson
+// jQuery AnySlider 1.4.1 | Copyright 2012 Jonathan Wilsson
 (function ($) {
+	"use strict";
 	var Anyslider = function (elem, options) {
 		var $slider = $(elem),
 			$slides = $slider.children(),
 			numSlides = $slides.length,
 			width = $slider.width(),
 			next = 0,
-			slidePos = 1,
+			current = 1,
 			$inner,
 			$arrows,
 			timer,
-			startTime,
-			startX,
 			defaults = {
 				bullets: true,
 				easing: "swing",
@@ -24,6 +23,7 @@
 				showControls: true,
 				showOnHover: false,
 				speed: 400,
+				startSlide: 1,
 				touch: true
 			};
 
@@ -31,17 +31,17 @@
 		function run() {
 			$inner.stop().animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
 				if (next === 0) {
-					slidePos = numSlides - 2;
-					$inner.css("left", -slidePos * width);
+					current = numSlides - 2;
+					$inner.css("left", -current * width);
 				} else if (next === numSlides - 1) {
-					slidePos = 1;
+					current = 1;
 					$inner.css("left", -width);
 				} else {
-					slidePos = next;
+					current = next;
 				}
-				
-				if(defaults.bullets) {
-					$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + slidePos + "]").addClass("as-active");
+
+				if (defaults.bullets) {
+					$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
 				}
 			});
 		}
@@ -49,12 +49,12 @@
 		// Set the autoplay timer
 		function tick() {
 			timer = setTimeout(function () {
-				if(defaults.rtl) {
-					next = slidePos - 1;
+				if (defaults.rtl) {
+					next = current - 1;
 				} else {
-					next = slidePos + 1;	
+					next = current + 1;
 				}
-				
+
 				run();
 
 				tick();
@@ -73,7 +73,10 @@
 		$slides = $slider.children();
 		numSlides = $slides.length;
 
-		$slider.css("overflow", "hidden");
+		// Set the starting slide
+		if (defaults.startSlide < (numSlides - 2)) {
+			current = defaults.startSlide;
+		}
 
 		$slides.wrapAll('<div class="as-slide-inner"></div>').css({
 			"display": "inline",
@@ -82,16 +85,16 @@
 			"width": width
 		});
 
-		$inner = $slider.children(".as-slide-inner").css({
+		$inner = $slider.css("overflow", "hidden").children(".as-slide-inner").css({
 			"float": "left",
-			"left": -width,
+			"left": -current * width,
 			"position": "relative",
 			"width": numSlides * width
 		});
 
 		// Add the arrows
-		$slider.prepend('<span class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</span>')
-			.append('<span class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</span>');
+		$slider.prepend('<a href="#" class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</a>')
+			.append('<a href="#" class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</a>');
 
 		$arrows = $slider.find(".as-prev-arrow, .as-next-arrow");
 
@@ -108,42 +111,48 @@
 				$arrows.hide();
 			});
 		}
-		
+
 		// Add event listener for click on previous and next buttons
-		$slider.delegate(".as-prev-arrow, .as-next-arrow", "click", function (e) {
-			if (e.target.className === "as-prev-arrow") {
-				next = slidePos - 1;
-			} else {
-				next = slidePos + 1;
+		$slider.delegate($arrows, "click", function (e) {
+			e.preventDefault();
+
+			if ($(e.target).parent().is(".as-nav")) { // Fix for delegate() firing twice
+				return false;
 			}
-			
+
+			if (e.target.className === "as-prev-arrow") {
+				next = current - 1;
+			} else {
+				next = current + 1;
+			}
+
 			run();
 		});
-		
+
 		// Add navigation bullets if requested
 		if (defaults.bullets) {
-			var i, temp = numSlides - 2, active = "", out = '<div class="as-nav">';
-			
-			for(i = 1; i <= temp; i++) {
+			var i, active, out = '<div class="as-nav">';
+
+			for (i = 1; i <= numSlides - 2; i++) {
 				active = "";
-				if(i === slidePos) {
+				if (i === current) {
 					active = 'class="as-active"';
 				}
-				
+
 				out += '<a href="#"' + active + 'data-num="' + i + '">' + i + '</a> ';
 			}
-			
+
 			out += '</div>';
-			
-			$slider.append(out).find(".as-nav a").live("click", function (e) {
+
+			$slider.append(out).delegate(".as-nav a", "click", function (e) {
 				e.preventDefault();
-				
-				next = Number($slider.find(".as-nav a").removeClass("as-active").filter(this).addClass("as-active").text());
-				
+
+				next = $slider.find(".as-nav a").removeClass("as-active").filter(this).addClass("as-active").data("num");
+
 				run();
 			});
 		}
-		
+
 		// Enable keyboard navigation
 		if (defaults.keyboardNav) {
 			$(document).bind("keydown", function (e) {
@@ -151,17 +160,17 @@
 
 				// See if the left or right arrow is pressed
 				if (key === 37) {
-					next = slidePos - 1;
+					next = current - 1;
 				} else if (key === 39) {
-					next = slidePos + 1;
+					next = current + 1;
 				} else {
 					return;
 				}
-				
+
 				run();
 			});
 		}
-		
+
 		// See if the user wants autoplay enabled
 		if (defaults.interval && (numSlides - 2) > 1) {
 			tick();
@@ -175,34 +184,33 @@
 				});
 			}
 		}
-		
+
 		// Enable swipe support if requested
 		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
 		if (defaults.touch && "ontouchstart" in document.documentElement) {
+			var startTime, startX;
+
 			$slider.bind("touchstart", function (e) {
 				e.preventDefault();
-				
+
 				startTime = e.timeStamp;
 				startX = e.originalEvent.touches[0].pageX;
 			}).bind("touchmove", function (e) {
 				var currentX = e.originalEvent.touches[0].pageX,
 					currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
 					currentTime = e.timeStamp; // Only allow if movement < 1 sec
-				
+
 				e.preventDefault();
-				
+
 				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
-					    next = slidePos + 1;
+						next = current + 1;
+					} else if (currentX > startX) { // Swiping to the right, i.e. next slide
+						next = current - 1;
 					}
-					
-					if (currentX > startX) { // Swiping to the right, i.e. next slide
-					    next = slidePos - 1;
-					}
-					
-					startTime = 0;
-					startX = 0;
-					
+
+					startTime = startX = 0;
+
 					run();
 				}
 			}).bind("touchend", function () {
@@ -212,10 +220,8 @@
 	};
 
 	$.fn.AnySlider = function (options) {
-
 		return this.each(function () {
-			var $slider = $(this),
-				anyslider;
+			var $slider = $(this), anyslider;
 
 			// Bail if we already have a plugin instance for this element
 			if ($slider.data("anyslider")) {

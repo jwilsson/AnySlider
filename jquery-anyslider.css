@@ -52,9 +52,11 @@ ul {
     cursor:pointer;
     display:block;
     height:40px;
+    overflow:hidden;
     position:absolute;
-    text-indent:-9999px;
+    text-indent:100%;
     top:95px;
+    white-space:nowrap;
     width:40px;
     z-index:999;
 }

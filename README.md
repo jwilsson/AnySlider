@@ -1,26 +1,28 @@
-# jQuery AnySlider 1.4.1
+# jQuery AnySlider 1.4.2
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jonathanwilsson.com/projects/jquery-anyslider/
 
 ## Features
-* Choose which slide to start at.
+* Choose the starting slide.
 * Continuous autoplay.
 * Custom easings.
+* Fade or slide transition.
 * Highly customizable appearance and lots of options.
 * i18n possibilities.
 * Initially hide/show controls or on hover.
 * Keyboard navigation.
+* Multiple sliders on one page supported.
 * Navigation bullets.
 * No CSS or HTML-structure enforced, you're 100% in charge.
 * Slide anything you want. HTML, images, YouTube clips, you name it!
 * Slide using any element! Mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s (or any other element). AnySlider doesn't care.
-* Small, ~1.2kB minified and gzipped.
-* Support for multiple sliders on one page.
-* Support for swipe gestures.
+* Small, 1.3 kB minified and gzipped.
 * Supported in all major browsers.
+* Touch support.
 
 ## Options
+* animation (Default slide") string Transition, "fade" or "slide".
 * bullets (Default true) boolean Whether or not to display navigation bullets.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin.
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
@@ -28,11 +30,11 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * nextLabel (Default "Next slide") string Label for the next button.
 * pauseOnHover (Default true) boolean Pause the autoplay on hover?
 * prevLabel (Default "Previous slide") string Label for the previous button.
-* rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled. 
+* rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
 * showControls (Default true) boolean Initially hide/show controls.
 * showOnHover (Default false) boolean Hide/show controls on hover.
 * speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
-* startSlide (Default 1) int The slide to start on.
+* startSlide (Default 1) int Number of the starting slide. Starting from 1.
 * touch (Default true) boolean Whether to enable the ability to swipe between slides.
 
 Minimum required jQuery version is 1.5.0.
@@ -41,6 +43,9 @@ Minimum required jQuery version is 1.5.0.
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.4.2
+* Added fade transition.
+
 ### 1.4.1
 * Changed the arrows from &lt;span&gt;s to &lt;a&gt;s for improved accessibility.
 * Added the ability to choose the starting slide.
@@ -101,4 +106,4 @@ Free to use and abuse under the [MIT license](http://www.opensource.org/licenses
 * Initial release.
 
 ## Copyright
-Copyright 2011-2012 Jonathan Wilsson
+Copyright 2011-2012 Jonathan Wilsson.

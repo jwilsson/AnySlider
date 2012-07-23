@@ -1,9 +1,9 @@
-// jQuery AnySlider 1.4.1 | Copyright 2012 Jonathan Wilsson
+// jQuery AnySlider 1.4.2 | Copyright 2012 Jonathan Wilsson
 (function ($) {
-	"use strict";
 	var Anyslider = function (elem, options) {
 		var $slider = $(elem),
 			$slides = $slider.children(),
+			orgNumSlides = $slides.length,
 			numSlides = $slides.length,
 			width = $slider.width(),
 			next = 0,
@@ -12,6 +12,7 @@
 			$arrows,
 			timer,
 			defaults = {
+				animation: "slide",
 				bullets: true,
 				easing: "swing",
 				interval: 5000,
@@ -29,31 +30,43 @@
 
 		// The main animation function
 		function run() {
-			$inner.stop().animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
-				if (next === 0) {
-					current = numSlides - 2;
-					$inner.css("left", -current * width);
-				} else if (next === numSlides - 1) {
-					current = 1;
-					$inner.css("left", -width);
-				} else {
-					current = next;
-				}
+			if ($slides.is(":animated")) {
+				return;
+			}
 
-				if (defaults.bullets) {
-					$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
-				}
-			});
+			if (defaults.animation === "fade") {
+				$slides.fadeOut().eq(next).delay(300).fadeIn(defaults.speed, function () {
+					current = next;
+
+					if (next === 0) {
+						current = orgNumSlides;
+					} else if (next === numSlides - 1) {
+						current = 1;
+					}
+				});
+			} else {
+				$inner.animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
+					current = next;
+
+					if (next === 0) {
+						current = orgNumSlides;
+						$inner.css("left", -current * width);
+					} else if (next === numSlides - 1) {
+						current = 1;
+						$inner.css("left", -width);
+					}
+				});
+			}
+
+			if (defaults.bullets) {
+				$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + next + "]").addClass("as-active");
+			}
 		}
 
 		// Set the autoplay timer
 		function tick() {
 			timer = setTimeout(function () {
-				if (defaults.rtl) {
-					next = current - 1;
-				} else {
-					next = current + 1;
-				}
+				next = (defaults.rtl ? current - 1 : current + 1);
 
 				run();
 
@@ -74,22 +87,37 @@
 		numSlides = $slides.length;
 
 		// Set the starting slide
-		if (defaults.startSlide < (numSlides - 2)) {
+		if (defaults.startSlide < orgNumSlides) {
 			current = defaults.startSlide;
 		}
 
-		$slides.wrapAll('<div class="as-slide-inner"></div>').css({
-			"display": "inline",
-			"float": "left",
-			"position": "relative",
-			"width": width
-		});
+		// CSS setup
+		if (defaults.animation === "fade") {
+			$slides.wrapAll('<div class="as-slide-inner"></div>').css({
+				"display": "none",
+				"left": 0,
+				"position": "absolute",
+				"top": 0
+			}).eq(current).show();
 
-		$inner = $slider.css("overflow", "hidden").children(".as-slide-inner").css({
+			$inner = $slider.css("overflow", "hidden").find(".as-slide-inner").css("width", width);
+		} else {
+			$slides.wrapAll('<div class="as-slide-inner"></div>').css({
+				"float": "left",
+				"position": "relative"
+			});
+
+			$inner = $slider.css("overflow", "hidden").find(".as-slide-inner").css({
+				"left": -current * width,
+				"width": numSlides * width
+			});
+		}
+
+		$slides.css("width", width);
+
+		$inner.css({
 			"float": "left",
-			"left": -current * width,
-			"position": "relative",
-			"width": numSlides * width
+			"position": "relative"
 		});
 
 		// Add the arrows
@@ -105,9 +133,9 @@
 
 		// Show and hide arrows on hover
 		if (defaults.showOnHover && !defaults.showControls) {
-			$slider.bind("mouseover", function () {
+			$slider.bind("mouseenter", function () {
 				$arrows.show();
-			}).bind("mouseout", function () {
+			}).bind("mouseleave", function () {
 				$arrows.hide();
 			});
 		}
@@ -120,11 +148,7 @@
 				return false;
 			}
 
-			if (e.target.className === "as-prev-arrow") {
-				next = current - 1;
-			} else {
-				next = current + 1;
-			}
+			next = (e.target.className === "as-prev-arrow" ? current - 1 : current + 1);
 
 			run();
 		});
@@ -133,11 +157,8 @@
 		if (defaults.bullets) {
 			var i, active, out = '<div class="as-nav">';
 
-			for (i = 1; i <= numSlides - 2; i++) {
-				active = "";
-				if (i === current) {
-					active = 'class="as-active"';
-				}
+			for (i = 1; i <= orgNumSlides; i++) {
+				active = (i === current ? 'class="as-active"' : "");
 
 				out += '<a href="#"' + active + 'data-num="' + i + '">' + i + '</a> ';
 			}
@@ -158,28 +179,26 @@
 			$(document).bind("keydown", function (e) {
 				var key = e.keyCode;
 
-				// See if the left or right arrow is pressed
-				if (key === 37) {
-					next = current - 1;
-				} else if (key === 39) {
-					next = current + 1;
-				} else {
+				if (key !== 37 || key !== 39) {
 					return;
 				}
+
+				// See if the left or right arrow is pressed
+				next = (key === 37 ? current - 1 : current + 1);
 
 				run();
 			});
 		}
 
 		// See if the user wants autoplay enabled
-		if (defaults.interval && (numSlides - 2) > 1) {
+		if (defaults.interval && orgNumSlides > 1) {
 			tick();
 
 			// See if the user whishes to pause the autoplay on hover
 			if (defaults.pauseOnHover) {
-				$slider.bind("mouseover", function () {
+				$slider.bind("mouseenter", function () {
 					clearTimeout(timer);
-				}).bind("mouseout", function () {
+				}).bind("mouseleave", function () {
 					tick();
 				});
 			}

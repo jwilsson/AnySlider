@@ -1,4 +1,4 @@
-// jQuery AnySlider 1.4.2 | Copyright 2012 Jonathan Wilsson
+// jQuery AnySlider 1.4.3 | Copyright 2012 Jonathan Wilsson
 (function ($) {
 	var Anyslider = function (elem, options) {
 		var $slider = $(elem),
@@ -12,7 +12,10 @@
 			$arrows,
 			timer,
 			defaults = {
+				afterChange: function () {},
+				afterSetup: function () {},
 				animation: "slide",
+				beforeChange: function () {},
 				bullets: true,
 				easing: "swing",
 				interval: 5000,
@@ -34,6 +37,8 @@
 				return;
 			}
 
+			defaults.beforeChange.call($slider);
+
 			if (defaults.animation === "fade") {
 				$slides.fadeOut().eq(next).delay(300).fadeIn(defaults.speed, function () {
 					current = next;
@@ -43,6 +48,12 @@
 					} else if (next === numSlides - 1) {
 						current = 1;
 					}
+
+					if (defaults.bullets) { // @todo Temporary fix until 1.5
+						$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
+					}
+
+					defaults.afterChange.call($slider);
 				});
 			} else {
 				$inner.animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
@@ -55,11 +66,13 @@
 						current = 1;
 						$inner.css("left", -width);
 					}
-				});
-			}
 
-			if (defaults.bullets) {
-				$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + next + "]").addClass("as-active");
+					if (defaults.bullets) { // @todo Temporary fix until 1.5
+						$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
+					}
+
+					defaults.afterChange.call($slider);
+				});
 			}
 		}
 
@@ -92,28 +105,29 @@
 		}
 
 		// CSS setup
+		$slides.wrapAll('<div class="as-slide-inner"></div>').css("width", width);
+		$inner = $slider.css("overflow", "hidden").find(".as-slide-inner");
+
 		if (defaults.animation === "fade") {
-			$slides.wrapAll('<div class="as-slide-inner"></div>').css({
+			$slides.css({
 				"display": "none",
 				"left": 0,
 				"position": "absolute",
 				"top": 0
 			}).eq(current).show();
 
-			$inner = $slider.css("overflow", "hidden").find(".as-slide-inner").css("width", width);
+			$inner.css("width", width);
 		} else {
-			$slides.wrapAll('<div class="as-slide-inner"></div>').css({
+			$slides.css({
 				"float": "left",
 				"position": "relative"
 			});
 
-			$inner = $slider.css("overflow", "hidden").find(".as-slide-inner").css({
+			$inner.css({
 				"left": -current * width,
 				"width": numSlides * width
 			});
 		}
-
-		$slides.css("width", width);
 
 		$inner.css({
 			"float": "left",
@@ -133,15 +147,15 @@
 
 		// Show and hide arrows on hover
 		if (defaults.showOnHover && !defaults.showControls) {
-			$slider.bind("mouseenter", function () {
+			$slider.mouseenter(function () {
 				$arrows.show();
-			}).bind("mouseleave", function () {
+			}).mouseleave(function () {
 				$arrows.hide();
 			});
 		}
 
 		// Add event listener for click on previous and next buttons
-		$slider.delegate($arrows, "click", function (e) {
+		$slider.delegate($arrows.selector, "click", function (e) {
 			e.preventDefault();
 
 			if ($(e.target).parent().is(".as-nav")) { // Fix for delegate() firing twice
@@ -176,7 +190,7 @@
 
 		// Enable keyboard navigation
 		if (defaults.keyboardNav) {
-			$(document).bind("keydown", function (e) {
+			$(document).keydown(function (e) {
 				var key = e.keyCode;
 
 				if (key !== 37 || key !== 39) {
@@ -196,9 +210,9 @@
 
 			// See if the user whishes to pause the autoplay on hover
 			if (defaults.pauseOnHover) {
-				$slider.bind("mouseenter", function () {
+				$slider.mouseenter(function () {
 					clearTimeout(timer);
-				}).bind("mouseleave", function () {
+				}).mouseleave(function () {
 					tick();
 				});
 			}
@@ -217,10 +231,11 @@
 			}).bind("touchmove", function (e) {
 				var currentX = e.originalEvent.touches[0].pageX,
 					currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
-					currentTime = e.timeStamp; // Only allow if movement < 1 sec
+					currentTime = e.timeStamp;
 
 				e.preventDefault();
 
+				// Only allow if movement < 1 sec and distance is long enough
 				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
 						next = current + 1;
@@ -236,6 +251,9 @@
 				startTime = startX = 0;
 			});
 		}
+
+		// Fire the afterSetup callback
+		defaults.afterSetup.call($slider);
 	};
 
 	$.fn.AnySlider = function (options) {

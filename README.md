@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.4.2
+# jQuery AnySlider 1.4.3
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jonathanwilsson.com/projects/jquery-anyslider/
@@ -22,7 +22,10 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * Touch support.
 
 ## Options
+* afterChange (Default function ()) function A function to call after each slide change.
+* afterSetup (Default function ()) function A function to call after the slider has been setup.
 * animation (Default slide") string Transition, "fade" or "slide".
+* beforeChange (Default function ()) function A function to call before each slide change.
 * bullets (Default true) boolean Whether or not to display navigation bullets.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin.
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
@@ -43,6 +46,14 @@ Minimum required jQuery version is 1.5.0.
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.4.3
+* Fixed an issue where the slider would crash in older versions of jQuery.
+* Fixed an issue where the navigation bullets weren't correctly updated.
+* Added the following callbacks:
+	* beforeChange which triggers before a slide changes.
+	* afterChange which triggers after a slide changes.
+	* afterSetup which triggers after the slider has setup completely.
+
 ### 1.4.2
 * Added fade transition.
 

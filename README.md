@@ -17,7 +17,7 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * No CSS or HTML-structure enforced, you're 100% in charge.
 * Slide anything you want. HTML, images, YouTube clips, you name it!
 * Slide using any element! Mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s (or any other element). AnySlider doesn't care.
-* Small, 1.3 kB minified and gzipped.
+* Small, 1.4 kB minified and gzipped.
 * Supported in all major browsers.
 * Touch support.
 

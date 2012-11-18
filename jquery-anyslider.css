@@ -1,94 +1,107 @@
 /* Bare minimum styles */
-#slider, #slider2 {
-	overflow:auto; /* Not required but recommended for accessibility when JavaScript is turned off */
-	position:relative;
-}
-
-/* Other styles not related to AnySlider */
-body {
-	background:#fff;
-	color:#333;
-	font:12px "Trebuchet MS", sans-serif;
-	margin:0;
-}
-
-section {
-	display:block;
-}
-
-#content {
-	margin:0 auto;
-	position:relative;
-	width:400px;
-}
-
-h1 {
-	font-size:20px;
-	margin:10px 0;
-}
-
-p {
-	margin:10px 0;
-}
-
-ul {
-	margin:0;
-	padding:0;
+.slider {
+	overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
+	position: relative;
 }
 
 /* AnySlider can be styled to your liking. This is just example styles */
-#slider, #slider2 {
-	border:1px dotted #333;
-	height:250px;
-	margin:40px auto;
-	padding:5px;
-	text-align:center;
-	width:400px;
+.slider {
+	border: 1px dotted #333;
+	height: 250px;
+	margin: 40px auto;
+	padding: 5px;
+	text-align: center;
+	width: 100%;
 }
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
 .as-prev-arrow, .as-next-arrow {
-	background:url(img/arrows.png) no-repeat;
-	cursor:pointer;
-	display:block;
-	height:40px;
-	overflow:hidden;
-	position:absolute;
-	text-indent:100%;
-	top:95px;
-	white-space:nowrap;
-	width:40px;
-	z-index:999;
+	background: url(img/arrows.png) no-repeat;
+	cursor: pointer;
+	filter: alpha(opacity=0);
+	height: 40px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	text-indent: 100%;
+	top: 95px;
+	white-space: nowrap;
+	width: 40px;
+	z-index: 999;
 }
 
 .as-prev-arrow {
-	left:0;
+	left: 0;
 }
 
 .as-next-arrow {
-	background-position:-40px 0;
-	right:0;
+	background-position: -40px 0;
+	right: 0;
+}
+
+.slider:hover .as-arrows a {
+	filter: alpha(opacity=1);
+	opacity: 1;
 }
 
 /* The same rules for styling apply here. Style to your liking */
 .as-nav {
-	left:2px;
-	position:absolute;
-	text-align:left;
-	top:2px;
-	width:100%;
-	z-index:9999;
+	bottom: -10px;
+	left: 50%;
+	margin-left: -27px;
+	position: absolute;
+	text-align: left;
+	width: 54px;
+	z-index: 9999;
 }
 
 .as-nav a {
-	background:url(img/bullets.png);
-	height:16px;
-	display:inline-block;
-	overflow:hidden;
-	text-indent:-9999px;
-	width:16px;
+	background: url(img/bullets.png) no-repeat;
+	height: 16px;
+	display: inline-block;
+	margin: 0 1px;
+	overflow: hidden;
+	text-indent: -9999px;
+	width: 16px;
 }
 
 a.as-active, .as-nav a:hover {
-	background-position:0 -16px;
+	background-position: 0 -16px;
+}
+
+/* Other styles not related to AnySlider */
+body {
+	background: #fff;
+	color: #333;
+	font: 12px "Trebuchet MS", sans-serif;
+	margin: 0;
+}
+
+section {
+	display: block;
+}
+
+#content {
+	margin: 0 auto;
+	position: relative;
+	width: 80%;
+}
+
+h1 {
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+p {
+	margin: 10px 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+.slider-wrapper {
+	height: 275px;
+	position: relative;
 }

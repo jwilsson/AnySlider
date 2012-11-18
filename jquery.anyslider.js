@@ -1,85 +1,97 @@
-// jQuery AnySlider 1.4.3 | Copyright 2012 Jonathan Wilsson
+/*! jQuery AnySlider 1.5.0 | Copyright 2012 Jonathan Wilsson */
+
+/* global clearTimeout, document, jQuery, setTimeout, window */
 (function ($) {
-	var Anyslider = function (elem, options) {
-		var $slider = $(elem),
-			$slides = $slider.children(),
-			orgNumSlides = $slides.length,
-			numSlides = $slides.length,
-			width = $slider.width(),
+	'use strict';
+
+	var Anyslider = function (slider, options) {
+		var slides = slider.children(),
+			orgNumSlides = slides.length,
+			numSlides = orgNumSlides,
+			width = slider.width(),
 			next = 0,
 			current = 1,
-			$inner,
-			$arrows,
+			inner,
+			arrows,
 			timer,
+			running = false,
+			i,
+			active,
+			out = '<div class="as-nav">',
+			nav = $(out),
+			startTime,
+			startX,
 			defaults = {
 				afterChange: function () {},
 				afterSetup: function () {},
-				animation: "slide",
+				animation: 'slide',
 				beforeChange: function () {},
 				bullets: true,
-				easing: "swing",
+				easing: 'swing',
 				interval: 5000,
 				keyboardNav: true,
-				nextLabel: "Next slide",
+				nextLabel: 'Next slide',
 				pauseOnHover: true,
-				prevLabel: "Previous slide",
+				prevLabel: 'Previous slide',
+				responsive: true,
 				rtl: false,
 				showControls: true,
-				showOnHover: false,
 				speed: 400,
 				startSlide: 1,
 				touch: true
 			};
 
+		// Animation complete callback
+		function animationCallback() {
+			current = next;
+
+			if (next === 0) {
+				current = orgNumSlides;
+
+				if (defaults.animation !== 'fade') {
+					inner.css('left', -current * width);
+				}
+			} else if (next === numSlides - 1) {
+				current = 1;
+
+				if (defaults.animation !== 'fade') {
+					inner.css('left', -width);
+				}
+			}
+
+			if (defaults.bullets) {
+				slider.find('.as-nav a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
+			}
+
+			running = false;
+
+			defaults.afterChange.call(slider);
+		}
+
 		// The main animation function
 		function run() {
-			if ($slides.is(":animated")) {
+			if (running) {
 				return;
 			}
 
-			defaults.beforeChange.call($slider);
+			running = true;
 
-			if (defaults.animation === "fade") {
-				$slides.fadeOut().eq(next).delay(300).fadeIn(defaults.speed, function () {
-					current = next;
+			defaults.beforeChange.call(slider);
 
-					if (next === 0) {
-						current = orgNumSlides;
-					} else if (next === numSlides - 1) {
-						current = 1;
-					}
-
-					if (defaults.bullets) { // @todo Temporary fix until 1.5
-						$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
-					}
-
-					defaults.afterChange.call($slider);
-				});
+			if (defaults.animation === 'fade') {
+				slides.fadeOut().eq(next).delay(300).fadeIn(defaults.speed, animationCallback);
 			} else {
-				$inner.animate({"left": -next * width}, defaults.speed, defaults.easing, function () {
-					current = next;
-
-					if (next === 0) {
-						current = orgNumSlides;
-						$inner.css("left", -current * width);
-					} else if (next === numSlides - 1) {
-						current = 1;
-						$inner.css("left", -width);
-					}
-
-					if (defaults.bullets) { // @todo Temporary fix until 1.5
-						$slider.find(".as-nav a").removeClass("as-active").filter("[data-num=" + current + "]").addClass("as-active");
-					}
-
-					defaults.afterChange.call($slider);
-				});
+				inner.animate({'left': -next * width}, defaults.speed, defaults.easing, animationCallback);
 			}
 		}
 
 		// Set the autoplay timer
 		function tick() {
 			timer = setTimeout(function () {
-				next = (defaults.rtl ? current - 1 : current + 1);
+				next = current + 1;
+				if (defaults.rtl) {
+					next = current - 1;
+				}
 
 				run();
 
@@ -93,11 +105,11 @@
 		}
 
 		// Setup the slides
-		$slides.eq(0).clone().addClass("clone").appendTo($slider);
-		$slides.eq(numSlides - 1).clone().addClass("clone").prependTo($slider);
+		slides.eq(0).clone().addClass('clone').appendTo(slider);
+		slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
 
-		$slides = $slider.children();
-		numSlides = $slides.length;
+		slides = slider.children();
+		numSlides = slides.length;
 
 		// Set the starting slide
 		if (defaults.startSlide < orgNumSlides) {
@@ -105,84 +117,80 @@
 		}
 
 		// CSS setup
-		$slides.wrapAll('<div class="as-slide-inner"></div>').css("width", width);
-		$inner = $slider.css("overflow", "hidden").find(".as-slide-inner");
+		slides.wrapAll('<div class="as-slide-inner"></div>').css('width', width);
+		inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
-		if (defaults.animation === "fade") {
-			$slides.css({
-				"display": "none",
-				"left": 0,
-				"position": "absolute",
-				"top": 0
+		if (defaults.animation === 'fade') {
+			slides.css({
+				'display': 'none',
+				'left': 0,
+				'position': 'absolute',
+				'top': 0
 			}).eq(current).show();
 
-			$inner.css("width", width);
+			inner.css('width', width);
 		} else {
-			$slides.css({
-				"float": "left",
-				"position": "relative"
+			slides.css({
+				'float': 'left',
+				'position': 'relative'
 			});
 
-			$inner.css({
-				"left": -current * width,
-				"width": numSlides * width
+			inner.css({
+				'left': -current * width,
+				'width': numSlides * width
 			});
 		}
 
-		$inner.css({
-			"float": "left",
-			"position": "relative"
+		inner.css({
+			'float': 'left',
+			'position': 'relative'
 		});
 
 		// Add the arrows
-		$slider.prepend('<a href="#" class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</a>')
-			.append('<a href="#" class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</a>');
+		if (defaults.showControls) {
+			slider.prepend('<a href="#" class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</a>')
+				.append('<a href="#" class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</a>');
 
-		$arrows = $slider.find(".as-prev-arrow, .as-next-arrow");
+			arrows = slider.find('.as-prev-arrow, .as-next-arrow').wrapAll('<div class="as-arrows"></div>');
 
-		// Hide controls
-		if (!defaults.showControls) {
-			$arrows.hide();
-		}
+			// Add event listener for click on previous and next buttons
+			slider.delegate(arrows.selector, 'click', function (e) {
+				e.preventDefault();
 
-		// Show and hide arrows on hover
-		if (defaults.showOnHover && !defaults.showControls) {
-			$slider.mouseenter(function () {
-				$arrows.show();
-			}).mouseleave(function () {
-				$arrows.hide();
+				if (running) {
+					return false;
+				}
+
+				next = current + 1;
+				if (e.target.className === 'as-prev-arrow') {
+					next = current - 1;
+				}
+
+				run();
 			});
 		}
 
-		// Add event listener for click on previous and next buttons
-		$slider.delegate($arrows.selector, "click", function (e) {
-			e.preventDefault();
-
-			if ($(e.target).parent().is(".as-nav")) { // Fix for delegate() firing twice
-				return false;
-			}
-
-			next = (e.target.className === "as-prev-arrow" ? current - 1 : current + 1);
-
-			run();
-		});
-
-		// Add navigation bullets if requested
+		// Add navigation bullets
 		if (defaults.bullets) {
-			var i, active, out = '<div class="as-nav">';
+			slider.after(nav);
 
 			for (i = 1; i <= orgNumSlides; i++) {
-				active = (i === current ? 'class="as-active"' : "");
+				active = '';
+				if (i === current) {
+					active = 'class="as-active"';
+				}
 
-				out += '<a href="#"' + active + 'data-num="' + i + '">' + i + '</a> ';
+				nav.append('<a href="#"' + active + 'data-num="' + i + '">' + i + '</a>');
 			}
 
-			out += '</div>';
-
-			$slider.append(out).delegate(".as-nav a", "click", function (e) {
+			nav.delegate('a', 'click', function (e) {
 				e.preventDefault();
 
-				next = $slider.find(".as-nav a").removeClass("as-active").filter(this).addClass("as-active").data("num");
+				if ($(this).hasClass('as-active') || running) {
+					return false;
+				}
+
+				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').data('num');
 
 				run();
 			});
@@ -198,7 +206,10 @@
 				}
 
 				// See if the left or right arrow is pressed
-				next = (key === 37 ? current - 1 : current + 1);
+				next = current + 1;
+				if (key === 37) {
+					next = current - 1;
+				}
 
 				run();
 			});
@@ -210,32 +221,51 @@
 
 			// See if the user whishes to pause the autoplay on hover
 			if (defaults.pauseOnHover) {
-				$slider.mouseenter(function () {
+				slider.hover(function () {
 					clearTimeout(timer);
-				}).mouseleave(function () {
+				}, function () {
 					tick();
 				});
 			}
 		}
 
+		// Enable responsive support
+		if (defaults.responsive) {
+			$(window).resize(function () {
+				width = slider.width();
+
+				inner.css('width', width);
+				slides.css('width', width);
+
+				if (defaults.animation !== 'fade') {
+					inner.css({
+						'left': -current * width,
+						'width': numSlides * width
+					});
+				}
+			});
+		}
+
 		// Enable swipe support if requested
 		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-		if (defaults.touch && "ontouchstart" in document.documentElement) {
-			var startTime, startX;
-
-			$slider.bind("touchstart", function (e) {
+		if (defaults.touch && 'ontouchstart' in document.documentElement) {
+			slider.bind('touchstart', function (e) {
 				e.preventDefault();
 
 				startTime = e.timeStamp;
 				startX = e.originalEvent.touches[0].pageX;
-			}).bind("touchmove", function (e) {
+			}).bind('touchmove', function (e) {
 				var currentX = e.originalEvent.touches[0].pageX,
-					currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
+					currentDistance = 0,
 					currentTime = e.timeStamp;
 
 				e.preventDefault();
 
-				// Only allow if movement < 1 sec and distance is long enough
+				if (startX !== 0) {
+					currentDistance = Math.abs(currentX - startX);
+				}
+
+				// Only allow if movement < 1 sec and if distance is long enough
 				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
 						next = current + 1;
@@ -247,29 +277,30 @@
 
 					run();
 				}
-			}).bind("touchend", function () {
+			}).bind('touchend', function () {
 				startTime = startX = 0;
 			});
 		}
 
 		// Fire the afterSetup callback
-		defaults.afterSetup.call($slider);
+		defaults.afterSetup.call(slider);
 	};
 
 	$.fn.AnySlider = function (options) {
 		return this.each(function () {
-			var $slider = $(this), anyslider;
+			var slider = $(this),
+				anyslider;
 
 			// Bail if we already have a plugin instance for this element
-			if ($slider.data("anyslider")) {
-				return $slider.data("anyslider");
+			if (slider.data('anyslider')) {
+				return slider.data('anyslider');
 			}
 
 			// Create a new Anyslider object
-			anyslider = new Anyslider(this, options);
+			anyslider = new Anyslider(slider, options);
 
 			// Store the AnySlider object
-			$slider.data("anyslider", anyslider);
+			slider.data('anyslider', anyslider);
 		});
 	};
 }(jQuery));

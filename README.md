@@ -1,22 +1,18 @@
-# jQuery AnySlider 1.4.3
+# jQuery AnySlider 1.5.0
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
-http://jonathanwilsson.com/projects/jquery-anyslider/
+http://jonathanwilsson.com/anyslider/
 
 ## Features
-* Choose the starting slide.
 * Continuous autoplay.
 * Custom easings.
 * Fade or slide transition.
 * Highly customizable appearance and lots of options.
-* i18n possibilities.
-* Initially hide/show controls or on hover.
 * Keyboard navigation.
 * Multiple sliders on one page supported.
 * Navigation bullets.
 * No CSS or HTML-structure enforced, you're 100% in charge.
-* Slide anything you want. HTML, images, YouTube clips, you name it!
-* Slide using any element! Mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s (or any other element). AnySlider doesn't care.
+* Slide any content or using any element. HTML, images and YouTube clips. Or mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s. AnySlider doesn't care.
 * Small, 1.4 kB minified and gzipped.
 * Supported in all major browsers.
 * Touch support.
@@ -26,16 +22,16 @@ http://jonathanwilsson.com/projects/jquery-anyslider/
 * afterSetup (Default function ()) function A function to call after the slider has been setup.
 * animation (Default slide") string Transition, "fade" or "slide".
 * beforeChange (Default function ()) function A function to call before each slide change.
-* bullets (Default true) boolean Whether or not to display navigation bullets.
-* easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin.
+* bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
+* easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
 * keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
 * nextLabel (Default "Next slide") string Label for the next button.
 * pauseOnHover (Default true) boolean Pause the autoplay on hover?
 * prevLabel (Default "Previous slide") string Label for the previous button.
+* responsive (Default true) boolean Whether to enable responsive support.
 * rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
-* showControls (Default true) boolean Initially hide/show controls.
-* showOnHover (Default false) boolean Hide/show controls on hover.
+* showControls (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.
 * speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
 * startSlide (Default 1) int Number of the starting slide. Starting from 1.
 * touch (Default true) boolean Whether to enable the ability to swipe between slides.
@@ -46,6 +42,12 @@ Minimum required jQuery version is 1.5.0.
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.5.0
+* AnySlider is now responsive!
+* The option "showOnHover" has been removed. Arrows are only drawn if "showControls" is true. The ability to show/hide controls is now handled by CSS.
+* The navigation bullets have been moved outside the slider element to allow for better control of the positioning.
+* Other bugfixes, optimizations and improvements.
+
 ### 1.4.3
 * Fixed an issue where the slider would crash in older versions of jQuery.
 * Fixed an issue where the navigation bullets weren't correctly updated.

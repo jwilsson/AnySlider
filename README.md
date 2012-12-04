@@ -3,6 +3,9 @@ AnySlider is a jQuery plugin which allows you to create a slider for any kind of
 
 http://jonathanwilsson.com/anyslider/
 
+## Development
+The current beta/unstable version can be found in the "develop" branch. Not recommended for production sites.
+
 ## Features
 * Continuous autoplay.
 * Custom easings.

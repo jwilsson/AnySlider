@@ -48,24 +48,24 @@
 			if (next === 0) {
 				current = orgNumSlides;
 
-				if (defaults.animation !== 'fade') {
+				if (options.animation !== 'fade') {
 					inner.css('left', -current * width);
 				}
 			} else if (next === numSlides - 1) {
 				current = 1;
 
-				if (defaults.animation !== 'fade') {
+				if (options.animation !== 'fade') {
 					inner.css('left', -width);
 				}
 			}
 
-			if (defaults.bullets) {
+			if (options.bullets) {
 				slider.find('.as-nav a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
 			}
 
 			running = false;
 
-			defaults.afterChange.call(slider);
+			options.afterChange.call(slider);
 		}
 
 		// The main animation function
@@ -76,12 +76,17 @@
 
 			running = true;
 
-			defaults.beforeChange.call(slider);
+			options.beforeChange.call(slider);
 
-			if (defaults.animation === 'fade') {
-				slides.fadeOut().eq(next).delay(300).fadeIn(defaults.speed, animationCallback);
+			if (options.animation === 'fade') {
+				slides.fadeOut().eq(next).delay(300).fadeIn(options.speed, animationCallback);
+			} else if (options.animation === 'fadeSlide') {
+				// Inspired by http://kulthouse.com/
+				slides.fadeTo(options.speed, 0.1);
+				inner.delay(options.speed / 2).animate({'left': -next * width}, options.speed, options.easing, animationCallback);
+				slides.fadeTo(options.speed, 1);
 			} else {
-				inner.animate({'left': -next * width}, defaults.speed, defaults.easing, animationCallback);
+				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}
 		}
 
@@ -89,20 +94,17 @@
 		function tick() {
 			timer = setTimeout(function () {
 				next = current + 1;
-				if (defaults.rtl) {
+				if (options.rtl) {
 					next = current - 1;
 				}
 
 				run();
 
 				tick();
-			}, defaults.interval);
+			}, options.interval);
 		}
 
-		// If the user has supplied options let's merge them with the defaults
-		if (options) {
-			$.extend(defaults, options);
-		}
+		options = $.extend(defaults, options);
 
 		// Setup the slides
 		slides.eq(0).clone().addClass('clone').appendTo(slider);
@@ -112,15 +114,16 @@
 		numSlides = slides.length;
 
 		// Set the starting slide
-		if (defaults.startSlide < orgNumSlides) {
-			current = defaults.startSlide;
+		if (options.startSlide < orgNumSlides) {
+			current = options.startSlide;
 		}
 
 		// CSS setup
 		slides.wrapAll('<div class="as-slide-inner"></div>').css('width', width);
 		inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
-		if (defaults.animation === 'fade') {
+		if (options.animation === 'fade') {
+			// Properties are quoted for consistency since "float" will trigger an error when the script is minified (if unquoted).
 			slides.css({
 				'display': 'none',
 				'left': 0,
@@ -147,13 +150,12 @@
 		});
 
 		// Add the arrows
-		if (defaults.showControls) {
-			slider.prepend('<a href="#" class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</a>')
-				.append('<a href="#" class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</a>');
+		if (options.showControls) {
+			slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
+				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>');
 
 			arrows = slider.find('.as-prev-arrow, .as-next-arrow').wrapAll('<div class="as-arrows"></div>');
 
-			// Add event listener for click on previous and next buttons
 			slider.delegate(arrows.selector, 'click', function (e) {
 				e.preventDefault();
 
@@ -171,7 +173,7 @@
 		}
 
 		// Add navigation bullets
-		if (defaults.bullets) {
+		if (options.bullets) {
 			slider.after(nav);
 
 			for (i = 1; i <= orgNumSlides; i++) {
@@ -197,15 +199,15 @@
 		}
 
 		// Enable keyboard navigation
-		if (defaults.keyboardNav) {
+		if (options.keyboardNav) {
 			$(document).keydown(function (e) {
 				var key = e.keyCode;
 
+				// See if the left or right arrow is pressed
 				if (key !== 37 || key !== 39) {
 					return;
 				}
 
-				// See if the left or right arrow is pressed
 				next = current + 1;
 				if (key === 37) {
 					next = current - 1;
@@ -215,12 +217,11 @@
 			});
 		}
 
-		// See if the user wants autoplay enabled
-		if (defaults.interval && orgNumSlides > 1) {
+		// Enable autoplay 
+		if (options.interval && orgNumSlides > 1) {
 			tick();
 
-			// See if the user whishes to pause the autoplay on hover
-			if (defaults.pauseOnHover) {
+			if (options.pauseOnHover) {
 				slider.hover(function () {
 					clearTimeout(timer);
 				}, function () {
@@ -230,14 +231,14 @@
 		}
 
 		// Enable responsive support
-		if (defaults.responsive) {
+		if (options.responsive) {
 			$(window).resize(function () {
 				width = slider.width();
 
 				inner.css('width', width);
 				slides.css('width', width);
 
-				if (defaults.animation !== 'fade') {
+				if (options.animation !== 'fade') {
 					inner.css({
 						'left': -current * width,
 						'width': numSlides * width
@@ -246,9 +247,9 @@
 			});
 		}
 
-		// Enable swipe support if requested
+		// Enable swipe support
 		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-		if (defaults.touch && 'ontouchstart' in document.documentElement) {
+		if (options.touch && 'ontouchstart' in document.documentElement) {
 			slider.bind('touchstart', function (e) {
 				e.preventDefault();
 
@@ -273,7 +274,8 @@
 						next = current - 1;
 					}
 
-					startTime = startX = 0;
+					startTime = 0;
+					startX = 0;
 
 					run();
 				}
@@ -282,8 +284,7 @@
 			});
 		}
 
-		// Fire the afterSetup callback
-		defaults.afterSetup.call(slider);
+		options.afterSetup.call(slider);
 	};
 
 	$.fn.AnySlider = function (options) {
@@ -296,10 +297,8 @@
 				return slider.data('anyslider');
 			}
 
-			// Create a new Anyslider object
 			anyslider = new Anyslider(slider, options);
 
-			// Store the AnySlider object
 			slider.data('anyslider', anyslider);
 		});
 	};

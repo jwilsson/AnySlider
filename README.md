@@ -20,10 +20,13 @@ http://jonathanwilsson.com/anyslider/
 ## Options
 * afterChange (Default function ()) function A function to call after each slide change.
 * afterSetup (Default function ()) function A function to call after the slider has been setup.
-* animation (Default slide") string Transition, "fade" or "slide".
+* animation (Default slide") string Transition, one of the following:
+	* fade Fades between slides.
+	* fadeSlide Starts by fading out, then slides to the next. Best resluts are achieved with a high speed and a easing like "easeInOutExpo".
+	* slide A sliding aniamtion between slides.
 * beforeChange (Default function ()) function A function to call before each slide change.
 * bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
-* easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
+* easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide" or "fadeSlide".
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
 * keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
 * nextLabel (Default "Next slide") string Label for the next button.

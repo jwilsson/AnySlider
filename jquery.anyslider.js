@@ -13,13 +13,8 @@
 			next = 0,
 			current = 1,
 			inner,
-			arrows,
 			timer,
 			running = false,
-			i,
-			active,
-			out = '<div class="as-nav">',
-			nav = $(out),
 			startTime,
 			startX,
 			defaults = {
@@ -61,7 +56,7 @@
 			}
 
 			if (options.bullets) {
-				slider.find('.as-nav a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
+				slider.next('.as-nav').find('a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
 			}
 
 			running = false;
@@ -151,6 +146,8 @@
 
 		// Add the arrows
 		if (options.showControls) {
+			var arrows;
+
 			slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
 				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>');
 
@@ -164,7 +161,7 @@
 				}
 
 				next = current + 1;
-				if (e.target.className === 'as-prev-arrow') {
+				if ($(this).hasClass('as-prev-arrow')) {
 					next = current - 1;
 				}
 
@@ -174,7 +171,10 @@
 
 		// Add navigation bullets
 		if (options.bullets) {
-			slider.after(nav);
+			var i,
+				active,
+				out = '<div class="as-nav" />',
+				nav = $(out);
 
 			for (i = 1; i <= orgNumSlides; i++) {
 				active = '';
@@ -196,6 +196,8 @@
 
 				run();
 			});
+
+			slider.after(nav);
 		}
 
 		// Enable keyboard navigation

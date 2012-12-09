@@ -1,6 +1,7 @@
-/*! jQuery AnySlider 1.5.0 | Copyright 2012 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.1pre | Copyright 2012 Jonathan Wilsson */
 
-/* global clearTimeout, document, jQuery, setTimeout, window */
+/*jslint plusplus: true, browser: true */
+/*global $, jQuery */
 (function ($) {
 	'use strict';
 
@@ -113,7 +114,6 @@
 		slides = slider.children();
 		numSlides = slides.length;
 
-		// Set the starting slide
 		if (options.startSlide < orgNumSlides) {
 			current = options.startSlide;
 		}
@@ -123,7 +123,7 @@
 		inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
 		if (options.animation === 'fade') {
-			// Properties are quoted for consistency since "float" will trigger an error when the script is minified (if unquoted).
+			// Properties are quoted for consistency since "float" will trigger an error when the script is minified (if unquoted)
 			slides.css({
 				'display': 'none',
 				'left': 0,

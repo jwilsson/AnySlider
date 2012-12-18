@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.0 | Copyright 2012 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.1 | Copyright 2012 Jonathan Wilsson */
 
 /* global clearTimeout, document, jQuery, setTimeout, window */
 (function ($) {
@@ -148,13 +148,15 @@
 
 		// Add the arrows
 		if (defaults.showControls) {
+			var arrowSelector = '.as-prev-arrow, .as-next-arrow';
+
 			slider.prepend('<a href="#" class="as-prev-arrow" title="' + defaults.prevLabel + '">' + defaults.prevLabel + '</a>')
 				.append('<a href="#" class="as-next-arrow" title="' + defaults.nextLabel + '">' + defaults.nextLabel + '</a>');
 
-			arrows = slider.find('.as-prev-arrow, .as-next-arrow').wrapAll('<div class="as-arrows"></div>');
+			arrows = slider.find(arrowSelector).wrapAll('<div class="as-arrows"></div>');
 
 			// Add event listener for click on previous and next buttons
-			slider.delegate(arrows.selector, 'click', function (e) {
+			slider.delegate(arrowSelector, 'click', function (e) {
 				e.preventDefault();
 
 				if (running) {

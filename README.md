@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.5.1pre
+# jQuery AnySlider 1.5.2pre
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jonathanwilsson.com/anyslider/
@@ -45,6 +45,9 @@ Minimum required jQuery version is 1.5.0.
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.5.1
+* Fixed a compatibility issue with jQuery 1.9.
+
 ### 1.5.0
 * AnySlider is now responsive!
 * The option "showOnHover" has been removed. Arrows are only drawn if "showControls" is true. The ability to show/hide controls is now handled by CSS.

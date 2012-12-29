@@ -18,7 +18,7 @@
 			Hover over the box below to show controls for viewing next and previous slides.
 			The keyboard arrows will work aswell.
 		</p>
-		
+
 		<div class="slider-wrapper">
 
 			<div class="slider" id="slider">
@@ -42,9 +42,9 @@
 					<p>
 						Let's throw in a clip from Youtube while we're at it!
 					</p>
-			
+
 					<iframe width="320" height="205" src="http://www.youtube.com/embed/9Q7Vr3yQYWQ" frameborder="0" allowfullscreen></iframe>
-			
+
 				</div>
 
 			</div>
@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="slider-wrapper">
-	
+
 			<div class="slider" id="slider2">
 
 				<div>
@@ -60,7 +60,7 @@
 					Another slider.
 
 				</div>
-				
+
 				<div>
 
 					More <em>content</em> in the second slider.
@@ -70,7 +70,27 @@
 			</div>
 
 		</div>
-	
+
+		<div class="slider-wrapper">
+
+			<div class="slider" id="slider3">
+
+				<div>
+
+					A third slider.
+
+				</div>
+
+				<div>
+
+					Nothing to see here. Move along.
+
+				</div>
+
+			</div>
+
+		</div>
+
 	</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -85,12 +105,19 @@
 			showControls: false,
 			startSlide: 2
 		});
-		
+
 		$('#slider2').AnySlider({
 			easing: 'easeOutBounce',
 			interval: 0,
 			keyboardNav: false,
 			speed: 1500
+		});
+
+		$('#slider3').AnySlider({
+			animation: 'fadeSlide',
+			easing: 'easeInOutExpo',
+			keyboardNav: false,
+			speed: 750
 		});
 	});
 	</script>

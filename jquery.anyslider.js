@@ -1,6 +1,6 @@
-/*! jQuery AnySlider 1.5.1pre | Copyright 2012 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.2pre | Copyright 2012 Jonathan Wilsson */
 
-/*jslint plusplus: true, browser: true */
+/*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
 (function ($) {
 	'use strict';
@@ -15,8 +15,6 @@
 			inner,
 			timer,
 			running = false,
-			startTime,
-			startX,
 			defaults = {
 				afterChange: function () {},
 				afterSetup: function () {},
@@ -114,7 +112,7 @@
 		}
 
 		// CSS setup
-		slides.wrapAll('<div class="as-slide-inner"></div>').css('width', width);
+		slides.wrapAll('<div class="as-slide-inner" />').css('width', width);
 		inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
 		if (options.animation === 'fade') {
@@ -152,7 +150,7 @@
 			slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
 				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>');
 
-			arrows = slider.find(arrowSelector).wrapAll('<div class="as-arrows"></div>');
+			arrows = slider.find(arrowSelector).wrapAll('<div class="as-arrows" />');
 
 			slider.delegate(arrowSelector, 'click', function (e) {
 				e.preventDefault();
@@ -220,7 +218,7 @@
 			});
 		}
 
-		// Enable autoplay 
+		// Enable autoplay
 		if (options.interval && orgNumSlides > 1) {
 			tick();
 
@@ -236,16 +234,18 @@
 		// Enable responsive support
 		if (options.responsive) {
 			$(window).resize(function () {
-				width = slider.width();
+				if (!running) {
+					width = slider.width();
 
-				inner.css('width', width);
-				slides.css('width', width);
+					inner.css('width', width);
+					slides.css('width', width);
 
-				if (options.animation !== 'fade') {
-					inner.css({
-						'left': -current * width,
-						'width': numSlides * width
-					});
+					if (options.animation !== 'fade') {
+						inner.css({
+							'left': -current * width,
+							'width': numSlides * width
+						});
+					}
 				}
 			});
 		}
@@ -253,6 +253,9 @@
 		// Enable swipe support
 		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
 		if (options.touch && 'ontouchstart' in document.documentElement) {
+			var startTime,
+				startX;
+
 			slider.bind('touchstart', function (e) {
 				e.preventDefault();
 

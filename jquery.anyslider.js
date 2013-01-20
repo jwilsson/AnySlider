@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.2pre | Copyright 2012 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.2-beta | Copyright 2012 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */

@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.5.2pre
+# jQuery AnySlider 1.5.2-beta
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jonathanwilsson.com/anyslider/
@@ -45,6 +45,10 @@ Minimum required jQuery version is 1.5.0.
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Changelog
+### 1.5.2
+* Added a new transition named "fadeSlide". This transition starts by fading out and then sliding to the next one.
+*
+
 ### 1.5.1
 * Fixed a compatibility issue with jQuery 1.9.
 

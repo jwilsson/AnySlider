@@ -22,7 +22,6 @@ http://jonathanwilsson.com/anyslider/
 * afterSetup (Default function ()) function A function to call after the slider has been setup.
 * animation (Default slide") string Transition, one of the following:
 	* fade Fades between slides.
-	* fadeSlide Starts by fading out, then slides to the next. Best resluts are achieved with a high speed and a easing like "easeInOutExpo".
 	* slide A sliding aniamtion between slides.
 * beforeChange (Default function ()) function A function to call before each slide change.
 * bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
@@ -46,7 +45,6 @@ Free to use and abuse under the [MIT license](http://www.opensource.org/licenses
 
 ## Changelog
 ### 1.5.2
-* Added a new transition named "fadeSlide". This transition starts by fading out and then sliding to the next one.
 *
 
 ### 1.5.1
@@ -129,4 +127,4 @@ Free to use and abuse under the [MIT license](http://www.opensource.org/licenses
 * Initial release.
 
 ## Copyright
-Copyright 2011-2012 Jonathan Wilsson.
+Copyright 2011-2013 Jonathan Wilsson.

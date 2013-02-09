@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.2-beta | Copyright 2012 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.2-beta | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -74,11 +74,6 @@
 
 			if (options.animation === 'fade') {
 				slides.fadeOut().eq(next).delay(300).fadeIn(options.speed, animationCallback);
-			} else if (options.animation === 'fadeSlide') {
-				// Inspired by http://kulthouse.com/
-				slides.fadeTo(options.speed, 0.1);
-				inner.delay(options.speed / 2).animate({'left': -next * width}, options.speed, options.easing, animationCallback);
-				slides.fadeTo(options.speed, 1);
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}

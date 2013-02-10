@@ -245,8 +245,9 @@
 			});
 		}
 
-		// Enable swipe support
-		// Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		/* Enable swipe support
+		* Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		*/
 		if (options.touch && 'ontouchstart' in document.documentElement) {
 			var startTime,
 				startX;

@@ -96,8 +96,10 @@
 		options = $.extend(defaults, options);
 
 		// Setup the slides
-		slides.eq(0).clone().addClass('clone').appendTo(slider);
-		slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+		if (orgNumSlides > 1) {
+			slides.eq(0).clone().addClass('clone').appendTo(slider);
+			slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+		}
 
 		slides = slider.children();
 		numSlides = slides.length;

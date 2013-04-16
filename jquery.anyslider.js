@@ -21,6 +21,7 @@
 				animation: 'slide',
 				beforeChange: function () {},
 				bullets: true,
+				delay: 300,
 				easing: 'swing',
 				interval: 5000,
 				keyboardNav: true,
@@ -73,7 +74,7 @@
 			options.beforeChange.call(slider);
 
 			if (options.animation === 'fade') {
-				slides.fadeOut().eq(next).delay(300).fadeIn(options.speed, animationCallback);
+				slides.fadeOut().eq(next).delay(options.delay).fadeIn(options.speed, animationCallback);
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}

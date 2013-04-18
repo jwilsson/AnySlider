@@ -60,7 +60,7 @@
 			}
 
 			if (defaults.bullets) {
-				slider.find('.as-nav a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
+				slider.next('.as-nav').find('a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
 			}
 
 			running = false;

@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.5.2-beta
+# jQuery AnySlider 1.5.2
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jonathanwilsson.com/anyslider/
@@ -25,6 +25,7 @@ http://jonathanwilsson.com/anyslider/
 	* slide A sliding aniamtion between slides.
 * beforeChange (Default function ()) function A function to call before each slide change.
 * bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
+* delay (Default 300) integer The delay (in milliseconds) between two fading slides.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide" or "fadeSlide".
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
 * keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.

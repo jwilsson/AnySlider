@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.2-beta | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.2 | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -249,8 +249,8 @@
 		}
 
 		/* Enable swipe support
-		* Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-		*/
+		 * Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		 */
 		if (options.touch && 'ontouchstart' in document.documentElement) {
 			var startTime,
 				startX;

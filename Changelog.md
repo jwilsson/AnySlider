@@ -1,6 +1,8 @@
 ## Changelog
 ### 1.5.2
-*
+* Added a "delay" option to control the delay between fade slides.
+* Fixed a bug where the navigation bullets weren't correctly updated when autoplaying.
+* If there is only one slide in the slider, that slide won't be cloned.
 
 ### 1.5.1
 * Fixed a compatibility issue with jQuery 1.9.

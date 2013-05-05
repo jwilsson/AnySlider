@@ -6,6 +6,8 @@ http://jonathanwilsson.com/anyslider/
 ## Development
 The current beta/unstable version can be found in the "develop" branch. Not recommended for production sites.
 
+Please send all pull requests to the "develop" branch as well.
+
 ## Features
 * Continuous autoplay.
 * Custom easings.

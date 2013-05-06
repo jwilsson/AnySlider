@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.2-beta | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.2 | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -78,20 +78,29 @@
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}
+			
+		        // Run autoplay if allowed
+		        tick();
 		}
 
 		// Set the autoplay timer
 		function tick() {
-			timer = setTimeout(function () {
-				next = current + 1;
-				if (options.rtl) {
-					next = current - 1;
-				}
-
-				run();
-
-				tick();
-			}, options.interval);
+			// Clear timer
+			clearTimeout(timer);
+			
+			// Check if autoplay is enabled
+			if (options.interval && orgNumSlides > 1) {
+			
+			    timer = setTimeout(function () {
+			        next = current + 1;
+			        if (options.rtl) {
+			            next = current - 1;
+			        }
+			        
+			        run();
+			    }, options.interval);
+			    
+			}  
 		}
 
 		options = $.extend(defaults, options);
@@ -145,10 +154,9 @@
 			var arrows,
 				arrowSelector = '.as-prev-arrow, .as-next-arrow';
 
-			slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
-				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>');
-
-			arrows = slider.find(arrowSelector).wrapAll('<div class="as-arrows" />');
+			arrows = slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
+				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>')
+				.find(arrowSelector).wrapAll('<div class="as-arrows" />');
 
 			slider.delegate(arrowSelector, 'click', function (e) {
 				e.preventDefault();
@@ -216,17 +224,14 @@
 			});
 		}
 
-		// Enable autoplay
-		if (options.interval && orgNumSlides > 1) {
-			tick();
-
-			if (options.pauseOnHover) {
-				slider.hover(function () {
-					clearTimeout(timer);
-				}, function () {
-					tick();
-				});
-			}
+		// Run Aoutoplay if enabled
+		tick();
+		if (options.pauseOnHover) {
+		    slider.hover(function () {
+		        clearTimeout(timer);
+		    }, function () {
+		        tick();
+		    });
 		}
 
 		// Enable responsive support
@@ -249,8 +254,8 @@
 		}
 
 		/* Enable swipe support
-		* Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-		*/
+		 * Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		 */
 		if (options.touch && 'ontouchstart' in document.documentElement) {
 			var startTime,
 				startX;
@@ -289,6 +294,56 @@
 			});
 		}
 
+		// Enable swipe support (only for slide animation)
+		if (options.touch && options.animation === 'slide') {
+                        
+			var startX,
+				startLeft = inner.position().left,
+				currentDistance = 0;
+
+			slider.bind('touchstart', function (e) {
+				e.preventDefault();
+                
+                // Clear timer
+                clearTimeout(timer);
+
+				startX = e.originalEvent.touches[0].pageX;
+                startLeft = inner.position().left;
+                
+			}).bind('touchmove', function (e) {
+				var currentX = e.originalEvent.touches[0].pageX,
+					currentTime = e.timeStamp;
+
+				e.preventDefault();
+                
+                // Current X distance with sign
+				currentDistance = currentX - startX;
+                
+                // Follow finger touch
+                if (Math.abs(currentDistance) < 0.9*width) {
+                    inner.animate({'left': startLeft + currentDistance}, 0);
+                }
+                
+			}).bind('touchend', function () {
+                // Swiping to the next slide
+                if (Math.abs(currentDistance) > 0.3*width) {
+					if (currentDistance < 0) { // Swiping to the left, i.e. previous slide
+						next = current + 1;
+					} else if (currentDistance > 0) { // Swiping to the right, i.e. next slide
+						next = current - 1;
+					}
+                    run();
+                }
+                // Cancel and swiping back to the start
+                else {
+                    inner.animate({'left': startLeft}, options.speed, 'linear');
+                    // Run Autoplay if enabled
+                    tick();
+                } 
+                
+			});
+		}
+		
 		options.afterSetup.call(slider);
 	};
 

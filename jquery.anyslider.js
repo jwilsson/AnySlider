@@ -294,6 +294,56 @@
 			});
 		}
 
+		// Enable swipe support (only for slide animation)
+		if (options.touch && options.animation === 'slide') {
+                        
+			var startX,
+				startLeft = inner.position().left,
+				currentDistance = 0;
+
+			slider.bind('touchstart', function (e) {
+				e.preventDefault();
+                
+                // Clear timer
+                clearTimeout(timer);
+
+				startX = e.originalEvent.touches[0].pageX;
+                startLeft = inner.position().left;
+                
+			}).bind('touchmove', function (e) {
+				var currentX = e.originalEvent.touches[0].pageX,
+					currentTime = e.timeStamp;
+
+				e.preventDefault();
+                
+                // Current X distance with sign
+				currentDistance = currentX - startX;
+                
+                // Follow finger touch
+                if (Math.abs(currentDistance) < 0.9*width) {
+                    inner.animate({'left': startLeft + currentDistance}, 0);
+                }
+                
+			}).bind('touchend', function () {
+                // Swiping to the next slide
+                if (Math.abs(currentDistance) > 0.3*width) {
+					if (currentDistance < 0) { // Swiping to the left, i.e. previous slide
+						next = current + 1;
+					} else if (currentDistance > 0) { // Swiping to the right, i.e. next slide
+						next = current - 1;
+					}
+                    run();
+                }
+                // Cancel and swiping back to the start
+                else {
+                    inner.animate({'left': startLeft}, options.speed, 'linear');
+                    // Run Autoplay if enabled
+                    tick();
+                } 
+                
+			});
+		}
+		
 		options.afterSetup.call(slider);
 	};
 

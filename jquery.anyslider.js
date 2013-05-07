@@ -78,29 +78,20 @@
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}
-			
-		        // Run autoplay if allowed
-		        tick();
 		}
 
 		// Set the autoplay timer
 		function tick() {
-			// Clear timer
-			clearTimeout(timer);
-			
-			// Check if autoplay is enabled
-			if (options.interval && orgNumSlides > 1) {
-			
-			    timer = setTimeout(function () {
-			        next = current + 1;
-			        if (options.rtl) {
-			            next = current - 1;
-			        }
-			        
-			        run();
-			    }, options.interval);
-			    
-			}  
+			timer = setTimeout(function () {
+				next = current + 1;
+				if (options.rtl) {
+					next = current - 1;
+				}
+
+				run();
+
+				tick();
+			}, options.interval);
 		}
 
 		options = $.extend(defaults, options);
@@ -224,14 +215,17 @@
 			});
 		}
 
-		// Run Aoutoplay if enabled
-		tick();
-		if (options.pauseOnHover) {
-		    slider.hover(function () {
-		        clearTimeout(timer);
-		    }, function () {
-		        tick();
-		    });
+		// Enable autoplay
+		if (options.interval && orgNumSlides > 1) {
+			tick();
+
+			if (options.pauseOnHover) {
+				slider.hover(function () {
+					clearTimeout(timer);
+				}, function () {
+					tick();
+				});
+			}
 		}
 
 		// Enable responsive support

@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.5.2 | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.5.3-beta | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -78,20 +78,25 @@
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}
+
+			tick();
 		}
 
 		// Set the autoplay timer
 		function tick() {
-			timer = setTimeout(function () {
-				next = current + 1;
-				if (options.rtl) {
-					next = current - 1;
-				}
+			clearTimeout(timer);
 
-				run();
+			// Check if autoplay is enabled
+			if (options.interval && orgNumSlides > 1) {
+				timer = setTimeout(function () {
+					next = current + 1;
+					if (options.rtl) {
+						next = current - 1;
+					}
 
-				tick();
-			}, options.interval);
+					run();
+				}, options.interval);
+			}
 		}
 
 		options = $.extend(defaults, options);
@@ -216,16 +221,14 @@
 		}
 
 		// Enable autoplay
-		if (options.interval && orgNumSlides > 1) {
-			tick();
+		tick();
 
-			if (options.pauseOnHover) {
-				slider.hover(function () {
-					clearTimeout(timer);
-				}, function () {
-					tick();
-				});
-			}
+		if (options.pauseOnHover) {
+			slider.hover(function () {
+				clearTimeout(timer);
+			}, function () {
+				tick();
+			});
 		}
 
 		// Enable responsive support

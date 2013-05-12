@@ -253,17 +253,20 @@
 		/* Enable swipe support
 		 * Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
 		 */
-		if (options.touch && 'ontouchstart' in document.documentElement) {
+		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) {
 			var startTime,
 				startX;
 
-			slider.bind('touchstart', function (e) {
+			slider.bind('touchstart MSPointerDown', function (e) {
+				var originalEvent = e.originalEvent;
+
 				e.preventDefault();
 
 				startTime = e.timeStamp;
-				startX = e.originalEvent.touches[0].pageX;
-			}).bind('touchmove', function (e) {
-				var currentX = e.originalEvent.touches[0].pageX,
+				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
+			}).bind('touchmove MSPointerMove', function (e) {
+				var originalEvent = e.originalEvent,
+					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
 					currentTime = e.timeStamp;
 
@@ -286,7 +289,7 @@
 
 					run();
 				}
-			}).bind('touchend', function () {
+			}).bind('touchend MSPointerUp', function () {
 				startTime = startX = 0;
 			});
 		}

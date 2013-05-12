@@ -1,5 +1,6 @@
 /* Bare minimum styles */
 .slider {
+	-ms-touch-action: none; /*  */
 	overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
 	position: relative;
 }

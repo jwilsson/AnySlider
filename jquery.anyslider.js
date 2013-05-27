@@ -11,7 +11,7 @@
 			numSlides = orgNumSlides,
 			width = slider.width(),
 			next = 0,
-			current = 1,
+			current = 0,
 			inner,
 			timer,
 			running = false,
@@ -105,14 +105,14 @@
 		if (orgNumSlides > 1) {
 			slides.eq(0).clone().addClass('clone').appendTo(slider);
 			slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+
+			if (options.startSlide < orgNumSlides) {
+				current = options.startSlide;
+			}
 		}
 
 		slides = slider.children();
 		numSlides = slides.length;
-
-		if (options.startSlide < orgNumSlides) {
-			current = options.startSlide;
-		}
 
 		// CSS setup
 		slides.wrapAll('<div class="as-slide-inner" />').css('width', width);
@@ -251,7 +251,10 @@
 		}
 
 		/* Enable swipe support
-		 * Credits to http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		 * Resources:
+		 * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+		 * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
+		 * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
 		 */
 		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) {
 			var startTime,

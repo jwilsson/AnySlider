@@ -60,7 +60,7 @@
 
 			running = false;
 
-			options.afterChange.call(slider);
+			options.afterChange.call(slider[0]);
 		}
 
 		// The main animation function
@@ -71,7 +71,7 @@
 
 			running = true;
 
-			options.beforeChange.call(slider);
+			options.beforeChange.call(slider[0]);
 
 			if (options.animation === 'fade') {
 				slides.fadeOut().eq(next).delay(options.delay).fadeIn(options.speed, animationCallback);
@@ -256,7 +256,7 @@
 		 * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
 		 * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
 		 */
-		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) {
+		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {
 			var startTime,
 				startX;
 
@@ -297,7 +297,7 @@
 			});
 		}
 
-		options.afterSetup.call(slider);
+		options.afterSetup.call(slider[0]);
 	};
 
 	$.fn.AnySlider = function (options) {

@@ -1,4 +1,10 @@
 ## Changelog
+### 1.6.0
+* Added touch support for Windows 8.
+* In all callbacks, `this` will now refer to the slider-element instead of the AnySlider-object.
+* Fixed an issue where the autoplay timer wasn't reset. Props [@VitaliiBlagodir](https://github.com/VitaliiBlagodir).
+* Fixed an issue where a single slide wasn't shown.
+
 ### 1.5.2
 * Added a "delay" option to control the delay between fade slides.
 * Fixed a bug where the navigation bullets weren't correctly updated when autoplaying.

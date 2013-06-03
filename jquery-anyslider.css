@@ -1,6 +1,6 @@
 /* Bare minimum styles */
 .slider {
-	-ms-touch-action: none; /*  */
+	-ms-touch-action: none; /* Prevent default touch actions on Windows 8 */
 	overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
 	position: relative;
 }
@@ -28,7 +28,7 @@
 	top: 95px;
 	white-space: nowrap;
 	width: 40px;
-	z-index: 999;
+	z-index: 1;
 }
 
 .as-prev-arrow {
@@ -53,7 +53,7 @@
 	position: absolute;
 	text-align: left;
 	width: 54px;
-	z-index: 9999;
+	z-index: 1;
 }
 
 .as-nav a {
@@ -62,7 +62,8 @@
 	display: inline-block;
 	margin: 0 1px;
 	overflow: hidden;
-	text-indent: -9999px;
+	text-indent: 100%;
+	white-space: nowrap;
 	width: 16px;
 }
 

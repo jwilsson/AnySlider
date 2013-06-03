@@ -17,10 +17,10 @@ Please send all pull requests to the "develop" branch as well.
 * Multiple sliders on one page supported.
 * Navigation bullets.
 * No CSS or HTML-structure enforced, you're 100% in charge.
-* Slide any content or using any element. HTML, images and YouTube clips. Or mix &lt;div&gt;s, &lt;span&gt;s and &lt;section&gt;s. AnySlider doesn't care.
-* Small, 1.4 kB minified and gzipped.
+* Slide any content or using any element. HTML, images and YouTube clips. Or mix &lt;div&gt;s, &lt;span&gt;s, and &lt;section&gt;s. AnySlider doesn't care.
+* Small, 1.5 kB minified and gzipped (3.5 kB minified).
 * Supported in all major browsers.
-* Touch support (Android, iOS, Windows 8/IE10).
+* Touch support (Android, iOS, and Windows 8).
 
 ## Options
 * afterChange (Default function ()) function A function to call after each slide change.

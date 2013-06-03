@@ -1,15 +1,14 @@
 {
 	"name": "anyslider",
-	"version": "1.5.2",
+	"version": "1.6.0",
 	"title": "AnySlider",
 	"author": {
 		"name": "Jonathan Wilsson",
-		"url": "http://jonathanwilsson.com/"
+		"url": "http://jwilsson.com/"
 	},
 	"description": "A highly customizable slider which allows you to slide any kind of content such as HTML, images or YouTube clips.",
 	"keywords": [
 			"slider",
-			"content",
 			"fade",
 			"customizable",
 			"small",
@@ -26,6 +25,6 @@
 		"jquery": ">=1.5.0"
 	},
 	"download": "https://github.com/jwilsson/AnySlider/archive/master.zip",
-	"homepage": "http://jonathanwilsson.com/anyslider/",
+	"homepage": "http://jwilsson.com/anyslider/",
 	"bugs": "https://github.com/jwilsson/AnySlider/issues"
 }

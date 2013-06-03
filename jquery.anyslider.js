@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.6.0-beta | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.6.0 | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -256,18 +256,18 @@
 		 * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
 		 * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
 		 */
-		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) {
+		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {
 			var startTime,
 				startX;
 
-			slider.bind('touchstart MSPointerDown', function (e) {
+			slider.bind('touchstart pointerdown MSPointerDown', function (e) {
 				var originalEvent = e.originalEvent;
 
 				e.preventDefault();
 
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove MSPointerMove', function (e) {
+			}).bind('touchmove pointermove MSPointerMove', function (e) {
 				var originalEvent = e.originalEvent,
 					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
@@ -292,7 +292,7 @@
 
 					run();
 				}
-			}).bind('touchend MSPointerUp', function () {
+			}).bind('touchend pointerup MSPointerUp', function () {
 				startTime = startX = 0;
 			});
 		}

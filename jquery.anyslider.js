@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.6.0 | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.6.1-beta | Copyright 2013 Jonathan Wilsson */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -65,7 +65,7 @@
 
 		// The main animation function
 		function run() {
-			if (running) {
+			if (running || orgNumSlides <= 1) {
 				return;
 			}
 
@@ -146,7 +146,7 @@
 		});
 
 		// Add the arrows
-		if (options.showControls) {
+		if (options.showControls && orgNumSlides > 1) {
 			var arrows,
 				arrowSelector = '.as-prev-arrow, .as-next-arrow';
 

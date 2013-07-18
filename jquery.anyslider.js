@@ -11,7 +11,7 @@
 			numSlides = orgNumSlides,
 			width = slider.width(),
 			next = 0,
-			current = 0,
+			current = 1,
 			inner,
 			timer,
 			running = false,
@@ -65,7 +65,7 @@
 
 		// The main animation function
 		function run() {
-			if (running || orgNumSlides <= 1) {
+			if (running) {
 				return;
 			}
 
@@ -102,17 +102,15 @@
 		options = $.extend(defaults, options);
 
 		// Setup the slides
-		if (orgNumSlides > 1) {
-			slides.eq(0).clone().addClass('clone').appendTo(slider);
-			slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
-
-			if (options.startSlide < orgNumSlides) {
-				current = options.startSlide;
-			}
-		}
+		slides.eq(0).clone().addClass('clone').appendTo(slider);
+		slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
 
 		slides = slider.children();
 		numSlides = slides.length;
+
+		if (options.startSlide < orgNumSlides) {
+			current = options.startSlide;
+		}
 
 		// CSS setup
 		slides.wrapAll('<div class="as-slide-inner" />').css('width', width);

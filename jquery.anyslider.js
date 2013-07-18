@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.6.1-beta | Copyright 2013 Jonathan Wilsson */
+/*! jQuery AnySlider 1.6.1 | Copyright 2013 Jonathan Wilsson and contributors. */
 
 /*jslint plusplus: true, browser: true, vars: true */
 /*global $, jQuery */
@@ -144,7 +144,7 @@
 		});
 
 		// Add the arrows
-		if (options.showControls && orgNumSlides > 1) {
+		if (options.showControls) {
 			var arrows,
 				arrowSelector = '.as-prev-arrow, .as-next-arrow';
 

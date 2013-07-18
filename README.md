@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.6.0-beta
+# jQuery AnySlider 1.6.1
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jwilsson.com/anyslider/
@@ -48,6 +48,3 @@ Minimum required jQuery version is 1.5.0.
 
 ## License
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
-
-## Copyright
-Copyright 2011-2013 Jonathan Wilsson.

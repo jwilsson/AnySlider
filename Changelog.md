@@ -1,4 +1,7 @@
 ## Changelog
+### 1.6.1
+* Slides will always be cloned again, only cloning when there's more than one slide caused too much trouble at this point.
+
 ### 1.6.0
 * Added touch support for Windows 8.
 * In all callbacks, `this` will now refer to the slider-element instead of the AnySlider-object.

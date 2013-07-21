@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.6.1 | Copyright 2013 Jonathan Wilsson and contributors. */
+/*! jQuery AnySlider 1.6.2-beta | Copyright 2013 Jonathan Wilsson and contributors */
 
 (function ($) {
 	'use strict';
@@ -9,7 +9,7 @@
 			numSlides = orgNumSlides,
 			width = slider.width(),
 			next = 0,
-			current = 1,
+			current = 0,
 			inner,
 			timer,
 			running = false,
@@ -63,7 +63,7 @@
 
 		// The main animation function
 		function run() {
-			if (running) {
+			if (running || orgNumSlides <= 1) {
 				return;
 			}
 
@@ -100,15 +100,17 @@
 		options = $.extend(defaults, options);
 
 		// Setup the slides
-		slides.eq(0).clone().addClass('clone').appendTo(slider);
-		slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+		if (orgNumSlides > 1) {
+			slides.eq(0).clone().addClass('clone').appendTo(slider);
+			slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+
+			if (options.startSlide < orgNumSlides) {
+				current = options.startSlide;
+			}
+		}
 
 		slides = slider.children();
 		numSlides = slides.length;
-
-		if (options.startSlide < orgNumSlides) {
-			current = options.startSlide;
-		}
 
 		// CSS setup
 		slides.wrapAll('<div class="as-slide-inner" />').css('width', width);
@@ -142,7 +144,7 @@
 		});
 
 		// Add the arrows
-		if (options.showControls) {
+		if (options.showControls && orgNumSlides > 1) {
 			var arrows,
 				arrowSelector = '.as-prev-arrow, .as-next-arrow';
 
@@ -167,7 +169,7 @@
 		}
 
 		// Add navigation bullets
-		if (options.bullets) {
+		if (options.bullets && orgNumSlides > 1) {
 			var i,
 				active,
 				out = '<div class="as-nav" />',
@@ -203,7 +205,7 @@
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed
-				if (key !== 37 || key !== 39) {
+				if (key !== 37 || key !== 39 || orgNumSlides <= 1) {
 					return;
 				}
 

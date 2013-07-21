@@ -8,8 +8,9 @@ The current beta/unstable version can be found in the "develop" branch. Not reco
 
 Please send all pull requests to the "develop" branch as well.
 
-## Building AnySlider
-To build and automatically minify and run JSHint on the code you'll need the latest Node.js/npm and git. Please refer to their respective home pages for installation instructions.
+### Building AnySlider
+To build and automatically minify and run JSHint on the code you'll need the latest [Node.js/npm](http://nodejs.org/) and [Git](http://git-scm.com/).
+Please refer to their respective home pages for installation instructions.
 
 Then install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) package globally (if not done already):
 
@@ -29,7 +30,7 @@ Now, to get a minified and linted version of AnySlider run:
 grunt
 ```
 
-If all goes well and your code passes the lint a file called jquery.anyslider.min.js will be created.
+If all goes well and your code passes the lint a file called "jquery.anyslider.min.js" will be created in the "dist" directory.
 
 ## Features
 * Continuous autoplay.

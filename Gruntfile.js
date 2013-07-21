@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
 		jshint: {
 			dist: {
-				src: ['jquery.anyslider.js'],
+				src: ['src/jquery.anyslider.js'],
 				options: grunt.file.readJSON('.jshintrc')
 			}
 		},
@@ -16,8 +16,8 @@ module.exports = function(grunt) {
 				banner: '/*! jQuery AnySlider <%= pkg.version %> | Copyright <%= grunt.template.today("yyyy") %> Jonathan Wilsson and contributors. */\n'
 			},
 			build: {
-				src: 'jquery.anyslider.js',
-				dest: 'jquery.anyslider.min.js'
+				src: 'src/jquery.anyslider.js',
+				dest: 'dist/jquery.anyslider.min.js'
 			}
 		}
 	});

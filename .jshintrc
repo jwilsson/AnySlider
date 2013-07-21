@@ -1,0 +1,12 @@
+{
+	"curly": true,
+	"plusplus": false,
+	"quotmark": "single",
+	"strict": true,
+	"trailing": true,
+	"undef": true,
+	"unused": true,
+
+	"browser": true,
+	"jquery": true
+}

@@ -1,0 +1,16 @@
+{
+	"name": "anyslider",
+	"version": "1.6.1",
+	"main": "dist/jquery.anyslider.min.js",
+	"ignore": [
+		".editorconfig",
+		".jshintrc",
+		"demo",
+		"src",
+		"*.json",
+		"*.md"
+	],
+	"dependencies": {
+		"jquery": ">=1.5.0"
+	}
+}

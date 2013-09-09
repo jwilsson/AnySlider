@@ -1,6 +1,6 @@
-/*! jQuery AnySlider 1.6.2-beta | Copyright 2013 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 1.6.2 | Copyright 2013 Jonathan Wilsson and contributors */
 
-(function ($) {
+;(function ($) {
 	'use strict';
 
 	var Anyslider = function (slider, options) {
@@ -156,7 +156,7 @@
 				e.preventDefault();
 
 				if (running) {
-					return false;
+					return;
 				}
 
 				next = current + 1;
@@ -188,7 +188,7 @@
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
-					return false;
+					return;
 				}
 
 				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').data('num');

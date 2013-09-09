@@ -1,4 +1,7 @@
 ## Changelog
+### 1.6.2
+* Fixed various issues regarding the cloning of slides.
+
 ### 1.6.1
 * Slides will always be cloned again, only cloning when there's more than one slide caused too much trouble at this point.
 

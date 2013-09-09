@@ -17,7 +17,7 @@
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
 .as-prev-arrow, .as-next-arrow {
-	background: url(img/arrows.png) no-repeat;
+	background: url(../demo/img/arrows.png) no-repeat;
 	cursor: pointer;
 	filter: alpha(opacity=0);
 	height: 40px;
@@ -57,7 +57,7 @@
 }
 
 .as-nav a {
-	background: url(img/bullets.png) no-repeat;
+	background: url(../demo/img/bullets.png) no-repeat;
 	height: 16px;
 	display: inline-block;
 	margin: 0 1px;

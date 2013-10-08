@@ -261,8 +261,6 @@
 			slider.bind('touchstart pointerdown MSPointerDown', function (e) {
 				var originalEvent = e.originalEvent;
 
-				e.preventDefault();
-
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
 			}).bind('touchmove pointermove MSPointerMove', function (e) {
@@ -271,14 +269,14 @@
 					currentDistance = 0,
 					currentTime = e.timeStamp;
 
-				e.preventDefault();
-
 				if (startX !== 0) {
 					currentDistance = Math.abs(currentX - startX);
 				}
 
 				// Only allow if movement < 1 sec and if distance is long enough
 				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
+					e.preventDefault();
+
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
 						next = current + 1;
 					} else if (currentX > startX) { // Swiping to the right, i.e. next slide

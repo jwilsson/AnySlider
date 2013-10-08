@@ -19,9 +19,9 @@
 .as-prev-arrow, .as-next-arrow {
 	background: url(../demo/img/arrows.png) no-repeat;
 	cursor: pointer;
-	filter: alpha(opacity=0);
+	filter: alpha(opacity=1);
 	height: 40px;
-	opacity: 0;
+	opacity: 1;
 	overflow: hidden;
 	position: absolute;
 	text-indent: 100%;

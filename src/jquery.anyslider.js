@@ -53,7 +53,7 @@
 			}
 
 			if (options.bullets) {
-				slider.next('.as-nav').find('a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
+				slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
 			}
 
 			running = false;
@@ -181,7 +181,7 @@
 					active = 'class="as-active"';
 				}
 
-				nav.append('<a href="#"' + active + 'data-num="' + i + '">' + i + '</a>');
+				nav.append('<a href="#"' + active + '">' + i + '</a>');
 			}
 
 			nav.delegate('a', 'click', function (e) {
@@ -191,7 +191,7 @@
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').data('num');
+				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index();
 
 				run();
 			});

@@ -53,7 +53,7 @@
 			}
 
 			if (options.bullets) {
-				slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
+				slider.next('.as-nav').find('a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
 			}
 
 			running = false;
@@ -152,7 +152,7 @@
 				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>')
 				.find(arrowSelector).wrapAll('<div class="as-arrows" />');
 
-			slider.delegate(arrowSelector, 'click', function (e) {
+			slider.delegate(arrowSelector, 'click.anyslider', function (e) {
 				e.preventDefault();
 
 				if (running) {
@@ -181,17 +181,17 @@
 					active = 'class="as-active"';
 				}
 
-				nav.append('<a href="#"' + active + '">' + i + '</a>');
+				nav.append('<a href="#"' + active + 'data-num="' + i + '">' + i + '</a>');
 			}
 
-			nav.delegate('a', 'click', function (e) {
+			nav.delegate('a', 'click.anyslider', function (e) {
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index();
+				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').data('num');
 
 				run();
 			});
@@ -201,7 +201,7 @@
 
 		// Enable keyboard navigation
 		if (options.keyboardNav) {
-			$(document).keydown(function (e) {
+			$(document).bind('keydown.anyslider', function (e) {
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed
@@ -258,12 +258,12 @@
 			var startTime,
 				startX;
 
-			slider.bind('touchstart pointerdown MSPointerDown', function (e) {
+			slider.bind('touchstart.anyslider pointerdown.anyslider MSPointerDown.anyslider', function (e) {
 				var originalEvent = e.originalEvent;
 
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove pointermove MSPointerMove', function (e) {
+			}).bind('touchmove.anyslider pointermove.anyslider MSPointerMove.anyslider', function (e) {
 				var originalEvent = e.originalEvent,
 					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
@@ -288,7 +288,7 @@
 
 					run();
 				}
-			}).bind('touchend pointerup MSPointerUp', function () {
+			}).bind('touchend.anyslider pointerup.anyslider MSPointerUp.anyslider', function () {
 				startTime = startX = 0;
 			});
 		}

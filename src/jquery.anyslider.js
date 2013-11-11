@@ -279,10 +279,10 @@
 
 				// Only allow if movement < 1 sec and if distance is long enough
 				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
-					if (currentX < startX) { // Swiping to the left, i.e. previous slide
-						next = current + 1;
-					} else if (currentX > startX) { // Swiping to the right, i.e. next slide
+					if (currentX < startX) { // Swiping to the left, i.e. next slide
 						next = current - 1;
+					} else if (currentX > startX) { // Swiping to the right, i.e. previous slide
+						next = current + 1;
 					}
 
 					startTime = 0;

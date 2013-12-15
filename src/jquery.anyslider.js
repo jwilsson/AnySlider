@@ -152,7 +152,7 @@
 				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>')
 				.find(arrowSelector).wrapAll('<div class="as-arrows" />');
 
-			slider.delegate(arrowSelector, 'click.anyslider', function (e) {
+			slider.delegate(arrowSelector, 'click.as', function (e) {
 				e.preventDefault();
 
 				if (running) {
@@ -184,7 +184,7 @@
 				nav.append('<a href="#"' + active + 'data-num="' + i + '">' + i + '</a>');
 			}
 
-			nav.delegate('a', 'click.anyslider', function (e) {
+			nav.delegate('a', 'click.as', function (e) {
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
@@ -201,7 +201,7 @@
 
 		// Enable keyboard navigation
 		if (options.keyboardNav) {
-			$(document).bind('keydown.anyslider', function (e) {
+			$(document).bind('keydown.as', function (e) {
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed

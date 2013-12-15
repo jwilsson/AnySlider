@@ -178,10 +178,10 @@
 			for (i = 1; i <= orgNumSlides; i++) {
 				active = '';
 				if (i === current) {
-					active = 'class="as-active"';
+					active = ' class="as-active"';
 				}
 
-				nav.append('<a href="#"' + active + '">' + i + '</a>');
+				nav.append('<a href="#"' + active + '>' + i + '</a>');
 			}
 
 			nav.delegate('a', 'click.as', function (e) {
@@ -191,7 +191,7 @@
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index();
+				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index() + 1;
 
 				run();
 			});

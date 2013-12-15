@@ -8,7 +8,7 @@
 
 <body>
 
-	<div id="content">
+	<div class="content">
 
 		<h1>jQuery AnySlider</h1>
 
@@ -20,7 +20,7 @@
 
 		<div class="slider-wrapper">
 
-			<div class="slider" id="slider">
+			<div class="slider slider1">
 
 				<span>
 					This is the first slide with some <strong>strong text</strong>.
@@ -52,7 +52,7 @@
 
 		<div class="slider-wrapper">
 
-			<div class="slider" id="slider2">
+			<div class="slider slider2">
 
 				<div>
 
@@ -77,7 +77,7 @@
 	<script src="../src/jquery.anyslider.js"></script>
 	<script>
 	$(function () {
-		$('#slider').AnySlider({
+		$('.slider1').AnySlider({
 			animation: 'fade',
 			interval: 3000,
 			rtl: true,
@@ -85,7 +85,7 @@
 			startSlide: 2
 		});
 
-		$('#slider2').AnySlider({
+		$('.slider2').AnySlider({
 			easing: 'easeOutBounce',
 			interval: 0,
 			keyboardNav: false,

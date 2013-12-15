@@ -291,8 +291,6 @@
 					slider.trigger('touchend');
 				}
 			}).bind('touchend.anyslider pointerup.anyslider MSPointerUp.anyslider', function (e) {
-				e.preventDefault();
-
 				startTime = 0;
 				startX = 0;
 			});

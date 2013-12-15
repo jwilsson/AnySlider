@@ -274,7 +274,7 @@
 				}
 
 				// Only allow if movement < 1 sec and if distance is long enough
-				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
+				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
 					e.preventDefault();
 
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
@@ -287,9 +287,14 @@
 					startX = 0;
 
 					run();
+
+					slider.trigger('touchend');
 				}
-			}).bind('touchend.anyslider pointerup.anyslider MSPointerUp.anyslider', function () {
-				startTime = startX = 0;
+			}).bind('touchend.anyslider pointerup.anyslider MSPointerUp.anyslider', function (e) {
+				e.preventDefault();
+
+				startTime = 0;
+				startX = 0;
 			});
 		}
 

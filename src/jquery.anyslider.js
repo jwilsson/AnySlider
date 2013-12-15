@@ -290,7 +290,7 @@
 
 					slider.trigger('touchend.as');
 				}
-			}).bind('touchend.as pointerup.as MSPointerUp.as', function (e) {
+			}).bind('touchend.as pointerup.as MSPointerUp.as', function () {
 				startTime = 0;
 				startX = 0;
 			});

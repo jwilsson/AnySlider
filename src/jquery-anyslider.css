@@ -20,9 +20,9 @@
 .as-prev-arrow, .as-next-arrow {
 	background: url(../demo/img/arrows.png) no-repeat;
 	cursor: pointer;
-	filter: alpha(opacity=1);
+	filter: alpha(opacity=0);
 	height: 40px;
-	opacity: 1;
+	opacity: 0;
 	overflow: hidden;
 	position: absolute;
 	text-indent: 100%;
@@ -41,17 +41,9 @@
 	right: 0;
 }
 
-/* Android won't swipe when this CSS is present. Could also be used with some JS touch detection. See #5 */
-@media (min-width: 1000px) {
-	.as-prev-arrow, .as-next-arrow {
-		filter: alpha(opacity=0);
-		opacity: 0;
-	}
-
-	.slider:hover .as-arrows a {
-		filter: alpha(opacity=1);
-		opacity: 1;
-	}
+.slider:hover .as-arrows a {
+	filter: alpha(opacity=1);
+	opacity: 1;
 }
 
 /* The same rules for styling apply here. Style to your liking */
@@ -116,4 +108,5 @@ ul {
 .slider-wrapper {
 	height: 275px;
 	position: relative;
+	margin-bottom: 500px;
 }

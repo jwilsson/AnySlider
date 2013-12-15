@@ -258,12 +258,12 @@
 			var startTime,
 				startX;
 
-			slider.bind('touchstart.anyslider pointerdown.anyslider MSPointerDown.anyslider', function (e) {
+			slider.bind('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
 				var originalEvent = e.originalEvent;
 
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove.anyslider pointermove.anyslider MSPointerMove.anyslider', function (e) {
+			}).bind('touchmove.as pointermove.as MSPointerMove.as', function (e) {
 				var originalEvent = e.originalEvent,
 					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
@@ -288,9 +288,9 @@
 
 					run();
 
-					slider.trigger('touchend');
+					slider.trigger('touchend.as');
 				}
-			}).bind('touchend.anyslider pointerup.anyslider MSPointerUp.anyslider', function (e) {
+			}).bind('touchend.as pointerup.as MSPointerUp.as', function (e) {
 				startTime = 0;
 				startX = 0;
 			});

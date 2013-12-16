@@ -288,6 +288,7 @@
 
 					run();
 
+					// Android doesn't always fire touchend
 					slider.trigger('touchend.as');
 				}
 			}).bind('touchend.as pointerup.as MSPointerUp.as', function () {

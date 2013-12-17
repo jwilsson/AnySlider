@@ -145,14 +145,10 @@
 
 		// Add the arrows
 		if (options.showControls && orgNumSlides > 1) {
-			var arrows,
-				arrowSelector = '.as-prev-arrow, .as-next-arrow';
+			slider.prepend('<a href="#" class="as-prev-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.prevLabel));
+			slider.append('<a href="#" class="as-next-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.nextLabel));
 
-			arrows = slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
-				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>')
-				.find(arrowSelector).wrapAll('<div class="as-arrows" />');
-
-			slider.delegate(arrowSelector, 'click.as', function (e) {
+			slider.delegate('.as-prev-arrow, .as-next-arrow', 'click', function (e) {
 				e.preventDefault();
 
 				if (running) {

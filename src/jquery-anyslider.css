@@ -41,7 +41,7 @@
 	right: 0;
 }
 
-.slider:hover .as-arrows a {
+.slider:hover .as-prev-arrow, .slider:hover .as-next-arrow {
 	filter: alpha(opacity=1);
 	opacity: 1;
 }

@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.6.2 | Copyright 2013 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 1.7.0 | Copyright 2013 Jonathan Wilsson and contributors */
 
 ;(function ($) {
 	'use strict';
@@ -53,7 +53,7 @@
 			}
 
 			if (options.bullets) {
-				slider.next('.as-nav').find('a').removeClass('as-active').filter('[data-num=' + current + ']').addClass('as-active');
+				slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
 			}
 
 			running = false;
@@ -145,14 +145,10 @@
 
 		// Add the arrows
 		if (options.showControls && orgNumSlides > 1) {
-			var arrows,
-				arrowSelector = '.as-prev-arrow, .as-next-arrow';
+			slider.prepend('<a href="#" class="as-prev-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.prevLabel));
+			slider.append('<a href="#" class="as-next-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.nextLabel));
 
-			arrows = slider.prepend('<a href="#" class="as-prev-arrow" title="' + options.prevLabel + '">' + options.prevLabel + '</a>')
-				.append('<a href="#" class="as-next-arrow" title="' + options.nextLabel + '">' + options.nextLabel + '</a>')
-				.find(arrowSelector).wrapAll('<div class="as-arrows" />');
-
-			slider.delegate(arrowSelector, 'click', function (e) {
+			slider.delegate('.as-prev-arrow, .as-next-arrow', 'click', function (e) {
 				e.preventDefault();
 
 				if (running) {
@@ -178,20 +174,20 @@
 			for (i = 1; i <= orgNumSlides; i++) {
 				active = '';
 				if (i === current) {
-					active = 'class="as-active"';
+					active = ' class="as-active"';
 				}
 
-				nav.append('<a href="#"' + active + 'data-num="' + i + '">' + i + '</a>');
+				nav.append('<a href="#"' + active + '>' + i + '</a>');
 			}
 
-			nav.delegate('a', 'click', function (e) {
+			nav.delegate('a', 'click.as', function (e) {
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').data('num');
+				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index() + 1;
 
 				run();
 			});
@@ -201,7 +197,7 @@
 
 		// Enable keyboard navigation
 		if (options.keyboardNav) {
-			$(document).keydown(function (e) {
+			$(document).bind('keydown.as', function (e) {
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed
@@ -258,27 +254,25 @@
 			var startTime,
 				startX;
 
-			slider.bind('touchstart pointerdown MSPointerDown', function (e) {
+			slider.bind('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
 				var originalEvent = e.originalEvent;
-
-				e.preventDefault();
 
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove pointermove MSPointerMove', function (e) {
+			}).bind('touchmove.as pointermove.as MSPointerMove.as', function (e) {
 				var originalEvent = e.originalEvent,
 					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
 					currentTime = e.timeStamp;
-
-				e.preventDefault();
 
 				if (startX !== 0) {
 					currentDistance = Math.abs(currentX - startX);
 				}
 
 				// Only allow if movement < 1 sec and if distance is long enough
-				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 50) {
+				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
+					e.preventDefault();
+
 					if (currentX < startX) { // Swiping to the left, i.e. previous slide
 						next = current + 1;
 					} else if (currentX > startX) { // Swiping to the right, i.e. next slide
@@ -289,9 +283,13 @@
 					startX = 0;
 
 					run();
+
+					// Android doesn't always fire touchend
+					slider.trigger('touchend.as');
 				}
-			}).bind('touchend pointerup MSPointerUp', function () {
-				startTime = startX = 0;
+			}).bind('touchend.as pointerup.as MSPointerUp.as', function () {
+				startTime = 0;
+				startX = 0;
 			});
 		}
 

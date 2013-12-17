@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 1.7.0-beta | Copyright 2013 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 1.7.0 | Copyright 2013 Jonathan Wilsson and contributors */
 
 ;(function ($) {
 	'use strict';

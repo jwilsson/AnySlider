@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.7.0-beta
+# jQuery AnySlider 1.7.0
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jwilsson.com/anyslider/

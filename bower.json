@@ -1,6 +1,6 @@
 {
 	"name": "anyslider",
-	"version": "1.6.2",
+	"version": "1.7.0-beta",
 	"main": "dist/jquery.anyslider.min.js",
 	"ignore": [
 		".editorconfig",

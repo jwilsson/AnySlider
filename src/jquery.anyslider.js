@@ -201,7 +201,7 @@
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed
-				if (key !== 37 || key !== 39 || orgNumSlides <= 1) {
+				if (key !== 37 && key !== 39 || orgNumSlides <= 1) {
 					return;
 				}
 

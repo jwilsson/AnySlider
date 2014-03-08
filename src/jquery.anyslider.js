@@ -311,4 +311,4 @@
 			slider.data('anyslider', anyslider);
 		});
 	};
-}(jQuery));
+}(window.jQuery || window.Zepto));

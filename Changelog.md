@@ -1,4 +1,7 @@
 ## Changelog
+### 1.7.1
+* Fixed a bug where the keyboard navigation wouldn't work.
+
 ### 1.7.0
 * It's now possible to scroll while touching the slider.
 * Added namespaces to all events.

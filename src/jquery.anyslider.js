@@ -14,10 +14,10 @@
 			timer,
 			running = false,
 			defaults = {
-				afterChange: $.noop,
-				afterSetup: $.noop,
+				afterChange: function () {},
+				afterSetup: function () {},
 				animation: 'slide',
-				beforeChange: $.noop,
+				beforeChange: function () {},
 				bullets: true,
 				delay: 300,
 				easing: 'swing',

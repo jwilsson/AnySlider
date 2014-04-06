@@ -218,9 +218,9 @@
 		tick();
 
 		if (options.pauseOnHover) {
-			slider.hover(function () {
+			slider.bind('mouseenter', function () {
 				clearTimeout(timer);
-			}, function () {
+			}).bind('mouseleave', function () {
 				tick();
 			});
 		}

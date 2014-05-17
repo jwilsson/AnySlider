@@ -1,6 +1,6 @@
 {
 	"name": "anyslider",
-	"version": "1.7.1",
+	"version": "2.0.0-beta",
 	"main": "dist/jquery.anyslider.min.js",
 	"ignore": [
 		".editorconfig",
@@ -11,6 +11,6 @@
 		"*.md"
 	],
 	"dependencies": {
-		"jquery": ">=1.5.0"
+		"jquery": ">=1.7.0"
 	}
 }

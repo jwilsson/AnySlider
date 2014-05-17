@@ -1,6 +1,6 @@
 {
 	"name": "anyslider",
-	"version": "1.7.1",
+	"version": "2.0.0-beta",
 	"title": "AnySlider",
 	"author": {
 		"name": "Jonathan Wilsson",
@@ -22,7 +22,7 @@
 		}
 	],
 	"dependencies": {
-		"jquery": ">=1.5.0"
+		"jquery": ">=1.7.0"
 	},
 	"download": "https://github.com/jwilsson/AnySlider/archive/master.zip",
 	"homepage": "http://jwilsson.com/anyslider/",

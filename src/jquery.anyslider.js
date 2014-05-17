@@ -18,16 +18,15 @@
 				afterSetup: function () {},
 				animation: 'slide',
 				beforeChange: function () {},
-				bullets: true,
 				delay: 300,
 				easing: 'swing',
 				interval: 5000,
-				keyboardNav: true,
+				keyboard: true,
 				nextLabel: 'Next slide',
 				pauseOnHover: true,
 				prevLabel: 'Previous slide',
-				responsive: true,
-				rtl: false,
+				reverse: false,
+				showBullets: true,
 				showControls: true,
 				speed: 400,
 				startSlide: 1,
@@ -52,7 +51,7 @@
 				}
 			}
 
-			if (options.bullets) {
+			if (options.showBullets) {
 				slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
 			}
 
@@ -88,7 +87,7 @@
 			if (options.interval && orgNumSlides > 1) {
 				timer = setTimeout(function () {
 					next = current + 1;
-					if (options.rtl) {
+					if (options.reverse) {
 						next = current - 1;
 					}
 
@@ -165,7 +164,7 @@
 		}
 
 		// Add navigation bullets
-		if (options.bullets && orgNumSlides > 1) {
+		if (options.showBullets && orgNumSlides > 1) {
 			var i,
 				active,
 				out = '<div class="as-nav" />',
@@ -196,7 +195,7 @@
 		}
 
 		// Enable keyboard navigation
-		if (options.keyboardNav) {
+		if (options.keyboard) {
 			$(document).on('keydown.as', function (e) {
 				var key = e.keyCode;
 
@@ -226,23 +225,21 @@
 		}
 
 		// Enable responsive support
-		if (options.responsive) {
-			$(window).resize(function () {
-				if (!running) {
-					width = slider.width();
+		$(window).resize(function () {
+			if (!running) {
+				width = slider.width();
 
-					inner.css('width', width);
-					slides.css('width', width);
+				inner.css('width', width);
+				slides.css('width', width);
 
-					if (options.animation !== 'fade') {
-						inner.css({
-							'left': -current * width,
-							'width': numSlides * width
-						});
-					}
+				if (options.animation !== 'fade') {
+					inner.css({
+						'left': -current * width,
+						'width': numSlides * width
+					});
 				}
-			});
-		}
+			}
+		});
 
 		/* Enable swipe support
 		 * Resources:

@@ -18,7 +18,6 @@
 				afterSetup: function () {},
 				animation: 'slide',
 				beforeChange: function () {},
-				delay: 300,
 				easing: 'swing',
 				interval: 5000,
 				keyboard: true,
@@ -71,7 +70,7 @@
 			options.beforeChange.call(slider[0]);
 
 			if (options.animation === 'fade') {
-				slides.fadeOut().eq(next).delay(options.delay).fadeIn(options.speed, animationCallback);
+				slides.fadeOut().eq(next).fadeIn(options.speed, animationCallback);
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}

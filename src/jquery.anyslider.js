@@ -148,7 +148,7 @@
 			slider.prepend('<a href="#" class="as-prev-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.prevLabel));
 			slider.append('<a href="#" class="as-next-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.nextLabel));
 
-			slider.delegate('.as-prev-arrow, .as-next-arrow', 'click', function (e) {
+			slider.on('click.as', '.as-prev-arrow, .as-next-arrow', function (e) {
 				e.preventDefault();
 
 				if (running) {
@@ -180,7 +180,7 @@
 				nav.append('<a href="#"' + active + '>' + i + '</a>');
 			}
 
-			nav.delegate('a', 'click.as', function (e) {
+			nav.on('click.as', 'a', function (e) {
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
@@ -197,7 +197,7 @@
 
 		// Enable keyboard navigation
 		if (options.keyboardNav) {
-			$(document).bind('keydown.as', function (e) {
+			$(document).on('keydown.as', function (e) {
 				var key = e.keyCode;
 
 				// See if the left or right arrow is pressed
@@ -218,9 +218,9 @@
 		tick();
 
 		if (options.pauseOnHover) {
-			slider.bind('mouseenter', function () {
+			slider.on('mouseenter', function () {
 				clearTimeout(timer);
-			}).bind('mouseleave', function () {
+			}).on('mouseleave', function () {
 				tick();
 			});
 		}
@@ -254,12 +254,12 @@
 			var startTime,
 				startX;
 
-			slider.bind('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
+			slider.on('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
 				var originalEvent = e.originalEvent;
 
 				startTime = e.timeStamp;
 				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove.as pointermove.as MSPointerMove.as', function (e) {
+			}).on('touchmove.as pointermove.as MSPointerMove.as', function (e) {
 				var originalEvent = e.originalEvent,
 					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
 					currentDistance = 0,
@@ -287,7 +287,7 @@
 					// Android doesn't always fire touchend
 					slider.trigger('touchend.as');
 				}
-			}).bind('touchend.as pointerup.as MSPointerUp.as', function () {
+			}).on('touchend.as pointerup.as MSPointerUp.as', function () {
 				startTime = 0;
 				startX = 0;
 			});

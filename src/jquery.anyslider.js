@@ -3,7 +3,7 @@
 ;(function ($) {
 	'use strict';
 
-	var Anyslider = function (slider, options) {
+	var AnySlider = function (slider, options) {
 		var slides = slider.children(),
 			orgNumSlides = slides.length,
 			numSlides = orgNumSlides,
@@ -292,7 +292,7 @@
 		options.afterSetup.call(slider[0]);
 	};
 
-	$.fn.AnySlider = function (options) {
+	$.fn.anyslider = function (options) {
 		return this.each(function () {
 			var slider = $(this),
 				anyslider;
@@ -302,7 +302,7 @@
 				return slider.data('anyslider');
 			}
 
-			anyslider = new Anyslider(slider, options);
+			anyslider = new AnySlider(slider, options);
 
 			slider.data('anyslider', anyslider);
 		});

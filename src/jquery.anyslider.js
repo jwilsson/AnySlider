@@ -1,6 +1,14 @@
 /*! jQuery AnySlider 2.0.0-beta | Copyright 2014 Jonathan Wilsson and contributors */
 
-;(function ($) {
+;(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        factory(require('jquery'));
+    } else {
+        factory(root.jQuery || root.Zepto);
+    }
+}(this, function($) {
 	'use strict';
 
 	var AnySlider = function (slider, options) {
@@ -307,4 +315,4 @@
 			slider.data('anyslider', anyslider);
 		});
 	};
-}(window.jQuery || window.Zepto));
+}));

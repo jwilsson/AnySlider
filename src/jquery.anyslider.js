@@ -78,7 +78,7 @@
 			options.beforeChange.call(slider[0]);
 
 			if (options.animation === 'fade') {
-				slides.fadeOut().eq(next).fadeIn(options.speed, animationCallback);
+				slides.fadeOut(options.speed).eq(next).fadeIn(options.speed, animationCallback);
 			} else {
 				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
 			}

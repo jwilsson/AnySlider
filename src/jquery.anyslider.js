@@ -187,13 +187,17 @@
 			}
 
 			nav.on('click.as', 'a', function (e) {
+				var index = $(this).index();
+
 				e.preventDefault();
 
 				if ($(this).hasClass('as-active') || running) {
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').eq($(this).index()).addClass('as-active').index() + 1;
+				nav.find('a').removeClass('as-active').eq(index).addClass('as-active');
+
+				next = index + 1;
 
 				run();
 			});

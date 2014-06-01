@@ -193,7 +193,7 @@
 					return;
 				}
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index() + 1;
+				next = nav.find('a').removeClass('as-active').eq($(this).index()).addClass('as-active').index() + 1;
 
 				run();
 			});

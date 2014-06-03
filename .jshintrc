@@ -1,10 +1,10 @@
 {
-	"curly": true,
-	"plusplus": false,
-	"quotmark": "single",
-	"trailing": true,
-	"unused": true,
+    "curly": true,
+    "plusplus": false,
+    "quotmark": "single",
+    "trailing": true,
+    "unused": true,
 
-	"browser": true,
-	"jquery": true
+    "browser": true,
+    "jquery": true
 }

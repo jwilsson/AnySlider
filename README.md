@@ -50,8 +50,8 @@ If all goes well and your code passes the lint a file called "jquery.anyslider.m
 * afterChange (Default function ()) function A function to call after each slide change.
 * afterSetup (Default function ()) function A function to call after the slider has been setup.
 * animation (Default slide") string Transition, one of the following:
-	* fade Fades between slides.
-	* slide A sliding aniamtion between slides.
+    * fade Fades between slides.
+    * slide A sliding aniamtion between slides.
 * beforeChange (Default function ()) function A function to call before each slide change.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.

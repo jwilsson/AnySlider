@@ -37,9 +37,9 @@
 * Fixed an issue where the slider would crash in older versions of jQuery.
 * Fixed an issue where the navigation bullets weren't correctly updated.
 * Added the following callbacks:
-	* beforeChange which triggers before a slide changes.
-	* afterChange which triggers after a slide changes.
-	* afterSetup which triggers after the slider has setup completely.
+    * beforeChange which triggers before a slide changes.
+    * afterChange which triggers after a slide changes.
+    * afterSetup which triggers after the slider has setup completely.
 
 ### 1.4.2
 * Added fade transition.

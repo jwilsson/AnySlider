@@ -294,6 +294,16 @@
 		}
 
 		options.afterSetup.call(slider[0]);
+                
+                return {
+
+			/* public method to jump to a specific slide */
+
+			goto: function (slide) {
+				next = slide;
+				run();
+			}
+                }
 	};
 
 	$.fn.AnySlider = function (options) {

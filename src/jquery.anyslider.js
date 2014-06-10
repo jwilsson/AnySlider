@@ -11,12 +11,12 @@
 }(this, function($) {
     'use strict';
 
-    var AnySlider = function (slider, options) {
+    var AnySlider = (function (slider, options) {
         var slides = slider.children(),
             orgNumSlides = slides.length,
             numSlides = orgNumSlides,
             width = slider.width(),
-            next = 0,
+            nextSlide = 0,
             current = 0,
             inner,
             timer,
@@ -40,17 +40,18 @@
                 touch: true
             };
 
+        // Private methods
         // Animation complete callback
         function animationCallback() {
-            current = next;
+            current = nextSlide;
 
-            if (next === 0) {
+            if (nextSlide === 0) {
                 current = orgNumSlides;
 
                 if (options.animation !== 'fade') {
                     inner.css('left', -current * width);
                 }
-            } else if (next === numSlides - 1) {
+            } else if (nextSlide === numSlides - 1) {
                 current = 1;
 
                 if (options.animation !== 'fade') {
@@ -78,9 +79,9 @@
             options.beforeChange.call(slider[0]);
 
             if (options.animation === 'fade') {
-                slides.fadeOut(options.speed).eq(next).fadeIn(options.speed, animationCallback);
+                slides.fadeOut(options.speed).eq(nextSlide).fadeIn(options.speed, animationCallback);
             } else {
-                inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
+                inner.animate({'left': -nextSlide * width}, options.speed, options.easing, animationCallback);
             }
 
             tick();
@@ -93,12 +94,11 @@
             // Check if autoplay is enabled
             if (options.interval && orgNumSlides > 1) {
                 timer = setTimeout(function () {
-                    next = current + 1;
                     if (options.reverse) {
-                        next = current - 1;
+                        prev();
+                    } else {
+                        next();
                     }
-
-                    run();
                 }, options.interval);
             }
         }
@@ -161,12 +161,11 @@
                     return;
                 }
 
-                next = current + 1;
                 if ($(this).hasClass('as-prev-arrow')) {
-                    next = current - 1;
+                    prev();
+                } else {
+                    next();
                 }
-
-                run();
             });
         }
 
@@ -197,9 +196,7 @@
 
                 nav.find('a').removeClass('as-active').eq(index).addClass('as-active');
 
-                next = index + 1;
-
-                run();
+                goTo(index + 1);
             });
 
             slider.after(nav);
@@ -215,12 +212,11 @@
                     return;
                 }
 
-                next = current + 1;
                 if (key === 37) {
-                    next = current - 1;
+                    prev();
+                } else {
+                    next();
                 }
-
-                run();
             });
         }
 
@@ -229,9 +225,9 @@
 
         if (options.pauseOnHover) {
             slider.on('mouseenter', function () {
-                clearTimeout(timer);
+                pause();
             }).on('mouseleave', function () {
-                tick();
+                play();
             });
         }
 
@@ -281,16 +277,14 @@
                 if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
                     e.preventDefault();
 
-                    if (currentX < startX) { // Swiping to the left, i.e. previous slide
-                        next = current + 1;
-                    } else if (currentX > startX) { // Swiping to the right, i.e. next slide
-                        next = current - 1;
+                    if (currentX < startX) { // Swiping to the left, i.e. next slide
+                        next();
+                    } else if (currentX > startX) { // Swiping to the right, i.e. previous slide
+                        prev();
                     }
 
                     startTime = 0;
                     startX = 0;
-
-                    run();
 
                     // Android doesn't always fire touchend
                     slider.trigger('touchend.as');
@@ -303,15 +297,38 @@
 
         options.afterSetup.call(slider[0]);
 
-        return {
+        // Public methods
+        function goTo(slide) {
+            nextSlide = slide;
+            run();
+        }
 
-            // Public method to jump to a specific slide
-            goTo: function (slide) {
-                next = slide;
-                run();
-            }
+        function next() {
+            nextSlide = current + 1;
+            run();
+        }
+
+        function pause() {
+            clearTimeout(timer);
+        }
+
+        function play() {
+            tick();
+        }
+
+        function prev() {
+            nextSlide = current - 1;
+            run();
+        }
+
+        return {
+            goTo: goTo,
+            next: next,
+            pause: pause,
+            play: play,
+            prev: prev
         };
-    };
+    });
 
     $.fn.anyslider = function (options) {
         return this.each(function () {

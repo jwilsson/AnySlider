@@ -1,9 +1,9 @@
 /* Bare minimum styles */
 .slider {
-    -ms-touch-action: none; /* Prevent default touch actions on Windows 8. Only required for IE10 */
+    -ms-touch-action: pan-y; /* Prevent default touch actions on Windows 8. Only required for IE10 */
     overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
     position: relative;
-    touch-action: none; /* Prevent default touch actions on Windows 8. Supported in IE11+ */
+    touch-action: pan-y; /* Prevent default touch actions on Windows 8. Supported in IE11+ */
 }
 
 /* AnySlider can be styled to your liking. This is just example styles */

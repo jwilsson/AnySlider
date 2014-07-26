@@ -40,69 +40,6 @@
                 touch: true
             };
 
-        // Private methods
-        // Animation complete callback
-        function animationCallback() {
-            current = nextSlide;
-
-            if (nextSlide === 0) {
-                current = orgNumSlides;
-
-                if (options.animation !== 'fade') {
-                    inner.css('left', -current * width);
-                }
-            } else if (nextSlide === numSlides - 1) {
-                current = 1;
-
-                if (options.animation !== 'fade') {
-                    inner.css('left', -width);
-                }
-            }
-
-            if (options.showBullets) {
-                slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
-            }
-
-            running = false;
-
-            options.afterChange.call(slider[0]);
-        }
-
-        // The main animation function
-        function run() {
-            if (running || orgNumSlides <= 1) {
-                return;
-            }
-
-            running = true;
-
-            options.beforeChange.call(slider[0]);
-
-            if (options.animation === 'fade') {
-                slides.css('z-index', 1).fadeOut(options.speed).eq(nextSlide).css('z-index', 2).fadeIn(options.speed, animationCallback);
-            } else {
-                inner.animate({'left': -nextSlide * width}, options.speed, options.easing, animationCallback);
-            }
-
-            tick();
-        }
-
-        // Set the autoplay timer
-        function tick() {
-            clearTimeout(timer);
-
-            // Check if autoplay is enabled
-            if (options.interval && orgNumSlides > 1) {
-                timer = setTimeout(function () {
-                    if (options.reverse) {
-                        prev();
-                    } else {
-                        next();
-                    }
-                }, options.interval);
-            }
-        }
-
         options = $.extend(defaults, options);
 
         // Setup the slides
@@ -119,7 +56,7 @@
         numSlides = slides.length;
 
         // CSS setup
-        slides.wrapAll('<div class="as-slide-inner" />').css('width', width);
+        slides.wrapAll('<div class="as-slide-inner"></div>').css('width', width);
         inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
         if (options.animation === 'fade') {
@@ -173,7 +110,7 @@
         if (options.showBullets && orgNumSlides > 1) {
             var i,
                 active,
-                out = '<div class="as-nav" />',
+                out = '<div class="as-nav"></div>',
                 nav = $(out);
 
             for (i = 1; i <= orgNumSlides; i++) {
@@ -248,7 +185,9 @@
             }
         });
 
-        /* Enable swipe support
+        /**
+         * Enable swipe support
+         *
          * Resources:
          * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
          * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
@@ -297,14 +236,79 @@
 
         options.afterSetup.call(slider[0]);
 
+        // Private methods
+        // Animation complete callback
+        function animationCallback() {
+            current = nextSlide;
+
+            if (nextSlide === 0) {
+                current = orgNumSlides;
+
+                if (options.animation !== 'fade') {
+                    inner.css('left', -current * width);
+                }
+            } else if (nextSlide === numSlides - 1) {
+                current = 1;
+
+                if (options.animation !== 'fade') {
+                    inner.css('left', -width);
+                }
+            }
+
+            if (options.showBullets) {
+                slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
+            }
+
+            running = false;
+
+            options.afterChange.call(slider[0]);
+        }
+
+        // The main animation function
+        function run() {
+            if (running || orgNumSlides <= 1) {
+                return;
+            }
+
+            running = true;
+
+            options.beforeChange.call(slider[0]);
+
+            if (options.animation === 'fade') {
+                slides.css('z-index', 1).fadeOut(options.speed).eq(nextSlide).css('z-index', 2).fadeIn(options.speed, animationCallback);
+            } else {
+                inner.animate({'left': -nextSlide * width}, options.speed, options.easing, animationCallback);
+            }
+
+            tick();
+        }
+
+        // Set the autoplay timer
+        function tick() {
+            clearTimeout(timer);
+
+            // Check if autoplay is enabled
+            if (options.interval && orgNumSlides > 1) {
+                timer = setTimeout(function () {
+                    if (options.reverse) {
+                        prev();
+                    } else {
+                        next();
+                    }
+                }, options.interval);
+            }
+        }
+
         // Public methods
         function goTo(slide) {
             nextSlide = slide;
+
             run();
         }
 
         function next() {
             nextSlide = current + 1;
+
             run();
         }
 
@@ -318,6 +322,7 @@
 
         function prev() {
             nextSlide = current - 1;
+
             run();
         }
 

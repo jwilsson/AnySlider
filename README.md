@@ -66,7 +66,14 @@ If all goes well and your code passes the lint a file called "jquery.anyslider.m
 * startSlide (Default 1) int Number of the starting slide. Starting from 1.
 * touch (Default true) boolean Whether to enable the ability to swipe between slides.
 
-Minimum required jQuery version is 1.7.0.
+Requires jQuery 1.7.0 or later or Zepto 1.1.0 or later.
+The following Zepto moules are required:
+zepto
+data
+event
+fx
+fx_methods
+ie (Optional, if IE10+ support is wanted)
 
 ## License
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).

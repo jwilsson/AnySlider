@@ -255,6 +255,11 @@
                 }
             }
 
+            // Fix for Zepto hiding the slide
+            if (options.animation === 'fade') {
+                slides.eq(current).show();
+            }
+
             if (options.showBullets) {
                 slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
             }

@@ -198,15 +198,23 @@
                 startX;
 
             slider.on('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
-                var originalEvent = e.originalEvent;
-
                 startTime = e.timeStamp;
-                startX = originalEvent.pageX || originalEvent.touches[0].pageX;
+
+                if (e.originalEvent) {
+                    startX = e.originalEvent.pageX || e.originalEvent.touches[0].pageX;
+                } else {
+                    startX = e.pageX || e.touches[0].pageX;
+                }
             }).on('touchmove.as pointermove.as MSPointerMove.as', function (e) {
-                var originalEvent = e.originalEvent,
-                    currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
-                    currentDistance = 0,
-                    currentTime = e.timeStamp;
+                var currentDistance = 0,
+                    currentTime = e.timeStamp,
+                    currentX;
+
+                if (e.originalEvent) {
+                    currentX = e.originalEvent.pageX || e.originalEvent.touches[0].pageX;
+                } else {
+                    currentX = e.pageX || e.touches[0].pageX;
+                }
 
                 if (startX !== 0) {
                     currentDistance = Math.abs(currentX - startX);

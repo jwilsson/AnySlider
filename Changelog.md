@@ -5,15 +5,15 @@
 * Increased minimum required jQuery version to 1.7.0 (was 1.5.0).
 * True crossfade for slides.
 * Added support for AMD.
-* Changed the $.fn namespace name to anyslider (note casing).
+* Changed the $.fn namespace name to `anyslider` (note casing).
 * Changed `touch-action: none;` to `touch-action: pan-y` in the default CSS.
 * Removed the following options:
-    * delay
-    * responsive (AnySlider is now responsive by default)
+    * `delay`
+    * `responsive` (AnySlider is now responsive by default)
 * Renamed the following options:
-    * bullets to showBullets
-    * rtl to reverse
-    * keyboardNav to keyboard
+    * `bullets` to `showBullets`
+    * `rtl` to reverse`
+    * `keyboardNav` to keyboard`
 
 ### 1.7.1
 * Fixed a bug where the keyboard navigation wouldn't work.

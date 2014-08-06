@@ -12,8 +12,8 @@
     * `responsive` (AnySlider is now responsive by default)
 * Renamed the following options:
     * `bullets` to `showBullets`
-    * `rtl` to reverse`
-    * `keyboardNav` to keyboard`
+    * `rtl` to `reverse`
+    * `keyboardNav` to `keyboard`
 
 ### 1.7.1
 * Fixed a bug where the keyboard navigation wouldn't work.

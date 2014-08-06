@@ -6,7 +6,7 @@
 * True crossfade for slides.
 * Added support for AMD.
 * Changed the $.fn namespace name to `anyslider` (note casing).
-* Changed `touch-action: none;` to `touch-action: pan-y` in the default CSS.
+* Changed `touch-action: none;` to `touch-action: pan-y;` in the default CSS.
 * Removed the following options:
     * `delay`
     * `responsive` (AnySlider is now responsive by default)

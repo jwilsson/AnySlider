@@ -1,6 +1,6 @@
 ## Changelog
 ### 2.0.0
-* * AnySlider now features an API. See the docs for more details.
+* AnySlider now features an API. See the docs for more details.
 * Added support for Zepto.js
 * Increased minimum required jQuery version to 1.7.0 (was 1.5.0).
 * True crossfade for slides

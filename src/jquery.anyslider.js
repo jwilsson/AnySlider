@@ -313,6 +313,10 @@
         }
 
         // Public methods
+        function currentSlide() {
+            return current;
+        }
+
         function goTo(slide) {
             nextSlide = slide;
 
@@ -340,6 +344,7 @@
         }
 
         return {
+            currentSlide: currentSlide,
             goTo: goTo,
             next: next,
             pause: pause,

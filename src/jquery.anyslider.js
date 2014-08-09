@@ -157,9 +157,6 @@
             });
         }
 
-        // Enable autoplay
-        tick();
-
         if (options.pauseOnHover) {
             slider.on('mouseenter', function () {
                 pause();
@@ -186,7 +183,7 @@
         });
 
         /**
-         * Enable swipe support
+         * Enable swipe support. (Don't bother if not wanted or supported)
          *
          * Resources:
          * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
@@ -220,7 +217,7 @@
                     currentDistance = Math.abs(currentX - startX);
                 }
 
-                // Only allow if movement < 1 sec and if distance is long enough
+                // Only allow if movement < 1 sec and distance is long enough
                 if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
                     e.preventDefault();
 
@@ -241,6 +238,9 @@
                 startX = 0;
             });
         }
+
+        // Enable autoplay
+        tick();
 
         options.afterSetup.call(slider[0]);
 

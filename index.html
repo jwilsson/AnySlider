@@ -1,137 +1,109 @@
-<!doctype html>
-<html>
-  <head>
+<!doctype HTML>
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Anyslider by jwilsson</title>
+    <title>jQuery Anyslider</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
     <div class="wrapper">
-      <header>
-        <h1>Anyslider</h1>
-        <p>A jQuery plugin which allows you to create a slider for any kind of content. </p>
 
-        <p class="view"><a href="https://github.com/jwilsson/AnySlider">View the Project on GitHub <small>jwilsson/AnySlider</small></a></p>
+        <header>
 
+            <h1>jQuery Anyslider</h1>
 
-        <ul>
-          <li><a href="https://github.com/jwilsson/AnySlider/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jwilsson/AnySlider/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jwilsson/AnySlider">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a name="jquery-anyslider-171" class="anchor" href="#jquery-anyslider-171"><span class="octicon octicon-link"></span></a>jQuery AnySlider 1.7.1</h1>
+            <p>
+                A jQuery plugin which allows you to create a slider for any kind of content.
+            </p>
 
-<p>AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.</p>
+            <p class="view">
+                <a href="https://github.com/jwilsson/AnySlider">View the Project on GitHub</a>
+            </p>
 
-<p><a href="http://jwilsson.com/anyslider/">http://jwilsson.com/anyslider/</a></p>
+            <ul>
+                <li><a href="https://github.com/jwilsson/AnySlider/zipball/master">Download <strong>ZIP File</strong></a></li>
+                <li><a href="https://github.com/jwilsson/AnySlider/tarball/master">Download <strong>TAR Ball</strong></a></li>
+                <li><a href="https://github.com/jwilsson/AnySlider">View On <strong>GitHub</strong></a></li>
+            </ul>
 
-<h2>
-<a name="development" class="anchor" href="#development"><span class="octicon octicon-link"></span></a>Development</h2>
+        </header>
 
-<p>The current beta/unstable version can be found in the "develop" branch. Not recommended for production sites.</p>
+        <section>
 
-<p>Please send all pull requests to the "develop" branch as well.</p>
+            <h2><a id="features" href="#features">Features</a></h2>
 
-<h3>
-<a name="building-anyslider" class="anchor" href="#building-anyslider"><span class="octicon octicon-link"></span></a>Building AnySlider</h3>
+            <ul>
+                <li>Continuous autoplay.</li>
+                <li>Custom easings.</li>
+                <li>Fade or slide transition.</li>
+                <li>Highly customizable appearance and lots of options.</li>
+                <li>Keyboard navigation.</li>
+                <li>Possibility to have multiple sliders on the same page.</li>
+                <li>Navigation bullets.</li>
+                <li>No CSS or HTML-structure enforced, you're 100% in charge.</li>
+                <li>Slide any content or using any element. HTML, images and YouTube clips. Or mix &lt;div&gt;s, &lt;span&gt;s, and &lt;section&gt;s. AnySlider doesn't care.</li>
+                <li>Small, 1.5 kB minified and gzipped (3.5 kB minified).</li>
+                <li>Supported in all major browsers.</li>
+                <li>Touch support (Android, iOS, and Windows 8).</li>
+                <li>Responsive</li>
+            </ul>
 
-<p>To build and automatically minify and run JSHint on the code you'll need the latest <a href="http://nodejs.org/">Node.js/npm</a> and <a href="http://git-scm.com/">Git</a>.
-Please refer to their respective home pages for installation instructions.</p>
+            <h2><a id="options" href="#options">Options</a></h2>
 
-<p>Then install the <a href="http://gruntjs.com/getting-started#installing-the-cli">grunt-cli</a> package globally (if not done already):</p>
+            <ul>
+                <li>afterChange (Default function ()) function A function to call after each slide change.</li>
+                <li>afterSetup (Default function ()) function A function to call after the slider has been setup.</li>
+                <li>animation (Default slide") string Transition, one of the following:
+                    <ul>
+                        <li>fade Fades between slides.</li>
+                        <li>slide A sliding aniamtion between slides.</li>
+                    </ul>
+                </li>
+                <li>beforeChange (Default function ()) function A function to call before each slide change.</li>
+                <li>easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".</li>
+                <li>interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.</li>
+                <li>keyboard (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.</li>
+                <li>nextLabel (Default "Next slide") string Label for the next button.</li>
+                <li>pauseOnHover (Default true) boolean Pause the autoplay on hover?</li>
+                <li>prevLabel (Default "Previous slide") string Label for the previous button.</li>
+                <li>reverse (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.</li>
+                <li>showBullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.</li>
+                <li>showControls (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.</li>
+                <li>speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.</li>
+                <li>startSlide (Default 1) int Number of the starting slide. Starting from 1.</li>
+                <li>touch (Default true) boolean Whether to enable the ability to swipe between slides.</li>
+            </ul>
 
-<div class="highlight highlight-bash"><pre>npm install -g grunt-cli
-</pre></div>
+            <p>Minimum required jQuery version is 1.7.0.</p>
 
-<p>Then install the Node dependencies:</p>
+        </section>
 
-<div class="highlight highlight-bash"><pre><span class="nb">cd </span>AnySlider <span class="o">&amp;&amp;</span> npm install
-</pre></div>
+        <footer>
 
-<p>Now, to get a minified and linted version of AnySlider run:</p>
+            <p>
+                This project is maintained by <a href="https://github.com/jwilsson">jwilsson</a>.
+            </p>
 
-<div class="highlight highlight-bash"><pre>grunt
-</pre></div>
+            <p>
+                <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>.</small>
+            </p>
 
-<p>If all goes well and your code passes the lint a file called "jquery.anyslider.min.js" will be created in the "dist" directory.</p>
+        </footer>
 
-<h2>
-<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
-
-<ul>
-<li>Continuous autoplay.</li>
-<li>Custom easings.</li>
-<li>Fade or slide transition.</li>
-<li>Highly customizable appearance and lots of options.</li>
-<li>Keyboard navigation.</li>
-<li>Multiple sliders on one page supported.</li>
-<li>Navigation bullets.</li>
-<li>No CSS or HTML-structure enforced, you're 100% in charge.</li>
-<li>Slide any content or using any element. HTML, images and YouTube clips. Or mix &lt;div&gt;s, &lt;span&gt;s, and &lt;section&gt;s. AnySlider doesn't care.</li>
-<li>Small, 1.5 kB minified and gzipped (3.5 kB minified).</li>
-<li>Supported in all major browsers.</li>
-<li>Touch support (Android, iOS, and Windows 8).</li>
-</ul><h2>
-<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
-
-<ul>
-<li>afterChange (Default function ()) function A function to call after each slide change.</li>
-<li>afterSetup (Default function ()) function A function to call after the slider has been setup.</li>
-<li>animation (Default slide") string Transition, one of the following:
-
-<ul>
-<li>fade Fades between slides.</li>
-<li>slide A sliding aniamtion between slides.</li>
-</ul>
-</li>
-<li>beforeChange (Default function ()) function A function to call before each slide change.</li>
-<li>bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.</li>
-<li>delay (Default 300) integer The delay (in milliseconds) between two fading slides.</li>
-<li>easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".</li>
-<li>interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.</li>
-<li>keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.</li>
-<li>nextLabel (Default "Next slide") string Label for the next button.</li>
-<li>pauseOnHover (Default true) boolean Pause the autoplay on hover?</li>
-<li>prevLabel (Default "Previous slide") string Label for the previous button.</li>
-<li>responsive (Default true) boolean Whether to enable responsive support.</li>
-<li>rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.</li>
-<li>showControls (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.</li>
-<li>speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.</li>
-<li>startSlide (Default 1) int Number of the starting slide. Starting from 1.</li>
-<li>touch (Default true) boolean Whether to enable the ability to swipe between slides.</li>
-</ul><p>Minimum required jQuery version is 1.5.0.</p>
-
-<h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
-
-<p>Free to use and abuse under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jwilsson">jwilsson</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-78021-13");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
 
-  </body>
-</html>
+    <script>
+    (function(a,b,c,d,e,f){a.GoogleAnalyticsObject=d;a[d]||(a[d]=
+    function(){(a[d].q=a[d].q||[]).push(arguments)});a[d].d=+new Date;
+    e=b.createElement(c);f=b.getElementsByTagName(c)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    f.parentNode.insertBefore(e,f)}(window,document,'script','ga'));
+    ga('create','UA-78021-13');ga('send','pageview');
+    </script>
+
+</body>

@@ -1,0 +1,9 @@
+{
+    "name": "anyslider-page",
+    "version": "2.5.1",
+    "devDependencies": {
+        "gulp": "~3.8.0",
+        "gulp-minify-css": "~0.3.4",
+        "gulp-rev-append": "~0.1.3"
+    }
+}

@@ -26,14 +26,68 @@
             </p>
 
             <ul>
-                <li><a href="https://github.com/jwilsson/AnySlider/zipball/master">Download <strong>ZIP File</strong></a></li>
-                <li><a href="https://github.com/jwilsson/AnySlider/tarball/master">Download <strong>TAR Ball</strong></a></li>
-                <li><a href="https://github.com/jwilsson/AnySlider">View On <strong>GitHub</strong></a></li>
+                <li><a href="https://github.com/jwilsson/AnySlider/zipball/master">Download <b>ZIP File</b></a></li>
+                <li><a href="https://github.com/jwilsson/AnySlider/tarball/master">Download <b>TAR Ball</b></a></li>
+                <li><a href="https://github.com/jwilsson/AnySlider">View On <b>GitHub</b></a></li>
             </ul>
 
         </header>
 
         <section>
+
+            <h2><a id="getting-started" href="#getting-started">Getting started</a></h2>
+
+            <h3>1. Include jQuery and AnySlider</h3>
+
+            <div class="highlight highlight-html">
+
+            <pre>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.anyslider.js"&gt;&lt;/script&gt;</pre>
+
+            </div>
+
+            <h3>2. Add some markup</h3>
+
+            <pre>&lt;div id="slider"&gt;
+
+    &lt;div&gt;
+
+        The first slide.
+
+    &lt;/div&gt;
+
+    &lt;div&gt;
+
+        Another slide.
+
+    &lt;/div&gt;
+
+    &lt;div&gt;
+
+        And so on.
+
+    &lt;/div&gt;
+
+&lt;/div&gt;</pre>
+
+            <h3>3. Initialize Anyslider</h3>
+
+            <pre>// Without any options
+$('.slider').anyslider();
+
+// With options
+$('.slider').anyslider({
+    // Options here
+});</pre>
+
+            <h3>4. Add the four lines of required CSS.</h3>
+
+            <pre>.slider {
+    overflow: auto;
+    position: relative;
+    -ms-touch-action: none;
+    touch-action: none;
+}</pre>
 
             <h2><a id="features" href="#features">Features</a></h2>
 
@@ -51,6 +105,8 @@
                 <li>Supported in all major browsers.</li>
                 <li>Touch support (Android, iOS, and Windows 8).</li>
                 <li>Responsive</li>
+                <li>A simple API.</li>
+                <li>Support for AMD loaders.</li>
             </ul>
 
             <h2><a id="options" href="#options">Options</a></h2>
@@ -79,7 +135,47 @@
                 <li>touch (Default true) boolean Whether to enable the ability to swipe between slides.</li>
             </ul>
 
-            <p>Minimum required jQuery version is 1.7.0.</p>
+            <h2><a id="requirements" href="#requirements"></a></h2>
+
+            <h3>Requirements</h3>
+
+            <ul>
+
+                <li>jQuery 1.7.0 (or later).</li>
+                <li>Or Zepto 1.1.0 (or later) with the following modules:
+                    <ul>
+                        <li>zepto</li>
+                        <li>data</li>
+                        <li>event</li>
+                        <li>fx</li>
+                        <li>fx_methods</li>
+                        <li>ie (Optional, if IE10+ support is wanted)</li>
+                        </ul>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2><a id="api" href="#api">API</a></h2>
+
+            <p>
+                As of 2.0.0 AnySlider features a simple API to interact with the slider.
+            </p>
+
+            <pre>var slider = $('.slider').anyslider();
+var anyslider = slider.data('anyslider');
+
+slider.goTo(3); // Go to slide number 3</pre>
+
+            <h3>Complete list of API methods</h3>
+
+            <ul>
+                <li><code>currentSlide()</code> - Get the number of the current visible slide.</li>
+                <li><code>goTo(slide)</code> - Go to a specific slide.</li>
+                <li><code>next()</code> - Go to the next slide.</li>
+                <li><code>pause()</code> - Stop autoplay.</li>
+                <li><code>play()</code> - Start autoplay.</li>
+                <li><code>prev()</code> - Go to the previous slide.</li>
+            </ul>
 
         </section>
 

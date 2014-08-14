@@ -1,111 +1,111 @@
 /* Bare minimum styles */
 .slider {
-	-ms-touch-action: none; /* Prevent default touch actions on Windows 8. Only required for IE10 */
-	overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
-	position: relative;
-	touch-action: none; /* Prevent default touch actions on Windows 8. Supported in IE11+ */
+    -ms-touch-action: pan-y; /* Prevent default touch actions on Windows 8. Only required for IE10 */
+    overflow: auto; /* Not required but recommended for accessibility when JavaScript is turned off */
+    position: relative;
+    touch-action: pan-y; /* Prevent default touch actions on Windows 8. Supported in IE11+ */
 }
 
 /* AnySlider can be styled to your liking. This is just example styles */
 .slider {
-	border: 1px dotted #333;
-	height: 250px;
-	margin: 40px auto;
-	padding: 5px;
-	text-align: center;
-	width: 100%;
+    border: 1px dotted #333;
+    height: 250px;
+    margin: 40px auto;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
 }
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
 .as-prev-arrow, .as-next-arrow {
-	background: url(../demo/img/arrows.png) no-repeat;
-	cursor: pointer;
-	filter: alpha(opacity=0);
-	height: 40px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	text-indent: 100%;
-	top: 95px;
-	white-space: nowrap;
-	width: 40px;
-	z-index: 1;
+    background: url(../demo/img/arrows.png) no-repeat;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    height: 40px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    text-indent: 100%;
+    top: 95px;
+    white-space: nowrap;
+    width: 40px;
+    z-index: 1;
 }
 
 .as-prev-arrow {
-	left: 0;
+    left: 0;
 }
 
 .as-next-arrow {
-	background-position: -40px 0;
-	right: 0;
+    background-position: -40px 0;
+    right: 0;
 }
 
 .slider:hover .as-prev-arrow, .slider:hover .as-next-arrow {
-	filter: alpha(opacity=1);
-	opacity: 1;
+    filter: alpha(opacity=1);
+    opacity: 1;
 }
 
 /* The same rules for styling apply here. Style to your liking */
 .as-nav {
-	bottom: -10px;
-	left: 50%;
-	margin-left: -27px;
-	position: absolute;
-	text-align: left;
-	width: 54px;
-	z-index: 1;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -27px;
+    position: absolute;
+    text-align: left;
+    width: 54px;
+    z-index: 1;
 }
 
 .as-nav a {
-	background: url(../demo/img/bullets.png) no-repeat;
-	height: 16px;
-	display: inline-block;
-	margin: 0 1px;
-	overflow: hidden;
-	text-indent: 100%;
-	white-space: nowrap;
-	width: 16px;
+    background: url(../demo/img/bullets.png) no-repeat;
+    height: 16px;
+    display: inline-block;
+    margin: 0 1px;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    width: 16px;
 }
 
 a.as-active, .as-nav a:hover {
-	background-position: 0 -16px;
+    background-position: 0 -16px;
 }
 
 /* Other styles not related to AnySlider */
 body {
-	background: #fff;
-	color: #333;
-	font: 12px "Trebuchet MS", sans-serif;
-	margin: 0;
-	padding: 0 0 25px;
+    background: #fff;
+    color: #333;
+    font: 12px "Trebuchet MS", sans-serif;
+    margin: 0;
+    padding: 0 0 25px;
 }
 
 section {
-	display: block;
+    display: block;
 }
 
 .content {
-	margin: 0 auto;
-	position: relative;
-	width: 80%;
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
 }
 
 h1 {
-	font-size: 20px;
-	margin: 10px 0;
+    font-size: 20px;
+    margin: 10px 0;
 }
 
 p {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 ul {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .slider-wrapper {
-	height: 275px;
-	position: relative;
+    height: 275px;
+    position: relative;
 }

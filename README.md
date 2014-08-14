@@ -1,4 +1,4 @@
-# jQuery AnySlider 1.7.1
+# jQuery AnySlider 2.0.0
 AnySlider is a jQuery plugin which allows you to create a slider for any kind of HTML content.
 
 http://jwilsson.com/anyslider/
@@ -50,25 +50,31 @@ If all goes well and your code passes the lint a file called "jquery.anyslider.m
 * afterChange (Default function ()) function A function to call after each slide change.
 * afterSetup (Default function ()) function A function to call after the slider has been setup.
 * animation (Default slide") string Transition, one of the following:
-	* fade Fades between slides.
-	* slide A sliding aniamtion between slides.
+    * fade Fades between slides.
+    * slide A sliding aniamtion between slides.
 * beforeChange (Default function ()) function A function to call before each slide change.
-* bullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
-* delay (Default 300) integer The delay (in milliseconds) between two fading slides.
 * easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
 * interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
-* keyboardNav (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
+* keyboard (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
 * nextLabel (Default "Next slide") string Label for the next button.
 * pauseOnHover (Default true) boolean Pause the autoplay on hover?
 * prevLabel (Default "Previous slide") string Label for the previous button.
-* responsive (Default true) boolean Whether to enable responsive support.
-* rtl (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
+* reverse (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
+* showBullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
 * showControls (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.
 * speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
 * startSlide (Default 1) int Number of the starting slide. Starting from 1.
 * touch (Default true) boolean Whether to enable the ability to swipe between slides.
 
-Minimum required jQuery version is 1.5.0.
+## Requirements
+* jQuery 1.7.0 (or later).
+* Or Zepto 1.1.0 (or later) with the following modules:
+    * zepto
+    * data
+    * event
+    * fx
+    * fx_methods
+    * ie (Optional, if IE10+ support is wanted)
 
 ## License
 Free to use and abuse under the [MIT license](http://www.opensource.org/licenses/mit-license.php).

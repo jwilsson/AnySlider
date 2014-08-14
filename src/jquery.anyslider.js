@@ -1,314 +1,371 @@
-/*! jQuery AnySlider 1.7.1 | Copyright 2014 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 2.0.0 | Copyright 2014 Jonathan Wilsson and contributors */
 
-;(function ($) {
-	'use strict';
+;(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        factory(require('jquery'));
+    } else {
+        factory(root.jQuery || root.Zepto);
+    }
+}(this, function($) {
+    'use strict';
 
-	var Anyslider = function (slider, options) {
-		var slides = slider.children(),
-			orgNumSlides = slides.length,
-			numSlides = orgNumSlides,
-			width = slider.width(),
-			next = 0,
-			current = 0,
-			inner,
-			timer,
-			running = false,
-			defaults = {
-				afterChange: $.noop,
-				afterSetup: $.noop,
-				animation: 'slide',
-				beforeChange: $.noop,
-				bullets: true,
-				delay: 300,
-				easing: 'swing',
-				interval: 5000,
-				keyboardNav: true,
-				nextLabel: 'Next slide',
-				pauseOnHover: true,
-				prevLabel: 'Previous slide',
-				responsive: true,
-				rtl: false,
-				showControls: true,
-				speed: 400,
-				startSlide: 1,
-				touch: true
-			};
+    var AnySlider = (function (slider, options) {
+        var slides = slider.children(),
+            orgNumSlides = slides.length,
+            numSlides = orgNumSlides,
+            width = slider.width(),
+            nextSlide = 0,
+            current = 0,
+            inner,
+            timer,
+            running = false,
+            defaults = {
+                afterChange: function () {},
+                afterSetup: function () {},
+                animation: 'slide',
+                beforeChange: function () {},
+                easing: 'swing',
+                interval: 5000,
+                keyboard: true,
+                nextLabel: 'Next slide',
+                pauseOnHover: true,
+                prevLabel: 'Previous slide',
+                reverse: false,
+                showBullets: true,
+                showControls: true,
+                speed: 400,
+                startSlide: 1,
+                touch: true
+            };
 
-		// Animation complete callback
-		function animationCallback() {
-			current = next;
+        options = $.extend(defaults, options);
 
-			if (next === 0) {
-				current = orgNumSlides;
+        // Setup the slides
+        if (orgNumSlides > 1) {
+            slides.eq(0).clone().addClass('clone').appendTo(slider);
+            slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
 
-				if (options.animation !== 'fade') {
-					inner.css('left', -current * width);
-				}
-			} else if (next === numSlides - 1) {
-				current = 1;
+            if (options.startSlide < orgNumSlides) {
+                current = options.startSlide;
+            }
+        }
 
-				if (options.animation !== 'fade') {
-					inner.css('left', -width);
-				}
-			}
+        slides = slider.children();
+        numSlides = slides.length;
 
-			if (options.bullets) {
-				slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
-			}
+        // CSS setup
+        slides.wrapAll('<div class="as-slide-inner"></div>').css('width', width);
+        inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
 
-			running = false;
+        if (options.animation === 'fade') {
+            // Properties are quoted for consistency since "float" will trigger an error when the script is minified (if unquoted)
+            slides.css({
+                'display': 'none',
+                'left': 0,
+                'position': 'absolute',
+                'top': 0
+            }).eq(current).show();
 
-			options.afterChange.call(slider[0]);
-		}
+            inner.css('width', width);
+        } else {
+            slides.css({
+                'float': 'left',
+                'position': 'relative'
+            });
 
-		// The main animation function
-		function run() {
-			if (running || orgNumSlides <= 1) {
-				return;
-			}
+            inner.css({
+                'left': -current * width,
+                'width': numSlides * width
+            });
+        }
 
-			running = true;
+        inner.css({
+            'float': 'left',
+            'position': 'relative'
+        });
 
-			options.beforeChange.call(slider[0]);
+        // Add the arrows
+        if (options.showControls && orgNumSlides > 1) {
+            slider.prepend('<a href="#" class="as-prev-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.prevLabel));
+            slider.append('<a href="#" class="as-next-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.nextLabel));
 
-			if (options.animation === 'fade') {
-				slides.fadeOut().eq(next).delay(options.delay).fadeIn(options.speed, animationCallback);
-			} else {
-				inner.animate({'left': -next * width}, options.speed, options.easing, animationCallback);
-			}
+            slider.on('click.as', '.as-prev-arrow, .as-next-arrow', function (e) {
+                e.preventDefault();
 
-			tick();
-		}
+                if (running) {
+                    return;
+                }
 
-		// Set the autoplay timer
-		function tick() {
-			clearTimeout(timer);
+                if ($(this).hasClass('as-prev-arrow')) {
+                    prev();
+                } else {
+                    next();
+                }
+            });
+        }
 
-			// Check if autoplay is enabled
-			if (options.interval && orgNumSlides > 1) {
-				timer = setTimeout(function () {
-					next = current + 1;
-					if (options.rtl) {
-						next = current - 1;
-					}
+        // Add navigation bullets
+        if (options.showBullets && orgNumSlides > 1) {
+            var i,
+                active,
+                out = '<div class="as-nav"></div>',
+                nav = $(out);
 
-					run();
-				}, options.interval);
-			}
-		}
+            for (i = 1; i <= orgNumSlides; i++) {
+                active = '';
+                if (i === current) {
+                    active = ' class="as-active"';
+                }
 
-		options = $.extend(defaults, options);
+                nav.append('<a href="#"' + active + '>' + i + '</a>');
+            }
 
-		// Setup the slides
-		if (orgNumSlides > 1) {
-			slides.eq(0).clone().addClass('clone').appendTo(slider);
-			slides.eq(numSlides - 1).clone().addClass('clone').prependTo(slider);
+            nav.on('click.as', 'a', function (e) {
+                var index = $(this).index();
 
-			if (options.startSlide < orgNumSlides) {
-				current = options.startSlide;
-			}
-		}
+                e.preventDefault();
 
-		slides = slider.children();
-		numSlides = slides.length;
+                if ($(this).hasClass('as-active') || running) {
+                    return;
+                }
 
-		// CSS setup
-		slides.wrapAll('<div class="as-slide-inner" />').css('width', width);
-		inner = slider.css('overflow', 'hidden').find('.as-slide-inner');
+                nav.find('a').removeClass('as-active').eq(index).addClass('as-active');
 
-		if (options.animation === 'fade') {
-			// Properties are quoted for consistency since "float" will trigger an error when the script is minified (if unquoted)
-			slides.css({
-				'display': 'none',
-				'left': 0,
-				'position': 'absolute',
-				'top': 0
-			}).eq(current).show();
+                goTo(index + 1);
+            });
 
-			inner.css('width', width);
-		} else {
-			slides.css({
-				'float': 'left',
-				'position': 'relative'
-			});
+            slider.after(nav);
+        }
 
-			inner.css({
-				'left': -current * width,
-				'width': numSlides * width
-			});
-		}
+        // Enable keyboard navigation
+        if (options.keyboard) {
+            $(document).on('keydown.as', function (e) {
+                var key = e.keyCode;
 
-		inner.css({
-			'float': 'left',
-			'position': 'relative'
-		});
+                // See if the left or right arrow is pressed
+                if (key !== 37 && key !== 39 || orgNumSlides <= 1) {
+                    return;
+                }
 
-		// Add the arrows
-		if (options.showControls && orgNumSlides > 1) {
-			slider.prepend('<a href="#" class="as-prev-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.prevLabel));
-			slider.append('<a href="#" class="as-next-arrow" title="LABEL">LABEL</a>'.replace(/LABEL/g, options.nextLabel));
+                if (key === 37) {
+                    prev();
+                } else {
+                    next();
+                }
+            });
+        }
 
-			slider.delegate('.as-prev-arrow, .as-next-arrow', 'click', function (e) {
-				e.preventDefault();
+        if (options.pauseOnHover) {
+            slider.on('mouseenter', function () {
+                pause();
+            }).on('mouseleave', function () {
+                play();
+            });
+        }
 
-				if (running) {
-					return;
-				}
+        // Enable responsive support
+        $(window).resize(function () {
+            if (!running) {
+                width = slider.width();
 
-				next = current + 1;
-				if ($(this).hasClass('as-prev-arrow')) {
-					next = current - 1;
-				}
+                inner.css('width', width);
+                slides.css('width', width);
 
-				run();
-			});
-		}
+                if (options.animation !== 'fade') {
+                    inner.css({
+                        'left': -current * width,
+                        'width': numSlides * width
+                    });
+                }
+            }
+        });
 
-		// Add navigation bullets
-		if (options.bullets && orgNumSlides > 1) {
-			var i,
-				active,
-				out = '<div class="as-nav" />',
-				nav = $(out);
+        /**
+         * Enable swipe support. (Don't bother if not wanted or supported)
+         *
+         * Resources:
+         * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
+         * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
+         * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
+         */
+        if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {
+            var startTime,
+                startX;
 
-			for (i = 1; i <= orgNumSlides; i++) {
-				active = '';
-				if (i === current) {
-					active = ' class="as-active"';
-				}
+            slider.on('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
+                startTime = e.timeStamp;
 
-				nav.append('<a href="#"' + active + '>' + i + '</a>');
-			}
+                if (e.originalEvent) {
+                    startX = e.originalEvent.pageX || e.originalEvent.touches[0].pageX;
+                } else {
+                    startX = e.pageX || e.touches[0].pageX;
+                }
+            }).on('touchmove.as pointermove.as MSPointerMove.as', function (e) {
+                var currentDistance = 0,
+                    currentTime = e.timeStamp,
+                    currentX;
 
-			nav.delegate('a', 'click.as', function (e) {
-				e.preventDefault();
+                if (e.originalEvent) {
+                    currentX = e.originalEvent.pageX || e.originalEvent.touches[0].pageX;
+                } else {
+                    currentX = e.pageX || e.touches[0].pageX;
+                }
 
-				if ($(this).hasClass('as-active') || running) {
-					return;
-				}
+                if (startX !== 0) {
+                    currentDistance = Math.abs(currentX - startX);
+                }
 
-				next = nav.find('a').removeClass('as-active').filter(this).addClass('as-active').index() + 1;
+                // Only allow if movement < 1 sec and distance is long enough
+                if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
+                    e.preventDefault();
 
-				run();
-			});
+                    if (currentX < startX) { // Swiping to the left, i.e. next slide
+                        next();
+                    } else if (currentX > startX) { // Swiping to the right, i.e. previous slide
+                        prev();
+                    }
 
-			slider.after(nav);
-		}
+                    startTime = 0;
+                    startX = 0;
 
-		// Enable keyboard navigation
-		if (options.keyboardNav) {
-			$(document).bind('keydown.as', function (e) {
-				var key = e.keyCode;
+                    // Android doesn't always fire touchend
+                    slider.trigger('touchend.as');
+                }
+            }).on('touchend.as pointerup.as MSPointerUp.as', function () {
+                startTime = 0;
+                startX = 0;
+            });
+        }
 
-				// See if the left or right arrow is pressed
-				if (key !== 37 && key !== 39 || orgNumSlides <= 1) {
-					return;
-				}
+        // Enable autoplay
+        tick();
 
-				next = current + 1;
-				if (key === 37) {
-					next = current - 1;
-				}
+        options.afterSetup.call(slider[0]);
 
-				run();
-			});
-		}
+        // Private methods
+        // Animation complete callback
+        function animationCallback() {
+            current = nextSlide;
 
-		// Enable autoplay
-		tick();
+            if (nextSlide === 0) {
+                current = orgNumSlides;
 
-		if (options.pauseOnHover) {
-			slider.hover(function () {
-				clearTimeout(timer);
-			}, function () {
-				tick();
-			});
-		}
+                if (options.animation !== 'fade') {
+                    inner.css('left', -current * width);
+                }
+            } else if (nextSlide === numSlides - 1) {
+                current = 1;
 
-		// Enable responsive support
-		if (options.responsive) {
-			$(window).resize(function () {
-				if (!running) {
-					width = slider.width();
+                if (options.animation !== 'fade') {
+                    inner.css('left', -width);
+                }
+            }
 
-					inner.css('width', width);
-					slides.css('width', width);
+            // Fix for Zepto hiding the slide
+            if (options.animation === 'fade') {
+                slides.eq(current).show();
+            }
 
-					if (options.animation !== 'fade') {
-						inner.css({
-							'left': -current * width,
-							'width': numSlides * width
-						});
-					}
-				}
-			});
-		}
+            if (options.showBullets) {
+                slider.next('.as-nav').find('a').removeClass('as-active').eq(current - 1).addClass('as-active');
+            }
 
-		/* Enable swipe support
-		 * Resources:
-		 * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-		 * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
-		 * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
-		 */
-		if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {
-			var startTime,
-				startX;
+            running = false;
 
-			slider.bind('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
-				var originalEvent = e.originalEvent;
+            options.afterChange.call(slider[0]);
+        }
 
-				startTime = e.timeStamp;
-				startX = originalEvent.pageX || originalEvent.touches[0].pageX;
-			}).bind('touchmove.as pointermove.as MSPointerMove.as', function (e) {
-				var originalEvent = e.originalEvent,
-					currentX = originalEvent.pageX || originalEvent.touches[0].pageX,
-					currentDistance = 0,
-					currentTime = e.timeStamp;
+        // The main animation function
+        function run() {
+            if (running || orgNumSlides <= 1) {
+                return;
+            }
 
-				if (startX !== 0) {
-					currentDistance = Math.abs(currentX - startX);
-				}
+            running = true;
 
-				// Only allow if movement < 1 sec and if distance is long enough
-				if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
-					e.preventDefault();
+            options.beforeChange.call(slider[0]);
 
-					if (currentX < startX) { // Swiping to the left, i.e. previous slide
-						next = current + 1;
-					} else if (currentX > startX) { // Swiping to the right, i.e. next slide
-						next = current - 1;
-					}
+            if (options.animation === 'fade') {
+                slides.css('z-index', 1).fadeOut(options.speed).eq(nextSlide).css('z-index', 2).fadeIn(options.speed, animationCallback);
+            } else {
+                inner.animate({'left': -nextSlide * width}, options.speed, options.easing, animationCallback);
+            }
 
-					startTime = 0;
-					startX = 0;
+            tick();
+        }
 
-					run();
+        // Set the autoplay timer
+        function tick() {
+            clearTimeout(timer);
 
-					// Android doesn't always fire touchend
-					slider.trigger('touchend.as');
-				}
-			}).bind('touchend.as pointerup.as MSPointerUp.as', function () {
-				startTime = 0;
-				startX = 0;
-			});
-		}
+            // Check if autoplay is enabled
+            if (options.interval && orgNumSlides > 1) {
+                timer = setTimeout(function () {
+                    if (options.reverse) {
+                        prev();
+                    } else {
+                        next();
+                    }
+                }, options.interval);
+            }
+        }
 
-		options.afterSetup.call(slider[0]);
-	};
+        // Public methods
+        function currentSlide() {
+            return current;
+        }
 
-	$.fn.AnySlider = function (options) {
-		return this.each(function () {
-			var slider = $(this),
-				anyslider;
+        function goTo(slide) {
+            nextSlide = slide;
 
-			// Bail if we already have a plugin instance for this element
-			if (slider.data('anyslider')) {
-				return slider.data('anyslider');
-			}
+            run();
+        }
 
-			anyslider = new Anyslider(slider, options);
+        function next() {
+            nextSlide = current + 1;
 
-			slider.data('anyslider', anyslider);
-		});
-	};
-}(jQuery));
+            run();
+        }
+
+        function pause() {
+            clearTimeout(timer);
+        }
+
+        function play() {
+            tick();
+        }
+
+        function prev() {
+            nextSlide = current - 1;
+
+            run();
+        }
+
+        return {
+            currentSlide: currentSlide,
+            goTo: goTo,
+            next: next,
+            pause: pause,
+            play: play,
+            prev: prev
+        };
+    });
+
+    $.fn.anyslider = function (options) {
+        return this.each(function () {
+            var slider = $(this),
+                anyslider;
+
+            // Bail if we already have a plugin instance for this element
+            if (slider.data('anyslider')) {
+                return slider.data('anyslider');
+            }
+
+            anyslider = new AnySlider(slider, options);
+
+            slider.data('anyslider', anyslider);
+        });
+    };
+}));

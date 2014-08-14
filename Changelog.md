@@ -1,4 +1,20 @@
 ## Changelog
+### 2.0.0
+* AnySlider now features an API. See the docs for more details.
+* Added support for Zepto.js.
+* Increased minimum required jQuery version to 1.7.0 (was 1.5.0).
+* True crossfade for slides.
+* Added support for AMD.
+* Changed the $.fn namespace name to `anyslider` (note casing).
+* Changed `touch-action: none;` to `touch-action: pan-y;` in the default CSS.
+* Removed the following options:
+    * `delay`
+    * `responsive` (AnySlider is now responsive by default)
+* Renamed the following options:
+    * `bullets` to `showBullets`
+    * `rtl` to `reverse`
+    * `keyboardNav` to `keyboard`
+
 ### 1.7.1
 * Fixed a bug where the keyboard navigation wouldn't work.
 
@@ -37,9 +53,9 @@
 * Fixed an issue where the slider would crash in older versions of jQuery.
 * Fixed an issue where the navigation bullets weren't correctly updated.
 * Added the following callbacks:
-	* beforeChange which triggers before a slide changes.
-	* afterChange which triggers after a slide changes.
-	* afterSetup which triggers after the slider has setup completely.
+    * beforeChange which triggers before a slide changes.
+    * afterChange which triggers after a slide changes.
+    * afterSetup which triggers after the slider has setup completely.
 
 ### 1.4.2
 * Added fade transition.

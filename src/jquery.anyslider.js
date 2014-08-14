@@ -1,4 +1,4 @@
-/*! jQuery AnySlider 2.0.0-beta | Copyright 2014 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 2.0.0 | Copyright 2014 Jonathan Wilsson and contributors */
 
 ;(function(root, factory) {
     if (typeof define === 'function' && define.amd) {

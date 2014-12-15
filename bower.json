@@ -3,12 +3,11 @@
     "version": "2.0.0",
     "main": "dist/jquery.anyslider.min.js",
     "ignore": [
-        ".editorconfig",
-        ".jshintrc",
-        "demo",
-        "src",
+        "**/.*",
         "*.json",
-        "*.md"
+        "*.md",
+        "demo",
+        "src"
     ],
     "dependencies": {
         "jquery": ">=1.7.0"

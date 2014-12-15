@@ -1,4 +1,7 @@
 ## Changelog
+### 2.0.1
+* Version bump for npm after bower.json update.
+
 ### 2.0.0
 * AnySlider now features an API. See the docs for more details.
 * Added support for Zepto.js.

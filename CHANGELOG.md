@@ -1,4 +1,7 @@
 ## Changelog
+### 2.0.2 (2014-12-18)
+* Another version bump for npm after bower.json update.
+
 ### 2.0.1 (2014-12-15)
 * Version bump for npm after bower.json update.
 

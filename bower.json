@@ -1,7 +1,7 @@
 {
     "name": "anyslider",
     "version": "2.0.1",
-    "main": "dist/jquery.anyslider.min.js",
+    "main": "dist/jquery.anyslider.js",
     "ignore": [
         "**/.*",
         "*.json",

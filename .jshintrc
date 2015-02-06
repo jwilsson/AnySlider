@@ -1,10 +1,8 @@
 {
-    "curly": true,
-    "plusplus": false,
-    "quotmark": "single",
-    "trailing": true,
-    "unused": true,
-
-    "browser": true,
-    "jquery": true
+    "camelcase": true,
+    "immed": true,
+    "jquery": true,
+    "latedef": true,
+    "newcap": true,
+    "quotmark": "single"
 }

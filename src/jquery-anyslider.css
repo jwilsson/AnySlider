@@ -17,7 +17,8 @@
 }
 
 /* The arrows can of course also be styled to your liking. This is just example styles */
-.as-prev-arrow, .as-next-arrow {
+.as-prev-arrow,
+.as-next-arrow {
     background: url(../demo/img/arrows.png) no-repeat;
     cursor: pointer;
     filter: alpha(opacity=0);
@@ -41,7 +42,8 @@
     right: 0;
 }
 
-.slider:hover .as-prev-arrow, .slider:hover .as-next-arrow {
+.slider:hover .as-prev-arrow,
+.slider:hover .as-next-arrow {
     filter: alpha(opacity=1);
     opacity: 1;
 }
@@ -68,17 +70,18 @@
     width: 16px;
 }
 
-a.as-active, .as-nav a:hover {
+.as-active,
+.as-nav a:hover {
     background-position: 0 -16px;
 }
 
 /* Other styles not related to AnySlider */
 body {
-    background: #fff;
+    background-color: #fff;
     color: #333;
     font: 12px "Trebuchet MS", sans-serif;
     margin: 0;
-    padding: 0 0 25px;
+    padding-bottom: 25px;
 }
 
 section {

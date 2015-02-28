@@ -1,10 +1,36 @@
 {
-  "name": "anyslider",
-  "version": "2.0.2",
-  "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-copy": "~0.7.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "~0.7.0"
-  }
+    "name": "anyslider",
+    "version": "2.0.2",
+    "description": "A highly customizable jQuery/Zepto.js slider which allows you to slide any kind of content such as HTML, images or YouTube clips.",
+    "author": {
+        "name": "Jonathan Wilsson",
+        "email": "jonathan.wilsson@gmail.com"
+    },
+    "keywords": [
+        "customizable",
+        "ecosystem:jquery",
+        "fade",
+        "jquery-plugin",
+        "slider",
+        "touch",
+        "zepto"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jwilsson/AnySlider"
+    },
+    "dependencies": {
+        "jquery": ">=1.7.0"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-contrib-copy": "^0.8.0",
+        "grunt-contrib-jshint": "^0.11.0",
+        "grunt-contrib-uglify": "^0.8.0"
+    },
+    "bugs": {
+        "url": "https://github.com/jwilsson/AnySlider/issues"
+    },
+    "homepage": "http://jwilsson.github.io/AnySlider/",
+    "license": "MIT"
 }

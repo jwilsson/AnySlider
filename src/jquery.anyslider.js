@@ -11,7 +11,7 @@
 }(this, function($) {
     'use strict';
 
-    var AnySlider = (function (slider, options) {
+    var AnySlider = function (slider, options) {
         var slides = slider.children(),
             orgNumSlides = slides.length,
             numSlides = orgNumSlides,
@@ -351,7 +351,7 @@
             play: play,
             prev: prev
         };
-    });
+    };
 
     $.fn.anyslider = function (options) {
         return this.each(function () {

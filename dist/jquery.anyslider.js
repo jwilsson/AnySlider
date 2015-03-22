@@ -1,14 +1,16 @@
-/*! jQuery AnySlider 2.0.2 | Copyright 2014 Jonathan Wilsson and contributors */
+/*! jQuery AnySlider 2.1.0-beta | Copyright 2014 Jonathan Wilsson and contributors */
 
 ;(function(root, factory) {
     if (typeof define === 'function' && define.amd) {
+        // AMD
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
-        factory(require('jquery'));
+        // CommonJS
+        factory(require('jquery'), window, document);
     } else {
-        factory(root.jQuery || root.Zepto);
+        factory(root.jQuery || root.Zepto, window, document);
     }
-}(this, function($) {
+}(this, function($, window, document) {
     'use strict';
 
     var AnySlider = function (slider, options) {

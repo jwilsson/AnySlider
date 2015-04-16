@@ -46,24 +46,24 @@ If all goes well and your code passes the lint a file called "jquery.anyslider.m
 * Touch support (Android, iOS, and Windows 8).
 
 ## Options
-* afterChange (Default function ()) function A function to call after each slide change.
-* afterSetup (Default function ()) function A function to call after the slider has been setup.
-* animation (Default slide") string Transition, one of the following:
-    * fade Fades between slides.
-    * slide A sliding aniamtion between slides.
-* beforeChange (Default function ()) function A function to call before each slide change.
-* easing (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
-* interval (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
-* keyboard (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
-* nextLabel (Default "Next slide") string Label for the next button.
-* pauseOnHover (Default true) boolean Pause the autoplay on hover?
-* prevLabel (Default "Previous slide") string Label for the previous button.
-* reverse (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
-* showBullets (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
-* showControls (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.
-* speed (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
-* startSlide (Default 1) int Number of the starting slide. Starting from 1.
-* touch (Default true) boolean Whether to enable the ability to swipe between slides.
+* `afterChange` (Default function ()) function A function to call after each slide change.
+* `afterSetup` (Default function ()) function A function to call after the slider has been setup.
+* `animation` (Default slide") string Transition, one of the following:
+    * `fade` Fades between slides.
+    * `slide` A sliding aniamtion between slides.
+* `beforeChange` (Default function ()) function A function to call before each slide change.
+* `easing` (Default "swing") string Name of a custom easing. For example via the jQuery Easing plugin. Only used when "animation" is "slide".
+* `interval` (Default 5000) integer Number of milliseconds to pause on each slide. Setting this option to 0 will disable autoplay.
+* `keyboard` (Default true) boolean Allow for keyboard navigation using the left and right arrow keys.
+* `nextLabel` (Default "Next slide") string Label for the next button.
+* `pauseOnHover` (Default true) boolean Pause the autoplay on hover?
+* `prevLabel` (Default "Previous slide") string Label for the previous button.
+* `reverse` (Default false) boolean Whether to slide right-to-left instead of left-to-right when autoplay is enabled.
+* `showBullets` (Default true) boolean Whether or not to display navigation bullets. Setting this to false will prevent the bullets from being drawn at all.
+* `showControls` (Default true) boolean Show/hide controls. Setting this to false will prevent the controls from being drawn at all.
+* `speed` (Default 400) int The animation time in milliseconds. Setting this option to 0 will disable animation.
+* `startSlide` (Default 1) int Number of the starting slide. Starting from 1.
+* `touch` (Default true) boolean Whether to enable the ability to swipe between slides.
 
 ## Requirements
 * jQuery 1.7.0 (or later).

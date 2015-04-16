@@ -1,4 +1,4 @@
-# jQuery AnySlider 2.0.2
+# AnySlider 2.0.2
 
 > A jQuery/Zepto.js plugin for creating a slider for any kind of content.
 

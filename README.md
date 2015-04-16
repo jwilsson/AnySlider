@@ -8,7 +8,7 @@ The current beta/unstable version can be found in the "develop" branch. Not reco
 Please send all pull requests to the "develop" branch as well.
 
 ### Building AnySlider
-To build and automatically minify and run JSHint on the code you'll need the latest [Node.js/npm](http://nodejs.org/) and [Git](http://git-scm.com/).
+To build and automatically minify and run JSHint on the code you'll need the latest [Node.js/npm](https://nodejs.org/) and [Git](http://git-scm.com/).
 Please refer to their respective home pages for installation instructions.
 
 Then install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) package globally (if not done already):

@@ -2,13 +2,13 @@
 You want to contribute to AnySlider? Awesome! Just be sure to read these guidelines first.
 
 ## Issues
-Please submit all your bug reports, feature requests and pull requests here but note that this isn't the place for support requests. Please use [Stack Overflow](http://stackoverflow.com/) for this.
+Please submit all your bug reports, feature requests and pull requests here but note that this isn't the place for support requests. Please use [Stack Overflow](https://stackoverflow.com/) for this.
 
 ## Bug reports
 
 1. Search the issues, have it already been reported?
 2. Download the latest commit from the `develop` branch, did this solve the problem?
-3. Create a [reduced test case](http://css-tricks.com/6263-reduced-test-cases/), does the problem still exist?
+3. Create a [reduced test case](https://css-tricks.com/reduced-test-cases/), does the problem still exist?
 4. If the answer to all of the above questions are "No" then open a bug report and include the following:
     * A short, descriptive title.
     * A summary of the problem. Including browser and jQuery version.
@@ -24,7 +24,7 @@ Pull requests fixing bugs or adding new features or enhancments are always appre
 
 A simple guide on committing to AnySlider:
 
-1. [Fork](http://help.github.com/fork-a-repo/) AnySlider to your own repo.
+1. [Fork](https://help.github.com/articles/fork-a-repo/) AnySlider to your own repo.
 2. Clone your fork to your computer:
 
     ```bash

@@ -189,7 +189,7 @@
          *
          * Resources:
          * http://wowmotty.blogspot.com/2011/10/adding-swipe-support.html
-         * http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10.aspx#step4
+         * https://blogs.windows.com/buildingapps/2012/11/15/adapting-your-webkit-optimized-site-for-internet-explorer-10/#step4
          * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
          */
         if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {

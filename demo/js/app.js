@@ -3,7 +3,7 @@ requirejs.config({
         'jquery.easing.1.3': ['jquery']
     },
     paths: {
-        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min'
+        jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min'
     }
 });
 

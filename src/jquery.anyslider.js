@@ -1,6 +1,6 @@
 /*! jQuery AnySlider 2.1.0-beta | Copyright 2014 Jonathan Wilsson and contributors */
 
-;(function(root, factory) {
+;(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
         define(['jquery'], factory);
@@ -10,20 +10,20 @@
     } else {
         factory(root.jQuery || root.Zepto, window, document);
     }
-}(this, function($, window, document) {
+}(this, function ($, window, document) {
     'use strict';
 
     var AnySlider = function (slider, options) {
-        var slides = slider.children(),
-            orgNumSlides = slides.length,
-            numSlides = orgNumSlides,
-            width = slider.width(),
-            nextSlide = 0,
-            current = 0,
-            inner,
-            timer,
-            running = false,
-            defaults = {
+        var slides = slider.children();
+        var orgNumSlides = slides.length;
+        var numSlides = orgNumSlides;
+        var width = slider.width();
+        var nextSlide = 0;
+        var current = 0;
+        var inner;
+        var timer;
+        var running = false;
+        var defaults = {
                 afterChange: function () {},
                 afterSetup: function () {},
                 animation: 'slide',
@@ -110,13 +110,14 @@
 
         // Add navigation bullets
         if (options.showBullets && orgNumSlides > 1) {
-            var i,
-                active,
-                out = '<div class="as-nav"></div>',
-                nav = $(out);
+            var out = '<div class="as-nav"></div>';
+            var nav = $(out);
+            var active;
+            var i;
 
             for (i = 1; i <= orgNumSlides; i++) {
                 active = '';
+
                 if (i === current) {
                     active = ' class="as-active"';
                 }
@@ -193,8 +194,8 @@
          * https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
          */
         if (options.touch && ('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints > 0)) {
-            var startTime,
-                startX;
+            var startTime;
+            var startX;
 
             slider.on('touchstart.as pointerdown.as MSPointerDown.as', function (e) {
                 startTime = e.timeStamp;
@@ -205,9 +206,9 @@
                     startX = e.pageX || e.touches[0].pageX;
                 }
             }).on('touchmove.as pointermove.as MSPointerMove.as', function (e) {
-                var currentDistance = 0,
-                    currentTime = e.timeStamp,
-                    currentX;
+                var currentTime = e.timeStamp;
+                var currentDistance = 0;
+                var currentX;
 
                 if (e.originalEvent) {
                     currentX = e.originalEvent.pageX || e.originalEvent.touches[0].pageX;
@@ -248,7 +249,7 @@
 
         // Private methods
         // Animation complete callback
-        function animationCallback() {
+        function animationCallback () {
             current = nextSlide;
 
             if (nextSlide === 0) {
@@ -280,7 +281,7 @@
         }
 
         // The main animation function
-        function run() {
+        function run () {
             if (running || orgNumSlides <= 1) {
                 return;
             }
@@ -299,7 +300,7 @@
         }
 
         // Set the autoplay timer
-        function tick() {
+        function tick () {
             clearTimeout(timer);
 
             // Check if autoplay is enabled
@@ -315,31 +316,31 @@
         }
 
         // Public methods
-        function currentSlide() {
+        function currentSlide () {
             return current;
         }
 
-        function goTo(slide) {
+        function goTo (slide) {
             nextSlide = slide;
 
             run();
         }
 
-        function next() {
+        function next () {
             nextSlide = current + 1;
 
             run();
         }
 
-        function pause() {
+        function pause () {
             clearTimeout(timer);
         }
 
-        function play() {
+        function play () {
             tick();
         }
 
-        function prev() {
+        function prev () {
             nextSlide = current - 1;
 
             run();
@@ -357,8 +358,8 @@
 
     $.fn.anyslider = function (options) {
         return this.each(function () {
-            var slider = $(this),
-                anyslider;
+            var slider = $(this);
+            var anyslider;
 
             // Bail if we already have a plugin instance for this element
             if (slider.data('anyslider')) {

@@ -30,7 +30,7 @@
     top: 95px;
     white-space: nowrap;
     width: 40px;
-    z-index: 1;
+    z-index: 10;
 }
 
 .as-prev-arrow {

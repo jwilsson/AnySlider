@@ -2,11 +2,6 @@
 
 > A jQuery/Zepto.js plugin for creating a slider for any kind of content.
 
-## Development
-The current beta/unstable version can be found in the "develop" branch. Not recommended for production sites.
-
-Please send all pull requests to the "develop" branch as well.
-
 ### Building AnySlider
 To build and automatically minify and run JSHint on the code you'll need the latest [Node.js/npm](https://nodejs.org/) and [Git](http://git-scm.com/).
 Please refer to their respective home pages for installation instructions.

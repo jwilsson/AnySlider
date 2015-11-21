@@ -221,7 +221,7 @@
                 }
 
                 // Only allow if movement < 1 sec and distance is long enough
-                if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 10) {
+                if (startTime !== 0 && currentTime - startTime < 1000 && currentDistance > 200) {
                     e.preventDefault();
 
                     if (currentX < startX) { // Swiping to the left, i.e. next slide

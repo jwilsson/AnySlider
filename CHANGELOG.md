@@ -1,4 +1,12 @@
 ## Changelog
+### 2.1.0 (2015-11-21)
+* Improved CommonJS support so tools like Browserify and webpack work.
+* jQuery Plugin manifest file has been removed.
+* The current slide now has the class "as-current-slide".
+* Fixed an issue with vertical scrolling on mobile and tablets ([#22](https://github.com/jwilsson/AnySlider/issues/22)).
+* All external resources in demos etc. are now included over https.
+* Fixed some CSS issues in the demo code.
+
 ### 2.0.2 (2014-12-18)
 * Another version bump for npm after bower.json update.
 
